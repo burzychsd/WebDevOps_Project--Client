@@ -2,7 +2,11 @@
 $bg-color: #FFF;
 
 header {
-	height: 64px;
+	max-width: 1140px;
+	height: 88px;
 	top: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
 	background: $bg-color;
 }
