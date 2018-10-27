@@ -1,0 +1,10 @@
+$avatar-size: 100px;
+
+.Avatar {
+	width: $avatar-size;
+	height: $avatar-size;
+
+	img {
+		border-radius: 100%;
+	}
+}
