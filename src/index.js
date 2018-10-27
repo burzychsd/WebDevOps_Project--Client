@@ -1,3 +1,5 @@
+// Makes sure that it works on ie9 and ie10
+import 'react-app-polyfill/ie9';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
