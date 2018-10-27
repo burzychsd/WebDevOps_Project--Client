@@ -1,0 +1,10 @@
+.NavButtons {
+	margin: 0 30px 0 30px;
+	cursor: pointer;
+	outline: none;
+	-webkit-tap-highlight-color: transparent;
+
+	&:focus {
+		outline: none;
+	}
+}
