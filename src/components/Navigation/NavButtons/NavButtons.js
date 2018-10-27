@@ -1,6 +1,6 @@
-import React, { PropTypes, Fragment } from 'react';
-import menuIcon, { ReactComponent as MenuBtn } from './menu.svg';
-import searchIcon, { ReactComponent as SearchBtn } from './search.svg';
+import React, { Fragment } from 'react';
+import { ReactComponent as MenuBtn } from './menu.svg';
+import { ReactComponent as SearchBtn } from './search.svg';
 import styles from './NavButtons.module.scss';
 
 const NavButtons = (props) => {
@@ -13,9 +13,5 @@ const NavButtons = (props) => {
 };
 
 NavButtons.displayName = 'NavButtons';
-
-NavButtons.propTypes = {
-    
-};
 
 export default NavButtons;

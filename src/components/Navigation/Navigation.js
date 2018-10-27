@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import NavButtons from './NavButtons';
 import './Navigation.module.scss';
 
@@ -13,9 +13,5 @@ const Navigation = (props) => {
 };
 
 Navigation.displayName = 'Navigation';
-
-Navigation.propTypes = {
-   
-};
 
 export default Navigation;
