@@ -1,6 +1,7 @@
 import React from 'react';
 import NavButtons from './NavButtons';
 import SearchBox from './SearchBox';
+import SideBar from './SideBar';
 import './Navigation.module.scss';
 
 const Navigation = (props) => {
@@ -9,6 +10,7 @@ const Navigation = (props) => {
         	<nav className="w-100 h-100 flex justify-between items-center relative">
         		<NavButtons />
         		<SearchBox />
+				<SideBar />
         	</nav>
         </header>
     );

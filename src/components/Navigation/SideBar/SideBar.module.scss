@@ -1,0 +1,20 @@
+$bg-background: #FFF;
+
+.SideBar {
+	width: 240px;
+	height: 100vh;
+	top: 0;
+	left: 0;
+	-webkit-transform: translateX(-100%);
+	    -ms-transform: translateX(-100%);
+	        transform: translateX(-100%);
+	z-index: 998;
+	background: $bg-background;
+	-webkit-box-shadow: 1px 0px 6px 0px rgba(0,0,0,0.3);
+	-webkit-box-shadow: 1px 0px 6px 0px rgba(0,0,0,0.3);box-shadow: 1px 0px 6px 0px rgba(0,0,0,0.3);
+	-webkit-transition: -webkit-transform 0.7 cubic-bezier(.14,.05,.19,1.02);
+	transition: -webkit-transform 0.7 cubic-bezier(.14,.05,.19,1.02);
+	-o-transition: transform 0.7 cubic-bezier(.14,.05,.19,1.02);
+	transition: transform 0.7 cubic-bezier(.14,.05,.19,1.02);
+	transition: transform 0.7 cubic-bezier(.14,.05,.19,1.02), -webkit-transform 0.7 cubic-bezier(.14,.05,.19,1.02);
+}
