@@ -1,7 +1,7 @@
 import React from 'react';
 import { ReactComponent as Logo } from './logo.svg';
+import Buttons from '../Buttons';
 import { ReactComponent as Github } from './githubIcon.svg';
-import { Link } from 'react-router-dom';
 import styles from './Home.module.scss';
 
 const Home = (props) => {
@@ -10,12 +10,8 @@ const Home = (props) => {
         	<div className={`${styles.LogoContainer} mb4`}>
 				<Logo />
         	</div>
-        	<div className={`${styles.ButtonsContainer} flex justify-around items-center mb3`}>
-        		<Link to="/login" className={styles.LoginBtn}>Log in</Link>
-        		<p className="mh2">/</p>
-        		<Link to="/register" className={styles.RegisterBtn}>Register</Link>
-        	</div>
-        	<a href="https://github.com/burzychsd"><Github /></a>
+        	<Buttons link1="/login" name1="Log in" link2="/register" name2="Register" />
+        	<a target="_blank" rel="noopener noreferrer" href="https://github.com/burzychsd"><Github /></a>
         </div>
     );
 };

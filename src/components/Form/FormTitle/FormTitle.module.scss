@@ -1,0 +1,30 @@
+@import '../../../mixins/fluidType.module.scss';
+
+$min_width: 320px;
+$max_width: 1200px;
+
+$FormTitle-font: 'Montserrat', sans-serif;
+$min_FormTitle-size: 36px;
+$max_FormTitle-size: 50px;
+$FormTitle-fontWeight: 900;
+$color: rgb(64,64,64);
+
+
+.FormTitle {
+	font-family: $FormTitle-font;
+	font-size: $min_FormTitle-size;
+	font-weight: $FormTitle-fontWeight;
+	color: $color;
+	text-align: center;
+	padding: 0;
+	margin: 0;
+	cursor: default;
+
+	@media screen and (min-width: 20em) {
+		@include fluid-type($min_width, $max_width, $min_FormTitle-size, $max_FormTitle-size);
+	}
+
+	@media screen and (min-width: 60em) {
+		font-size: $max_FormTitle-size;
+	}
+}

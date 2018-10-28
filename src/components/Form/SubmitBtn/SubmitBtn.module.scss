@@ -1,0 +1,32 @@
+@import '../../../mixins/fluidType.module.scss';
+
+$SubmitBtn-font: 'Raleway', sans-serif;
+$SubmitBtn-fontWeight: 700;
+
+$min_width: 320px;
+$max_width: 1200px;
+$min_ButtonFont-size: 18px;
+$max_ButtonFont-size: 24px;
+
+.SubmitBtn {
+	font-family: $SubmitBtn-font;
+	font-size: $min_ButtonFont-size;
+	font-weight: $SubmitBtn-fontWeight;
+	color: rgb(64,64,64);
+	border: none;
+	background: none;
+	outline: none;
+	cursor: pointer;
+
+	&:focus {
+		outline: none;
+	}
+
+	@media screen and (min-width: 20em) {
+		@include fluid-type($min_width, $max_width, $min_ButtonFont-size, $max_ButtonFont-size);
+	}
+
+	@media screen and (min-width: 60em) {
+		font-size: $max_ButtonFont-size;
+	}
+}

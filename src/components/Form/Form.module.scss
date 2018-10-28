@@ -1,13 +1,17 @@
 @import '../../mixins/fluidContainer.module.scss';
 
-/* variables*/
 $min_width: 320px;
 $max_width: 1200px;
-$min_containerWidth: 270px;
-$max_containerWidth: 450px;
 
-.LogoContainer {
+$min_containerWidth: 270px;
+$max_containerWidth: 650px;
+
+.FormContainer {
 	width: $min_containerWidth;
+	min-height: 320px;
+	height: 400px;
+	margin: 0 auto;
+
 	@media screen and (min-width: 20em) {
 		@include fluid-container($min_width, $max_width, $min_containerWidth, $max_containerWidth);
 	}
