@@ -1,0 +1,83 @@
+/* variables*/
+$min_width: 320px;
+$max_width: 1200px;
+$min_Logowidth: 270px;
+$max_Logowidth: 450px;
+
+$min_ButtonsFont-size: 18px;
+$max_ButtonsFont-size: 24px;
+
+/* @mixin for fluid logo*/
+@function strip-unit($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+@mixin fluid-logo($min-vw, $max-vw, $min-size, $max-size) {
+  $u1: unit($min-vw);
+  $u2: unit($max-vw);
+  $u3: unit($min-size);
+  $u4: unit($max-size);
+
+  @if $u1 == $u2 and $u1 == $u3 and $u1 == $u4 {
+    
+    width: calc(#{$min-size} + #{strip-unit($max-size - $min-size)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+      
+  }
+}
+
+@mixin fluid-type($min-vw, $max-vw, $min-size, $max-size) {
+  $u1: unit($min-vw);
+  $u2: unit($max-vw);
+  $u3: unit($min-size);
+  $u4: unit($max-size);
+
+  @if $u1 == $u2 and $u1 == $u3 and $u1 == $u4 {
+    
+    font-size: calc(#{$min-size} + #{strip-unit($max-size - $min-size)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+      
+  }
+}
+
+.LogoContainer {
+	width: $min_Logowidth;
+	@media screen and (min-width: 20em) {
+		@include fluid-logo($min_width, $max_width, $min_Logowidth, $max_Logowidth);
+	}
+
+	@media screen and (min-width: 60em) {
+		width: $max_Logowidth;
+	}
+
+	@media screen and (min-height: 60em) {
+		width: 500px;
+	}
+}
+
+.ButtonsContainer > p {
+	cursor: default;
+}
+
+.ButtonsContainer > p,.LoginBtn,.RegisterBtn {
+	font-family: 'Raleway', sans-serif;
+	font-size: $min_ButtonsFont-size;
+	color: rgb(64,64,64);
+	font-weight: 700;
+	outline: none;
+	-webkit-tap-highlight-color: transparent;
+
+	&:focus {
+		outline: none;
+	}
+
+	@media screen and (min-width: 20em) {
+		@include fluid-type($min_width, $max_width, $min_ButtonsFont-size, $max_ButtonsFont-size);
+	}
+
+	@media screen and (min-width: 60em) {
+		font-size: $max_ButtonsFont-size;
+	}
+}
+
+.LoginBtn,.RegisterBtn {
+	text-decoration: none;
+}
