@@ -1,0 +1,19 @@
+.NavButtons {
+	position: relative;
+	cursor: pointer;
+	outline: none;
+	-webkit-tap-highlight-color: transparent;
+	z-index: 998;
+
+	&:focus {
+		outline: none;
+	}
+}
+
+.MenuBtn {
+	margin: 0 23px 0 23px;
+}
+
+.SearchBtn {
+	margin: 0 30px 0 30px;
+}

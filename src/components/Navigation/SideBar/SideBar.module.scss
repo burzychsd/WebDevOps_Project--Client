@@ -1,0 +1,50 @@
+$bg-background: #FFF;
+$username-fontsize: 24px;
+
+.SideBar {
+	height: 100%;
+	top: 0;
+	left: 0;
+	-webkit-transform: translateX(0);
+	    -ms-transform: translateX(0);
+	        transform: translateX(0);
+	z-index: 999;
+	background: $bg-background;
+	-webkit-box-shadow: 1px 0px 6px 0px rgba(0,0,0,0.3);
+	-webkit-box-shadow: 1px 0px 6px 0px rgba(0,0,0,0.3);box-shadow: 1px 0px 6px 0px rgba(0,0,0,0.3);
+	-webkit-transition: -webkit-transform 0.7 cubic-bezier(.14,.05,.19,1.02);
+	transition: -webkit-transform 0.7 cubic-bezier(.14,.05,.19,1.02);
+	-o-transition: transform 0.7 cubic-bezier(.14,.05,.19,1.02);
+	transition: transform 0.7 cubic-bezier(.14,.05,.19,1.02);
+	transition: transform 0.7 cubic-bezier(.14,.05,.19,1.02), -webkit-transform 0.7 cubic-bezier(.14,.05,.19,1.02);
+
+	.CloseBtnContainer {
+		height: 60px;
+		top: 0;
+		left: 0;
+		background: $bg-background;
+
+		.CloseBtn {
+	    	margin: 31px 0 0 20px;
+	    	cursor: pointer;
+	    	outline: none;
+	    	-webkit-tap-highlight-color: transparent;
+
+	    	&:focus {
+	    		outline: none;
+	    	}
+	    }
+	}
+
+	.SideBarContainer {
+		width: 240px;
+	    height: 100%;
+	    overflow-y: auto;
+	    padding-top: 5em;
+
+	    .userName {
+			font-size: $username-fontsize;
+			cursor: default;
+		}
+	}
+}

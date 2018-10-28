@@ -1,0 +1,11 @@
+$link-fontsize: 18px;
+
+.NavigationLink {
+	margin: 1.5em 0 1.5em 1em;
+	font-size: $link-fontsize;
+
+	a {
+		text-decoration: none;
+		color: rgb(64,64,64);
+	}
+}
