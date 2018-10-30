@@ -20,8 +20,8 @@ const Login = (props) => {
 					inputName="password"
 					change={() => console.log()}
 					/>
+					<SubmitBtn button="Sign in" />
 				</FormBody>
-				<SubmitBtn button="Sign in" />
         	</FormContainer>
 			<BackBtn />
     	</div>
