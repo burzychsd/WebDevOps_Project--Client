@@ -41,7 +41,7 @@ class Login extends Component {
 	render() {
 		const { errors } = this.state;
 		return (
-	    	<div className="w-100 h-100 flex flex-column justify-center align-center">
+	    	<div className="w-100 flex flex-column justify-center align-center" style={{ minHeight: '100%' }}>
 	    		<FormContainer>
 	        		<FormTitle title="Sign in" />
 					<FormBody submit={this.handleSubmit}>

@@ -42,7 +42,7 @@ class Register extends Component {
 	render() {
 		const { errors } = this.state;
 		return (
-	        <div className="w-100 h-100 flex flex-column justify-center align-center">
+	        <div className="w-100 flex flex-column justify-center align-center mb3" style={{ minHeight: '100%' }}>
 	    		<FormContainer>
 	        		<FormTitle title="Sign up" />
 					<FormBody submit={this.handleSubmit}>
