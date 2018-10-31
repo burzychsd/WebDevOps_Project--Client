@@ -1,2 +1,6 @@
 import errorReducer from './errorReducer';
-export default errorReducer;
+import authReducer from './authReducer';
+export {
+	errorReducer,
+	authReducer
+} 
