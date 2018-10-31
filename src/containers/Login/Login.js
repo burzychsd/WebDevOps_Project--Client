@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { FormContainer, FormTitle, FormBody, Input, SubmitBtn } from '../Form';
+import { FormContainer, FormTitle, FormBody, Input, SubmitBtn } from '../../components/Form';
 import { loginUser } from '../../actions/auth';
-import BackBtn from '../Buttons/BackBtn';
+import BackBtn from '../../components/Buttons/BackBtn';
 
 class Login extends Component {
 
@@ -31,11 +31,20 @@ class Login extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
+		if(nextProps.auth.isAuthenticated) {
+            this.props.history.push('/dashboard')
+        }
 		if(nextProps.errors) {
 			this.setState({
 				errors: nextProps.errors
 			});
 		}
+	}
+
+	componentDidMount() {
+		if(this.props.auth.isAuthenticated) {
+            this.props.history.push('/dashboard');
+        }
 	}
 
 	render() {
@@ -77,7 +86,8 @@ class Login extends Component {
 Login.displayName = 'Login';
 
 const mapStateToProps = state => ({
-	errors: state.errors
+	errors: state.errors,
+	auth: state.auth
 });
 
 export default connect(mapStateToProps, { loginUser })(withRouter(Login));

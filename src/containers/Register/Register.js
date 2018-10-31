@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { registerUser } from '../../actions/auth';
-import { FormContainer, FormTitle, FormBody, Input, SubmitBtn } from '../Form';
-import BackBtn from '../Buttons/BackBtn';
+import { FormContainer, FormTitle, FormBody, Input, SubmitBtn } from '../../components/Form';
+import BackBtn from '../../components/Buttons/BackBtn';
 
 class Register extends Component {
 
@@ -37,6 +37,12 @@ class Register extends Component {
 		if(nextProps.errors) {
 			this.setState({ errors: nextProps.errors });
 		}
+	}
+
+	componentDidMount() {
+		if(this.props.auth.isAuthenticated) {
+            this.props.history.push('/dashboard');
+        }
 	}
 
 	render() {
@@ -98,7 +104,8 @@ class Register extends Component {
 Register.displayName = 'Register';
 
 const mapStateToProps = state => ({
-    errors: state.errors
+    errors: state.errors,
+    auth: state.auth
 });
 
 export default connect(mapStateToProps, { registerUser })(withRouter(Register));

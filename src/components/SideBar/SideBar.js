@@ -17,7 +17,7 @@ const SideBar = (props) => {
 				<hr className="w-80" style={{ border: '0.5px solid #EBEBEB' }} />
 				<NavigationLinks />
 				<hr className="w-80 mt3" style={{ border: '0.5px solid #EBEBEB' }} />
-				<LogoutBtn />
+				<LogoutBtn logoutClick={props.logout} />
         	</div>
         </div>
     );
