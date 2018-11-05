@@ -5,6 +5,7 @@ import NavButtons from '../../components/NavButtons';
 import SearchBox from '../../components/SearchBox';
 import SideBar from '../../components/SideBar';
 import { logoutUser } from '../../actions/auth';
+import { navigationActive } from '../../actions/navigation';
 import './Navigation.module.scss';
 
 class Navigation extends Component {
@@ -18,15 +19,24 @@ class Navigation extends Component {
 		 return (
 	        <header className="w-100 fixed">
 	        	<nav className="w-100 h-100 flex justify-between items-center relative">
-	        		<NavButtons />
+	        		<NavButtons open={this.props.navigationActive} />
 	        		<SearchBox />
-					<SideBar logout={this.handleLogout}/>
+					<SideBar 
+					logout={this.handleLogout} 
+					status={this.props.nav.isOpen}
+					username={this.props.user.username}
+					avatar={this.props.user.avatar} />
 	        	</nav>
 	        </header>
 	    );
 	}
 };
 
+const mapStateToProps = state => ({
+	nav: state.nav,
+	user: state.auth.user
+});
+
 Navigation.displayName = 'Navigation';
 
-export default connect(null, { logoutUser })(withRouter(Navigation));
+export default connect(mapStateToProps, { logoutUser, navigationActive })(withRouter(Navigation));

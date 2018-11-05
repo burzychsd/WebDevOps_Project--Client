@@ -6,7 +6,7 @@ import styles from './NavButtons.module.scss';
 const NavButtons = (props) => {
     return (
         <Fragment>
-        	<MenuBtn className={`${styles.NavButtons} ${styles.MenuBtn}`} />
+        	<MenuBtn className={`${styles.NavButtons} ${styles.MenuBtn}`} onClick={props.open} />
         	<SearchBtn className={`${styles.NavButtons} ${styles.SearchBtn}`} />
         </Fragment>
     );
