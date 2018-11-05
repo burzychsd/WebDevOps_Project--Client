@@ -18,6 +18,7 @@ $transition: transform 0.6s cubic-bezier(.14,.05,.19,1.02);
 	transition: $transition;
 
 	.CloseBtnContainer {
+		width: calc(100% - 17px);
 		height: 88px;
 		top: 0;
 		left: 0;
@@ -28,7 +29,8 @@ $transition: transform 0.6s cubic-bezier(.14,.05,.19,1.02);
 		width: 240px;
 	    height: 100%;
 	    overflow-y: auto;
-	    padding-top: 90px;
+	    padding-top: calc(88px + 1.5em);
+	    -moz-appearance: none !important;
 
 	    .userName {
 			font-size: $username-fontsize;
