@@ -5,10 +5,10 @@ import styles from './NavigationLinks.module.scss';
 const NavigationLinks = (props) => {
     return (
         <ul className={styles.NavigationLinks}>
-        	<NavigationLink link="Notes" />
-			<NavigationLink link="Reminders" />
-			<NavigationLink link="Archive" />
-			<NavigationLink link="Bin" />
+        	<NavigationLink location="/dashboard/notes" link="Notes" />
+			<NavigationLink location="/dashboard/reminders" link="Reminders" />
+			<NavigationLink location="/dashboard/archive" link="Archive" />
+			<NavigationLink location="/dashboard/bin" link="Bin" />
         </ul>
     );
 };

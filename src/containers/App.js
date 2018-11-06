@@ -7,11 +7,11 @@ import jwt_decode from 'jwt-decode';
 import setAuthToken from '../setAuthToken';
 import { setCurrentUser, logoutUser } from '../actions/auth';
 
-// import Navigation from '../components/Navigation';
 import Home from '../components/Home';
 import Register from './Register';
 import Login from './Login';
 import Dashboard from './Dashboard';
+import NotFound from '../components/NotFound';
 
 if(localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
@@ -35,6 +35,7 @@ class App extends Component {
 	      		<Route exact path="/register" component={Register} />
 	          <Route exact path="/login" component={Login} />
             <PrivateRoute path="/dashboard" component={Dashboard} />
+            <Route component={NotFound} />
 	        </Switch>
       	</Router>
       </Provider>

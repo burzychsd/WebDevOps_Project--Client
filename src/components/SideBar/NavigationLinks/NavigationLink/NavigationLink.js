@@ -1,9 +1,12 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import styles from './NavigationLink.module.scss';
 
 const NavigationLink = (props) => {
     return (
-		<li className={styles.NavigationLink}><a href="#">{props.link}</a></li>
+		<NavLink to={props.location} 
+		activeClassName={styles.active} 
+		className={styles.NavigationLink}>{props.link}</NavLink>
     );
 };
 
