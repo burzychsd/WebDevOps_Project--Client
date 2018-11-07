@@ -6,7 +6,8 @@ const NavigationLink = (props) => {
     return (
 		<NavLink to={props.location} 
 		activeClassName={styles.active} 
-		className={styles.NavigationLink}>{props.link}</NavLink>
+		className={styles.NavigationLink}
+		exact={true}>{props.link}</NavLink>
     );
 };
 
