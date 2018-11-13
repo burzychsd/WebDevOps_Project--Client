@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import CreateNoteBtn from '../../components/CreateNoteBtn';
 
 class Notes extends Component {
 
@@ -6,6 +7,7 @@ class Notes extends Component {
         return (
             <Fragment>
             	<h1>Notes</h1>
+            	<CreateNoteBtn />
             </Fragment>
         );
     }

@@ -1,0 +1,38 @@
+$input-font: 'Source Sans Pro', sans-serif;
+$bg-color: #EBEBEB;
+$color: rgb(64,64,64);
+$border: none;
+$cursor: pointer;
+
+.BtnContainer {
+	width: 30%;
+	min-width: 280px;
+	height: 50px;
+	position: relative;
+	margin: 0 auto;
+
+	button {
+		width: 100%;
+		height: 100%;
+		font-size: 16px;
+		padding: 1em 3.4em 1em 1em;
+		background: $bg-color;
+		border: $border;
+		border-radius: 20px;
+		outline: none;
+		font-family: $input-font;
+		text-align: left;
+		color: $color;
+		cursor: $cursor;
+	}
+}
+
+.ListBtn {
+	position: absolute;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	    -ms-transform: translateY(-50%);
+	        transform: translateY(-50%);
+	right: 1.5em;
+	cursor: $cursor;
+}
