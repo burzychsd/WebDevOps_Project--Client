@@ -2,10 +2,10 @@ import React from 'react';
 import { ReactComponent as ListBtn } from './list-icon.svg';
 import styles from './CreateNoteBtn.module.scss';
 
-const CreateNoteBtn = () => {
+const CreateNoteBtn = (props) => {
     return (
     	<div className={styles.BtnContainer}>
-    		<button>Create new note...</button>
+    		<button onClick={props.click} >Create new note...</button>
     		<ListBtn className={styles.ListBtn} />
     	</div>
     );

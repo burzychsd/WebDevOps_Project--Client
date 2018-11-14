@@ -44,3 +44,22 @@ select:-webkit-autofill:focus {
 ::-webkit-scrollbar {
   display: none;
 }
+
+.note-enter {
+  opacity: 0.01;
+}
+.note-enter-active {
+  opacity: 1;
+  -webkit-transition: all 300ms ease-out;
+  -o-transition: all 300ms ease-out;
+  transition: all 300ms ease-out;
+}
+.note-exit {
+  opacity: 1;
+}
+.note-exit-active {
+  opacity: 0.01;
+  -webkit-transition: all 300ms ease-out;
+  -o-transition: all 300ms ease-out;
+  transition: all 300ms ease-out;
+}

@@ -22,4 +22,28 @@ input[type="search"] {
 	outline: none;
 	font-family: $input-font;
 	color: $color;
+
+	&::-webkit-input-placeholder {
+		font-family: $input-font;
+		color: $color;
+		font-size: 16px;
+	}
+
+	&:-ms-input-placeholder {
+		font-family: $input-font;
+		color: $color;
+		font-size: 16px;
+	}
+
+	&::-ms-input-placeholder {
+		font-family: $input-font;
+		color: $color;
+		font-size: 16px;
+	}
+
+	&::placeholder {
+		font-family: $input-font;
+		color: $color;
+		font-size: 16px;
+	}
 }

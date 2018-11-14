@@ -1,5 +1,9 @@
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 import CreateNoteBtn from '../../components/CreateNoteBtn';
+import NoteContainer from '../../components/NoteContainer';
+
+import { showForm } from '../../actions/createNoteForm';
 
 class Notes extends Component {
 
@@ -7,10 +11,17 @@ class Notes extends Component {
         return (
             <Fragment>
             	<h1>Notes</h1>
-            	<CreateNoteBtn />
+            	<CreateNoteBtn click={this.props.showForm} /> 
+	            <NoteContainer show={this.props.noteForm} >
+	            		
+	            </NoteContainer>
             </Fragment>
         );
     }
 }
 
-export default Notes;
+const mapStateToProps = state => ({
+    noteForm: state.noteForm.showForm
+});
+
+export default connect(mapStateToProps, { showForm })(Notes);
