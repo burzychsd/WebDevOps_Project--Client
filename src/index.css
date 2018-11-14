@@ -45,21 +45,11 @@ select:-webkit-autofill:focus {
   display: none;
 }
 
-.note-enter {
-  opacity: 0.01;
-}
-.note-enter-active {
-  opacity: 1;
-  -webkit-transition: all 300ms ease-out;
-  -o-transition: all 300ms ease-out;
-  transition: all 300ms ease-out;
-}
-.note-exit {
-  opacity: 1;
-}
-.note-exit-active {
-  opacity: 0.01;
-  -webkit-transition: all 300ms ease-out;
-  -o-transition: all 300ms ease-out;
-  transition: all 300ms ease-out;
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */ /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
 }

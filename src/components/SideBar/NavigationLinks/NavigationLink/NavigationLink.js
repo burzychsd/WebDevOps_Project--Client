@@ -7,7 +7,8 @@ const NavigationLink = (props) => {
 		<NavLink to={props.location} 
 		activeClassName={styles.active} 
 		className={styles.NavigationLink}
-		exact={true}>{props.link}</NavLink>
+		exact={true}
+		onClick={props.isMobile ? props.isClicked : null}>{props.link}</NavLink>
     );
 };
 

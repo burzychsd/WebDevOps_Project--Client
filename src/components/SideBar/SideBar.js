@@ -15,7 +15,7 @@ const SideBar = (props) => {
 				<Avatar avatarPic={props.avatar} />
 				<p className={styles.userName}>{props.username}</p>
 				<hr className="w-80" style={{ border: '0.5px solid #EBEBEB' }} />
-				<NavigationLinks />
+				<NavigationLinks isOpen={props.clicked} mobile={props.size} />
 				<hr className="w-80 mt3" style={{ border: '0.5px solid #EBEBEB' }} />
 				<LogoutBtn logoutClick={props.logout} />
         	</div>

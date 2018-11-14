@@ -25,7 +25,9 @@ class Navigation extends Component {
 					logout={this.handleLogout} 
 					status={this.props.nav.isOpen}
 					username={this.props.user.username}
-					avatar={this.props.user.avatar} />
+					avatar={this.props.user.avatar}
+					clicked={this.props.navigationActive}
+					size={this.props.browser.lessThan.medium} />
 	        	</nav>
 	        </header>
 	    );
@@ -34,7 +36,8 @@ class Navigation extends Component {
 
 const mapStateToProps = state => ({
 	nav: state.nav,
-	user: state.auth.user
+	user: state.auth.user,
+	browser: state.browser
 });
 
 Navigation.displayName = 'Navigation';

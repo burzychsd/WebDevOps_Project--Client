@@ -5,11 +5,11 @@ import styles from './NavigationLinks.module.scss';
 const NavigationLinks = (props) => {
     return (
         <ul className={styles.NavigationLinks}>
-        	<NavigationLink location="/dashboard" link="Dashboard" />
-        	<NavigationLink location="/dashboard/notes" link="Notes" />
-			<NavigationLink location="/dashboard/reminders" link="Reminders" />
-			<NavigationLink location="/dashboard/archive" link="Archive" />
-			<NavigationLink location="/dashboard/bin" link="Bin" />
+        	<NavigationLink isMobile={props.mobile} isClicked={props.isOpen} location="/dashboard" link="Dashboard" />
+        	<NavigationLink isMobile={props.mobile} isClicked={props.isOpen} location="/dashboard/notes" link="Notes" />
+			<NavigationLink isMobile={props.mobile} isClicked={props.isOpen} location="/dashboard/reminders" link="Reminders" />
+			<NavigationLink isMobile={props.mobile} isClicked={props.isOpen} location="/dashboard/archive" link="Archive" />
+			<NavigationLink isMobile={props.mobile} isClicked={props.isOpen} location="/dashboard/bin" link="Bin" />
         </ul>
     );
 };
