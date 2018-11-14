@@ -12,7 +12,7 @@ class Notes extends Component {
             <Fragment>
             	<h1>Notes</h1>
             	<CreateNoteBtn click={this.props.showForm} /> 
-	            <NoteContainer show={this.props.noteForm} >
+	            <NoteContainer active={true} show={this.props.noteForm} >
 	            		
 	            </NoteContainer>
             </Fragment>

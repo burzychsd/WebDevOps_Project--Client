@@ -1,14 +1,21 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styles from './NoteContainer.module.scss';
 import FadeTransition from '../../helpers/FadeTransition';
 
 const NoteContainer = (props) => {
     return (
+    	<Fragment>
+    	{props.active ? 
     	<FadeTransition showed={props.show} duration={200}>
 			<div className={styles.NoteContainer}>
 				{props.children}
 			</div> 
-		</FadeTransition>
+		</FadeTransition> : 
+		<div className={styles.NoteContainer}>
+			{props.children}
+		</div>
+		}
+		</Fragment>
     );
 };
 

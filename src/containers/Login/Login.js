@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { FormContainer, FormTitle, FormBody, Input, SubmitBtn } from '../../components/Form';
@@ -50,35 +50,39 @@ class Login extends Component {
 	render() {
 		const { errors } = this.state;
 		return (
-	    	<div className="w-100 flex flex-column justify-center align-center" style={{ minHeight: '100%' }}>
-	    		<FormContainer>
-	        		<FormTitle title="Sign in" />
-					<FormBody submit={this.handleSubmit}>
-						<Input 
-						inputType="email"
-						inputText="Email..."
-						inputName="email"
-						change={this.handleInputChange}
-						inputValue={this.state.email}
-						/>
-						{errors.email && (<small className="f6 black-60 db tc">
-					      {errors.email}
-					    </small>)}
-						<Input 
-						inputType="password"
-						inputText="Password..."
-						inputName="password"
-						change={this.handleInputChange}
-						inputValue={this.state.password}
-						/>
-						{errors.password && (<small className="f6 black-60 db tc">
-					      {errors.password}
-					    </small>)}
-						<SubmitBtn button="Sign in" />
-					</FormBody>
-	        	</FormContainer>
-				<BackBtn />
-	    	</div>
+			<Fragment>
+				<div className="w-100 relative">
+					<BackBtn />
+				</div>
+		    	<div className="w-100 flex flex-column justify-center align-center" style={{ minHeight: '100%' }}>
+		    		<FormContainer>
+		        		<FormTitle title="Sign in" />
+						<FormBody submit={this.handleSubmit}>
+							<Input 
+							inputType="email"
+							inputText="Email..."
+							inputName="email"
+							change={this.handleInputChange}
+							inputValue={this.state.email}
+							/>
+							{errors.email && (<small className="f6 black-60 db tc">
+						      {errors.email}
+						    </small>)}
+							<Input 
+							inputType="password"
+							inputText="Password..."
+							inputName="password"
+							change={this.handleInputChange}
+							inputValue={this.state.password}
+							/>
+							{errors.password && (<small className="f6 black-60 db tc">
+						      {errors.password}
+						    </small>)}
+							<SubmitBtn button="Sign in" />
+						</FormBody>
+		        	</FormContainer>
+		    	</div>
+	    	</Fragment>
 	    );
 	}
 };
