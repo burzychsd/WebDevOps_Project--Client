@@ -20,6 +20,11 @@ class Notes extends Component {
         this.setState({ [event.target.name]: event.target.value });
     }
 
+    handleCancel = () => {
+        this.props.showForm();
+        this.setState({ title: 'Title', text: 'Your text' });
+    }
+
     componentDidMount() {
         return this.props.noteForm ? this.props.showForm() : null;
     }
@@ -33,7 +38,8 @@ class Notes extends Component {
 	            		<CreateNoteForm 
                         title={this.state.title} 
                         text={this.state.text} 
-                        change={this.handleChange}/>
+                        change={this.handleChange}
+                        cancel={this.handleCancel} />
 	            </NoteContainer>
             </Fragment>
         );

@@ -1,4 +1,4 @@
-import { CREATE_NOTE_FORM } from '../actions/actionTypes';
+import { SHOW_NOTE_FORM } from '../actions/actionTypes';
 
 const initialState = {
 	showForm: false
@@ -6,7 +6,7 @@ const initialState = {
 
 export default function(state = initialState, action) {
 	switch (action.type) {
-		case CREATE_NOTE_FORM:
+		case SHOW_NOTE_FORM:
 			return {
 				...state,
 				showForm: !state.showForm

@@ -8,7 +8,7 @@ const CreateNoteForm = (props) => {
         	<div className="mt3 flex justify-center self-end">
         		<button type="submit">Submit</button>
         		<p className="mh2">|</p>
-        		<button>Cancel</button>
+        		<button type="button" onClick={props.cancel}>Cancel</button>
         	</div>
         </form>
     );
