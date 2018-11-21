@@ -11,6 +11,7 @@ $font-color: rgb(64,64,64);
 	font-size: $font-size;
 	padding: 0.5em 1em;
 	outline: none;
+	background: transparent;
 
 	&:focus {
 		outline: none;

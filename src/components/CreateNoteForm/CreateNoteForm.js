@@ -6,11 +6,12 @@ import { ReactComponent as PersonsIcon } from './persons.svg';
 import { ReactComponent as ColorIcon } from './color.svg';
 
 const CreateNoteForm = (props) => {
+
     return (
-        <form className="w-100 flex flex-column justify-center pt3 ph2" onSubmit={props.submit}>
-        	<input className={`${styles.NoteFormInput} ph2`} style={{ background: '#EBEBEB', height: 50, fontWeight: 700 }} type="text" name="title" value={props.title} onChange={props.change} />
+        <form className="w-100 flex flex-column justify-center pt3 ph2" style={{ background: '#EBEBEB', borderRadius: 25 }} onSubmit={props.submit}>
+        	<input className={`${styles.NoteFormInput} ph2`} style={{ height: 50, fontWeight: 700 }} type="text" name="title" value={props.title} onChange={props.change} />
             <Textarea className={`${styles.NoteFormInput} pa2`} 
-            style={{ background: '#EBEBEB', resize: 'none', minHeight: 50 }} name="text" value={props.text} onChange={props.change} />
+            style={{ resize: 'none', minHeight: 50 }} name="text" value={props.text} onChange={props.change} />
             <div className="w-100 mt3 flex justify-between align-center">
                 <div className="flex justify-center self-center">
                     <AlarmIcon className="mh2" style={{ marginLeft: '1em', cursor: 'pointer' }} />

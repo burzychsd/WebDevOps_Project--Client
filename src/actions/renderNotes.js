@@ -9,6 +9,6 @@ export const renderNotes = () => dispatch => {
 	}))
 	.catch(err => dispatch({
 		type: RENDER_NOTES,
-		newNote: err.response.data
+		newNote: []
 	}));
 }

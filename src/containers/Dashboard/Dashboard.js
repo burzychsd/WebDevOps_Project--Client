@@ -3,7 +3,7 @@ import { Switch, Route, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Navigation from '../Navigation';
 import styles from './Dashboard.module.scss';
-import { renderNotes } from '../../actions/renderNotes';
+
 import Notes from '../Notes';
 import Reminders from '../Reminders';
 import Archive from '../Archive';
@@ -29,11 +29,7 @@ const routes = [
   }
 ];
 
-class Dashboard extends React.PureComponent {
-
-    componentDidMount() {
-      this.props.renderNotes();
-    }
+class Dashboard extends Component {
 
     render() {
         const { location, match } = this.props;
@@ -61,4 +57,4 @@ const mapStateToProps = state => ({
     nav: state.nav
 });
 
-export default connect(mapStateToProps, { renderNotes })(withRouter(Dashboard));
+export default connect(mapStateToProps, null)(withRouter(Dashboard));

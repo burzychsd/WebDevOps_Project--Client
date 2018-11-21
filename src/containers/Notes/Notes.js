@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import CreateNoteBtn from '../../components/CreateNoteBtn';
 import NoteContainer from '../../components/NoteContainer';
@@ -7,7 +7,7 @@ import { showForm } from '../../actions/createNoteForm';
 import { createNote } from '../../actions/createNote';
 import { renderNotes } from '../../actions/renderNotes';
 
-class Notes extends Component {
+class Notes extends PureComponent {
 
     constructor(props) {
         super(props);
@@ -17,6 +17,8 @@ class Notes extends Component {
             text: 'Your text...',
             notes: this.props.notes
         }
+
+        this.NoteContainer = React.createRef();
     }
 
     handleChange = (event) => {
@@ -50,6 +52,10 @@ class Notes extends Component {
         }
     }
 
+    componentDidMount() {
+        this.props.renderNotes();
+    }
+
     render() {
 
         const notes = this.state.notes.map(note =>
@@ -63,8 +69,8 @@ class Notes extends Component {
             <Fragment>
             	<h1>Notes</h1>
             	<CreateNoteBtn click={this.props.showForm} /> 
-	            <NoteContainer active={true} show={this.props.noteForm}>
-	            		<CreateNoteForm 
+	            <NoteContainer active={true} show={this.props.noteForm} >
+	            		<CreateNoteForm
                         title={this.state.title} 
                         text={this.state.text} 
                         change={this.handleChange}
