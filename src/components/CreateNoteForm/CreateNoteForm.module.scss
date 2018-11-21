@@ -1,0 +1,42 @@
+$font: 'Source Sans Pro', sans-serif;
+$font-size: 16px;
+$font-color: rgb(64,64,64);
+
+.NoteFormInput {
+	width: 100%;
+	border: none;
+	border-radius: 25px;
+	color: $font-color;
+	font-family: $font;
+	font-size: $font-size;
+	padding: 0.5em 1em;
+	outline: none;
+
+	&:focus {
+		outline: none;
+	}
+}
+
+.NoteFormButtons {
+	font-family: $font;
+	font-size: $font-size;
+	color: $font-color;
+	font-weight: 700;
+	outline: none;
+	-webkit-tap-highlight-color: transparent;
+	border: none;
+	background: transparent;
+	cursor: pointer;
+
+	&:focus {
+		outline: none;
+	}
+
+	&:first-child {
+		margin-left: 1em;
+	}
+
+	&:last-child {
+		margin-right: 1em;
+	}
+}

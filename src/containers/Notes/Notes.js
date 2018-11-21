@@ -4,6 +4,8 @@ import CreateNoteBtn from '../../components/CreateNoteBtn';
 import NoteContainer from '../../components/NoteContainer';
 import CreateNoteForm from '../../components/CreateNoteForm';
 import { showForm } from '../../actions/createNoteForm';
+import { createNote } from '../../actions/createNote';
+import { renderNotes } from '../../actions/renderNotes';
 
 class Notes extends Component {
 
@@ -12,7 +14,8 @@ class Notes extends Component {
 
         this.state = {
             title: 'Title',
-            text: 'Your text...'
+            text: 'Your text...',
+            notes: this.props.notes
         }
     }
 
@@ -25,11 +28,37 @@ class Notes extends Component {
         this.setState({ title: 'Title', text: 'Your text' });
     }
 
-    componentDidMount() {
+    handleSubmit = (event) => {
+        event.preventDefault();
+        const note = {
+            title: this.state.title,
+            text: this.state.text
+        }
+        this.props.createNote(note);
+        this.props.renderNotes();
+        this.props.showForm();
+        this.setState({ title: 'Title', text: 'Your text' });
+    }
+
+    componentWillUnmount() {
         return this.props.noteForm ? this.props.showForm() : null;
     }
 
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.notes) {
+            this.setState({ notes: nextProps.notes });
+        }
+    }
+
     render() {
+
+        const notes = this.state.notes.map(note =>
+            <NoteContainer active={false} key={note._id}>
+                <h1>{note.title}</h1>
+                <p>{note.text}</p>
+            </NoteContainer>
+        );
+
         return (
             <Fragment>
             	<h1>Notes</h1>
@@ -39,15 +68,18 @@ class Notes extends Component {
                         title={this.state.title} 
                         text={this.state.text} 
                         change={this.handleChange}
-                        cancel={this.handleCancel} />
+                        cancel={this.handleCancel}
+                        submit={this.handleSubmit} />
 	            </NoteContainer>
+                {notes}
             </Fragment>
         );
     }
 }
 
 const mapStateToProps = state => ({
-    noteForm: state.noteForm.showForm
+    noteForm: state.noteForm.showForm,
+    notes: state.renderNotes.notes
 });
 
-export default connect(mapStateToProps, { showForm })(Notes);
+export default connect(mapStateToProps, { showForm, createNote, renderNotes })(Notes);
