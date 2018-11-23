@@ -2,4 +2,5 @@ export const GET_ERRORS = 'GET_ERRORS';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const NAVIGATION_ACTIVE = 'NAVIGATION_ACTIVE';
 export const SHOW_NOTE_FORM = 'SHOW_NOTE_FORM';
+export const SHOW_MODAL = 'SHOW_MODAL';
 export const RENDER_NOTES = 'RENDER_NOTES';

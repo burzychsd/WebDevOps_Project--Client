@@ -11,7 +11,7 @@ const NoteContainer = (props) => {
 				{props.children}
 			</div> 
 		</FadeTransition> : 
-		<div className={styles.NoteContainer}>
+		<div className={`${styles.NoteContainer} pa3`}>
 			{props.children}
 		</div>
 		}

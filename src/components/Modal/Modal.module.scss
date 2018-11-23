@@ -1,0 +1,32 @@
+.ModalBackground {
+	position: absolute;
+	width: 100%;
+	height: calc(100% - 88px);
+	background: rgba(0,0,0,0.3);
+}
+
+.ModalBody {
+	background: #FFF;
+	border-radius: 2px;
+	height: 90%;
+	max-height: 400px;
+	min-height: 320px;
+	padding: 1em;
+	width: 40%;
+	min-width: 280px;
+	position: relative;
+	overflow: auto;
+}
+
+.ModalCloseBtn {
+	position: absolute;
+	top: 1em;
+	right: 1em;
+	outline: none;
+	-webkit-tap-highlight-color: transparent;
+	cursor: pointer;
+
+	&:focus {
+		outline: none;
+	}
+}

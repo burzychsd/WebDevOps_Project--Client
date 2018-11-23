@@ -1,7 +1,13 @@
 // combines all reducers
 import { combineReducers } from 'redux';
 import {createResponsiveStateReducer} from 'redux-responsive';
-import { errorReducer, authReducer, navigationReducer, createNoteFormReducer, renderNotesReducer } from './reducers';
+import { 
+  errorReducer, 
+  authReducer, 
+  navigationReducer, 
+  createNoteFormReducer, 
+  renderNotesReducer, 
+  modalReducer } from './reducers';
 
 export default combineReducers({
    errors: errorReducer,
@@ -9,6 +15,7 @@ export default combineReducers({
    nav: navigationReducer,
    noteForm: createNoteFormReducer,
    renderNotes: renderNotesReducer,
+   modal: modalReducer,
    browser: createResponsiveStateReducer({
    	extraSmall: 480,
     small: 559,

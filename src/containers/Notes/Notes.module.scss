@@ -1,0 +1,15 @@
+$word-break: break-word;
+$font: 'Source Sans Pro', sans-serif;
+$font-size: 16px;
+$font-color: rgb(64,64,64);
+
+.NoteTitle, .NoteText {
+	font-family: $font;
+	font-size: $font-size;
+	color: $font-color;
+	word-break: $word-break;
+}
+
+.NoteTitle {
+	font-weight: 700;
+}
