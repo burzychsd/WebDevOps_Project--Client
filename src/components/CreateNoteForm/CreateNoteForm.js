@@ -14,8 +14,8 @@ const CreateNoteForm = (props) => {
             style={{ resize: 'none', minHeight: 50 }} name="text" value={props.text} onChange={props.change} />
             <div className="w-100 mt3 flex justify-between align-center">
                 <div className="flex justify-center self-center">
-                    <AlarmIcon className="mh2" style={{ marginLeft: '1em', cursor: 'pointer' }} />
-                    <PersonsIcon className="mh2" style={{ cursor: 'pointer' }} />
+                    <AlarmIcon onClick={props.alarmBtn} className="mh2" style={{ marginLeft: '1em', cursor: 'pointer' }} />
+                    <PersonsIcon onClick={props.personsBtn} className="mh2" style={{ cursor: 'pointer' }} />
                     <ColorIcon className="mh2" style={{ cursor: 'pointer' }} />
                 </div>
                 <div className="flex justify-center self-end">

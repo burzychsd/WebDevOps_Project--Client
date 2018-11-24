@@ -8,14 +8,13 @@
 .ModalBody {
 	background: #FFF;
 	border-radius: 2px;
-	height: 90%;
-	max-height: 400px;
+	height: auto;
 	min-height: 320px;
 	padding: 1em;
 	width: 40%;
 	min-width: 280px;
-	position: relative;
-	overflow: auto;
+	position: absolute;
+	margin-top: 20px;
 }
 
 .ModalCloseBtn {
