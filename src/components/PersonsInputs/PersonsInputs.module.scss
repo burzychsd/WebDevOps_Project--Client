@@ -1,3 +1,5 @@
+$color: rgb(64,64,64);
+
 .AddBtn {
 	-ms-flex-item-align: center;
 	    -ms-grid-row-align: center;
@@ -5,8 +7,29 @@
 	outline: none;
 	-webkit-tap-highlight-color: transparent;
 	cursor: pointer;
+	margin-bottom: 0.5em;
 
 	&:focus {
 		outline: none;
+	}
+}
+
+.PersonsInputs {
+	border: none;
+	border-bottom: 1px solid $color;
+	color: $color;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 16px;
+	padding: 0.5em 0;
+	outline: none;
+	margin: 0 0 0.5em 0;
+	display: block;
+
+	&:focus {
+		outline: none;
+	}
+
+	&:nth-child(2) {
+		margin: 0 0 1.5em 0;
 	}
 }

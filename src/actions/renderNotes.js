@@ -7,8 +7,5 @@ export const renderNotes = () => dispatch => {
 		type: RENDER_NOTES,
 		newNote: res.data
 	}))
-	.catch(err => dispatch({
-		type: RENDER_NOTES,
-		newNote: []
-	}));
+	.catch(err => console.log(err));
 }

@@ -1,15 +1,29 @@
 $word-break: break-word;
 $font: 'Source Sans Pro', sans-serif;
 $font-size: 16px;
-$font-color: rgb(64,64,64);
 
 .NoteTitle, .NoteText {
 	font-family: $font;
 	font-size: $font-size;
-	color: $font-color;
 	word-break: $word-break;
+	line-height: 1.5em;
 }
 
 .NoteTitle {
 	font-weight: 700;
+}
+
+.MoreBtn {
+	width: 20px;
+	height: 28px;
+	outline: none;
+	float: right;
+	-webkit-tap-highlight-color: transparent;
+	border: none;
+	background: transparent;
+	cursor: pointer;
+
+	&:focus {
+		outline: none;
+	}
 }

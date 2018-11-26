@@ -1,7 +1,9 @@
 import { ADD_PERSON_INPUT, REMOVE_PERSON_INPUT, REMOVE_ALL_PERSON_INPUTS } from '../actions/actionTypes';
 
+const id = '_id' + Math.random();
+
 const initialState = {
-	arrOfInputs: []
+	arrOfInputs: [id]
 }
 
 export default function(state = initialState, action) {

@@ -16,7 +16,7 @@ const CreateNoteForm = (props) => {
                 <div className="flex justify-center self-center">
                     <AlarmIcon onClick={props.alarmBtn} className="mh2" style={{ marginLeft: '1em', cursor: 'pointer' }} />
                     <PersonsIcon onClick={props.personsBtn} className="mh2" style={{ cursor: 'pointer' }} />
-                    <ColorIcon className="mh2" style={{ cursor: 'pointer' }} />
+                    <ColorIcon onClick={props.colorBtn} className="mh2" style={{ cursor: 'pointer' }} />
                 </div>
                 <div className="flex justify-center self-end">
                     <button className={styles.NoteFormButtons} type="submit">Submit</button>
