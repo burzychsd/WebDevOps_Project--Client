@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { invertColor } from '../../helpers/InvertColor/InvertColor';
 import { interpolateColors } from '../../helpers/InterpolateColors/InterpolateColors';
 import { hex2RGB } from '../../helpers/HexToRGB/HexToRGB';
-import { isDuplicate } from '../../helpers/IsDuplicate/IsDuplicate';
 import CreateNoteBtn from '../../components/CreateNoteBtn';
 import NoteContainer from '../../components/NoteContainer';
 import CreateNoteForm from '../../components/CreateNoteForm';
@@ -31,8 +30,8 @@ const initialState = {
     title: 'Title',
     text: 'Your text...',
     alarm: '',
-    name: '',
-    email: '',
+    name: [],
+    email: [],
     color: '#EBEBEB'
 }
 
@@ -57,24 +56,27 @@ class Notes extends PureComponent {
         obj[event.target.name] = event.target.value;
     }
 
-    handleAcceptPerson = (event, name, email, acceptBtn, removeBtn) => {
+    handleAcceptPerson = (event, name, email) => {
+        event.preventDefault();
         const arrOfNames = Object.keys(obj).filter(key => key.includes('name')).map(key => obj[key]);
         const arrOfEmails = Object.keys(obj).filter(key => key.includes('email')).map(key => obj[key]);
-        const condition = !arrOfNames.includes('') && !arrOfEmails.includes('');
+        const condition1 = !arrOfNames.includes('') && !arrOfEmails.includes('');
+        const condition2 = !this.state.name.includes(name.value) && !this.state.email.includes(email.value);
 
-        if (arrOfNames.length > 0 && arrOfEmails.length > 0 && condition) {
+        if (arrOfNames.length > 0 && arrOfEmails.length > 0 && condition1) {
             this.setState((state) => { 
                 return { 
-                    name: name && email ? [...state.name, name].filter((a, i, arr) => arr.indexOf(a) === i) : [...state.name],
-                    email: name && email ? [...state.email, email].filter((a, i, arr) => arr.indexOf(a) === i) : [...state.email] 
+                    name: name.value && email.value && condition2 ? [...state.name, name.value] : state.name,
+                    email: name.value && email.value && condition2 ? [...state.email, email.value] : state.email
                 } 
             });
+        }
 
-            if ((name && email))   {
-                this.props.addInput();
-                acceptBtn.style.display = 'none';
-                removeBtn.style.display = 'block';
-            }
+        if(name.value && email.value) {
+            setTimeout(() => {
+                name.value = '';
+                email.value = '';
+            }, 0.001);
         }
     }
 
@@ -82,8 +84,8 @@ class Notes extends PureComponent {
         const names = Array.isArray(this.state.name) ? this.state.name.filter(val => val !== name) : this.state.name;
         const emails = Array.isArray(this.state.name) ? this.state.email.filter(val => val !== email) : this.state.email;
         this.setState({
-                name: isDuplicate(this.state.name, name) && (Boolean(obj['name[0]'])) ? this.state.name : names, 
-                email: isDuplicate(this.state.email, email) && (Boolean(obj['email[0]'])) ? this.state.email : emails 
+                name: names, 
+                email: emails 
         });
     }
 
@@ -141,6 +143,7 @@ class Notes extends PureComponent {
 
     componentDidMount() {
         this.props.renderNotes();
+        this.props.removeAllInputs();
     }
 
     render() {
@@ -184,7 +187,9 @@ class Notes extends PureComponent {
                     {this.props.personsBtn && <PersonsInputs data={obj} 
                     accept={this.handleAcceptPerson} 
                     remove={this.handleRemovePerson} 
-                    change={this.handleMultipleInputs} />}
+                    change={this.handleMultipleInputs}
+                    name={this.state.name}
+                    email={this.state.email} />}
                     {this.props.colorBtn && <ColorInput color={this.state.color} change={this.handleChange} />}
                 </Modal>}
                 {notes}

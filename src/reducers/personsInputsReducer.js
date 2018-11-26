@@ -3,7 +3,7 @@ import { ADD_PERSON_INPUT, REMOVE_PERSON_INPUT, REMOVE_ALL_PERSON_INPUTS } from 
 const id = '_id' + Math.random();
 
 const initialState = {
-	arrOfInputs: [id]
+	arrOfInputs: []
 }
 
 export default function(state = initialState, action) {
@@ -22,7 +22,7 @@ export default function(state = initialState, action) {
 		case REMOVE_ALL_PERSON_INPUTS:
 			return {
 				...state,
-				arrOfInputs: []
+				arrOfInputs: [id]
 			}	
 		default:
 			return state;
