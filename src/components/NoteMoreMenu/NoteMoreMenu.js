@@ -30,11 +30,14 @@ class NoteMoreMenu extends Component {
 	    				{interpolatingStyles =>
 						    <Fragment>
 						      {interpolatingStyles.map((style, i) =>
-						        <li 
+						        <button 
 						        key={i} 
-						        style={{ opacity: `${this.props.show ? style.o : this.state.changeVal ? style.o : 0}`, color: this.props.color }} 
-						        onClick={this.props.clicked}>
-						        {items[i]}</li>)
+						        style={{ 
+						        	opacity: `${this.props.show ? style.o : this.state.changeVal ? style.o : 0}`, 
+						        	color: this.props.color }} 
+						        onClick={this.props.clicked}
+						        disabled={this.props.show ? false : true}>
+						        {items[i]}</button>)
 						      }
 						    </Fragment>
 						}

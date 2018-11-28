@@ -6,7 +6,7 @@ import styles from './Home.module.scss';
 
 const Home = (props) => {
     return (
-        <div className="w-100 h-100 flex flex-column justify-center items-center" style={{ minHeight: 400 }}>
+        <div className="w-100 flex flex-column justify-center items-center" style={{ minHeight: 400, height: '100vh' }}>
         	<div className={`${styles.LogoContainer} mb4`}>
 				<Logo />
         	</div>

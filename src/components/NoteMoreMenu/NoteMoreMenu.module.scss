@@ -10,12 +10,16 @@ $font-size: 14px;
 		margin: 0;
 		padding: 0;
 
-		li {
+		button {
 			font-family: $font;
 			font-size: $font-size;
 			color: $color;
 			cursor: pointer;
 			display: inline-block;
+			background: transparent;
+			-webkit-tap-highlight-color: transparent;
+			border: none;
+			padding: 0;
 
 			&:after {
 				content: '';
@@ -34,11 +38,11 @@ $font-size: 14px;
 			}
 
 			&:nth-child(1) {
-				margin-right: 0.6em;
+				margin-right: 0.5em;
 			}
 
 			&:nth-child(3) {
-				margin-left: 0.6em;
+				margin-left: 0.5em;
 			}
 		}
 	}

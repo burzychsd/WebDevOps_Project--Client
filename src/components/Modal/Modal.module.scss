@@ -14,20 +14,20 @@
 	padding: 1em;
 	width: 40%;
 	min-width: 280px;
-	position: fixed;
+	position: absolute;
 	margin-top: 20px;
 	z-index: 1;
-}
 
-.ModalCloseBtn {
-	position: absolute;
-	top: 1em;
-	right: 1em;
-	outline: none;
-	-webkit-tap-highlight-color: transparent;
-	cursor: pointer;
-
-	&:focus {
+	.ModalCloseBtn {
+		position: absolute;
+		top: 1em;
+		right: 1em;
 		outline: none;
+		-webkit-tap-highlight-color: transparent;
+		cursor: pointer;
+
+		&:focus {
+			outline: none;
+		}
 	}
 }

@@ -54,7 +54,7 @@ class Login extends Component {
 				<div className="w-100 relative">
 					<BackBtn />
 				</div>
-		    	<div className="w-100 flex flex-column justify-center align-center" style={{ minHeight: '100%' }}>
+		    	<div className="w-100 flex flex-column justify-center align-center" style={{ minHeight: '100vh' }}>
 		    		<FormContainer>
 		        		<FormTitle title="Sign in" />
 						<FormBody submit={this.handleSubmit}>

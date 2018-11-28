@@ -1,6 +1,6 @@
 $bg-background: #FFF;
 $username-fontsize: 24px;
-$transition: transform 0.6s cubic-bezier(.14,.05,.19,1.02);
+$transition: transform 0.4s cubic-bezier(.14,.05,.19,1.02);
 
 .SideBar {
 	height: 100%;
@@ -16,6 +16,7 @@ $transition: transform 0.6s cubic-bezier(.14,.05,.19,1.02);
 	-webkit-transition: $transition;
 	-o-transition: $transition;
 	transition: $transition;
+	will-change: transform;
 
 	.CloseBtnContainer {
 		width: calc(100% - 17px);

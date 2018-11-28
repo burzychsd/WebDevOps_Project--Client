@@ -1,4 +1,4 @@
-$transition: all 0.6s cubic-bezier(.14,.05,.19,1.02);
+$transition: all 0.4s cubic-bezier(.14,.05,.19,1.02);
 
 .Dashboard {
 	position: relative;
@@ -6,7 +6,9 @@ $transition: all 0.6s cubic-bezier(.14,.05,.19,1.02);
 	height: auto;
 	min-height: 100%;
 	margin: 0 0 0 auto;
-	left: 0;
+	-webkit-transform: translateX(0%);
+	    -ms-transform: translateX(0%);
+	        transform: translateX(0%);
 	padding: 88px 1em 1em 1em;
 	-webkit-transition: $transition;
 	-o-transition: $transition;
@@ -15,7 +17,9 @@ $transition: all 0.6s cubic-bezier(.14,.05,.19,1.02);
 
 .navActive {
 	@media screen and (max-width: 559px) {
-		left: 240px;
+		-webkit-transform: translateX(240px);
+		    -ms-transform: translateX(240px);
+		        transform: translateX(240px);
 		-webkit-transition: $transition;
 		-o-transition: $transition;
 		transition: $transition;

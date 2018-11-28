@@ -156,6 +156,8 @@ class Notes extends Component {
         e.target.innerHTML === 'Move to Archive' ? this.props.archiveBtnStatus() : 
         e.target.innerHTML === 'Move to Bin' ? this.props.binBtnStatus() : 
         this.props.noteMenuItemsReset()
+
+       window.scrollTo(0, 0)
     }
 
     componentWillUnmount() {
@@ -169,8 +171,13 @@ class Notes extends Component {
     }
 
     componentDidMount() {
-        this.props.renderNotes();
-        this.props.removeAllInputs();
+        if(this.state.notes.length === 0) {
+            this.props.renderNotes();
+            console.log('yes')
+            this.props.removeAllInputs();
+        }
+
+        console.log('mounted')
     }
 
     render() {
@@ -203,7 +210,7 @@ class Notes extends Component {
 
         return (
             <Fragment>
-            	<h1>Notes</h1>
+            	<h1 ref={(ref) => this.title = ref}>Notes</h1>
             	<CreateNoteBtn click={this.props.showForm} /> 
 	            <NoteContainer active={true} show={this.props.noteForm}>
 	            		<CreateNoteForm
