@@ -3,6 +3,7 @@
 	width: 100%;
 	height: calc(100% - 88px);
 	background: rgba(0,0,0,0.3);
+	z-index: 1;
 }
 
 .ModalBody {
@@ -13,7 +14,7 @@
 	padding: 1em;
 	width: 40%;
 	min-width: 280px;
-	position: absolute;
+	position: fixed;
 	margin-top: 20px;
 	z-index: 1;
 }

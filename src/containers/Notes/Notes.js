@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { invertColor } from '../../helpers/InvertColor/InvertColor';
 import { interpolateColors } from '../../helpers/InterpolateColors/InterpolateColors';
@@ -10,8 +10,15 @@ import Modal from '../../components/Modal';
 import AlarmInput from '../../components/AlarmInput';
 import PersonsInputs from '../../components/PersonsInputs';
 import ColorInput from '../../components/ColorInput';
+import NoteMoreMenu from '../../components/NoteMoreMenu';
+import Comfirmation from '../../components/Comfirmation';
 import { ReactComponent as MoreBtn } from './more.svg';
 import { showForm } from '../../actions/createNoteForm';
+import { 
+    updateBtnStatus, 
+    archiveBtnStatus, 
+    binBtnStatus, 
+    noteMenuItemsReset } from '../../actions/noteMenu';
 import { createNote } from '../../actions/createNote';
 import { renderNotes } from '../../actions/renderNotes';
 import { showModal } from '../../actions/modal';
@@ -37,14 +44,15 @@ const initialState = {
 
 const { title, text, alarm, name, email, color } = initialState;
 
-class Notes extends PureComponent {
+class Notes extends Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
             ...initialState,
-            notes: this.props.notes
+            notes: this.props.notes,
+            noteMenu: {}
         }
     }
 
@@ -106,14 +114,18 @@ class Notes extends PureComponent {
             color: this.state.color 
         }
         this.props.createNote(note);
-        this.props.renderNotes();
         this.props.showForm();
         this.setState({ title, text, alarm, name, email, color });
+
+        setTimeout(() => {
+            this.props.renderNotes();
+        }, 100);
     }
 
     handleCloseModal = () => {
         this.props.showModal();
         this.props.resetClicked();
+        this.props.noteMenuItemsReset();
     }
 
     handleAlarmBtn = () => {
@@ -131,13 +143,28 @@ class Notes extends PureComponent {
         this.props.colorClicked();
     }
 
+    handleNoteMenu = (event, id) => {
+        this.setState((state) => { return state.noteMenu[id] = !state.noteMenu[id] });
+    } 
+
+    handleNoteMenuList = (e, id) => {
+        if (this.state.noteMenu[id]) {
+            this.props.showModal();
+        }
+
+        e.target.innerHTML === 'Update' ? this.props.updateBtnStatus() : 
+        e.target.innerHTML === 'Move to Archive' ? this.props.archiveBtnStatus() : 
+        e.target.innerHTML === 'Move to Bin' ? this.props.binBtnStatus() : 
+        this.props.noteMenuItemsReset()
+    }
+
     componentWillUnmount() {
         return this.props.noteForm ? this.props.showForm() : null;
     }
 
-    componentWillReceiveProps(nextProps) {
-        if(nextProps.notes) {
-            this.setState({ notes: nextProps.notes });
+    componentDidUpdate(prevProps, prevState) {
+        if(prevProps.notes !== this.props.notes) {
+            this.setState({ notes: this.props.notes });
         }
     }
 
@@ -150,17 +177,24 @@ class Notes extends PureComponent {
 
         const notes = this.state.notes.map(note => {
                 const colors = interpolateColors(`${hex2RGB(note.color)}`, 'rgb(235,235,235)', 5).map(el => `rgb(${el.join(',')})`);
+                const colorValue = `${note.color !== '#EBEBEB' ? invertColor(note.color, 'bw') : 'rgb(64,64,64)'}`;
                 return (
                     <NoteContainer active={false} key={note._id} color={colors}>
                         <h1 className={styles.NoteTitle} 
                         style={{ 
-                            color: `${note.color !== '#EBEBEB' ? invertColor(note.color, 'bw') : 'rgb(64,64,64)'}` 
+                            color: colorValue
                         }}>{note.title}</h1>
                         <p style={{ 
-                            color: `${note.color !== '#EBEBEB' ? invertColor(note.color, 'bw') : 'rgb(64,64,64)'}` 
+                            color: colorValue 
                         }} className={styles.NoteText}>{note.text}</p>
-                        <div className={`${styles.MoreBtn} flex items-center mt3`}>
-                            <MoreBtn />
+                        <div className={`${styles.ButtonContainer} w-100 flex justify-between items-center mt4 relative`}>
+                            <NoteMoreMenu 
+                            show={this.state.noteMenu[note._id]} 
+                            clicked={(e) => this.handleNoteMenuList(e, note._id)}
+                            color={colorValue} />
+                            <div className={`${styles.MoreBtn} flex items-center`} onClick={(e) => this.handleNoteMenu(e, note._id)}>
+                                <MoreBtn />
+                            </div>
                         </div>
                     </NoteContainer>
                 );
@@ -191,8 +225,13 @@ class Notes extends PureComponent {
                     name={this.state.name}
                     email={this.state.email} />}
                     {this.props.colorBtn && <ColorInput color={this.state.color} change={this.handleChange} />}
+                    {(this.props.archiveBtn || this.props.binBtn) && 
+                    <Comfirmation 
+                    update={this.props.updateBtn}
+                    archive={this.props.archiveBtn}
+                    bin={this.props.binBtn} />}
                 </Modal>}
-                {notes}
+                {notes.reverse()}
             </Fragment>
         );
     }
@@ -204,7 +243,11 @@ const mapStateToProps = state => ({
     openModal: state.modal.showModal,
     alarmBtn: state.noteFormButtons.alarmBtn,
     personsBtn: state.noteFormButtons.personsBtn,
-    colorBtn: state.noteFormButtons.colorBtn
+    colorBtn: state.noteFormButtons.colorBtn,
+    noteMenu: state.menu.noteMenu,
+    updateBtn: state.menu.updateBtn,
+    archiveBtn: state.menu.archiveBtn,
+    binBtn: state.menu.binBtn
 });
 
 export default connect(mapStateToProps, { 
@@ -217,4 +260,9 @@ export default connect(mapStateToProps, {
     colorClicked,
     resetClicked,
     addInput,
-    removeAllInputs })(Notes);
+    removeAllInputs,
+    updateBtnStatus,
+    archiveBtnStatus,
+    binBtnStatus,
+    noteMenuItemsReset
+})(Notes);

@@ -6,6 +6,7 @@ import renderNotesReducer from './renderNotesReducer';
 import modalReducer from './modalReducer';
 import createNoteFormButtonsReducer from './createNoteFormButtonsReducer';
 import personsInputsReducer from './personsInputsReducer';
+import noteMenuReducer from './noteMenuReducer';
 
 export {
 	errorReducer,
@@ -15,5 +16,6 @@ export {
 	renderNotesReducer,
 	modalReducer,
 	createNoteFormButtonsReducer,
-	personsInputsReducer
+	personsInputsReducer,
+	noteMenuReducer
 } 

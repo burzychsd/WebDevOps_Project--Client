@@ -1,0 +1,9 @@
+.ComfirmBtn {
+	outline: none;
+	-webkit-tap-highlight-color: transparent;
+	cursor: pointer;
+
+	&:focus {
+		outline: none;
+	}
+}

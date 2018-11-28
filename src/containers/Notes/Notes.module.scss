@@ -13,17 +13,22 @@ $font-size: 16px;
 	font-weight: 700;
 }
 
-.MoreBtn {
-	width: 20px;
+.ButtonContainer {
 	height: 28px;
-	outline: none;
-	float: right;
-	-webkit-tap-highlight-color: transparent;
-	border: none;
-	background: transparent;
-	cursor: pointer;
 
-	&:focus {
+	.MoreBtn {
+		width: 20px;
+		height: 28px;
 		outline: none;
+		position: absolute;
+		right: 0;
+		-webkit-tap-highlight-color: transparent;
+		border: none;
+		background: transparent;
+		cursor: pointer;
+
+		&:focus {
+			outline: none;
+		}
 	}
 }

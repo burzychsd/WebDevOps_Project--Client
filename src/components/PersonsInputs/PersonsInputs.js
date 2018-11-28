@@ -27,7 +27,7 @@ class PersonsInputs extends Component {
 						<div ref={(button) => this.acceptBtn = button}>
 							<label>
 							<input type="submit" />
-							<AcceptBtn />
+							<AcceptBtn className={styles.AcceptBtn} />
 							</label>
 						</div>
 					</div>
@@ -36,16 +36,16 @@ class PersonsInputs extends Component {
 	    );
 
 	    const persons = names.map((el, i) => 
-	    	<div className="w-100 flex justify-between items-center ph2 pv3 flex-wrap" style={{ background: '#EBEBEB', maxWidth: 350, margin: '0 auto 1em auto' }} key={i}>
-	    		<div className="flex justify-center items-center" style={{ border: 'none', borderRadius: '50%', background: '#FFFFFF', width: 60, height: 60, margin: '1em auto' }}>
+	    	<div className={`${styles.PersonsDisplayContainer} w-100 flex justify-between items-center ph2 pv3 flex-wrap`} key={i}>
+	    		<div className={`${styles.PersonsCircle} flex justify-center items-center`}>
 	    			<div ref={(button) => this.removeBtn = button}>
-	    				<RemoveBtn style={{ height: 20, width: 20 }} onClick={(e) => this.handleRemoveInput(e, this.removeBtn, el, emails[i])} />
+	    				<RemoveBtn className={styles.RemoveBtn} onClick={(e) => this.handleRemoveInput(e, this.removeBtn, el, emails[i])} />
 	    			</div>
 	    		</div>
-	    		<div className="flex flex-column justify-center items-center ph3" style={{ margin: '0 auto', width: 200 }}>
-					<h3 style={{ wordBreak: 'break-word', margin: '0' }}>{el}</h3>
+	    		<div className={`${styles.PersonsDataContainer} flex flex-column justify-center items-center ph3`}>
+					<h3>{el}</h3>
 					<hr className="w-60" />
-	    			<h4 style={{ wordBreak: 'break-word', margin: '0.5em 0 0 0' }}>{emails[i]}</h4>
+	    			<h4>{emails[i]}</h4>
 	    		</div>
 	    	</div>
 	    );
