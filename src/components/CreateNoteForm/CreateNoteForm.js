@@ -1,17 +1,17 @@
 import React from 'react';
-import Textarea from 'react-textarea-autosize';
 import styles from './CreateNoteForm.module.scss';
 import { ReactComponent as AlarmIcon } from './alarm.svg';
 import { ReactComponent as PersonsIcon } from './persons.svg';
 import { ReactComponent as ColorIcon } from './color.svg';
+import TitleInput from './TitleInput';
+import TextInput from './TextInput';
 
 const CreateNoteForm = (props) => {
 
     return (
         <form className="w-100 flex flex-column justify-center pt3 ph2" style={{ background: '#EBEBEB', borderRadius: 25 }} onSubmit={props.submit}>
-        	<input className={`${styles.NoteFormInput} ph2`} style={{ height: 50, fontWeight: 700 }} type="text" name="title" value={props.title} onChange={props.change} />
-            <Textarea className={`${styles.NoteFormInput} pa2`} 
-            style={{ resize: 'none', minHeight: 50 }} name="text" value={props.text} onChange={props.change} />
+        	<TitleInput status={true} title={props.title} change={props.change} />
+            <TextInput status={true} text={props.text} change={props.change} />
             <div className="w-100 mt3 flex justify-between align-center">
                 <div className="flex justify-center self-center">
                     <AlarmIcon onClick={props.alarmBtn} className="mh2" style={{ marginLeft: '1em', cursor: 'pointer' }} />

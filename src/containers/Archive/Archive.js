@@ -10,6 +10,8 @@ import NoteContainer from '../../components/NoteContainer';
 import { NoteDisplayTitle, NoteDisplayText, NoteDisplayButtons } from '../../components/NoteDisplay';
 import Modal from '../../components/Modal';
 import Confirmation from '../../components/Confirmation';
+import { ReactComponent as EmptyArchive } from './empty-archive.svg';
+import styles from './Archive.module.scss';
 
 class Archive extends PureComponent {
 
@@ -93,7 +95,7 @@ class Archive extends PureComponent {
                     <Confirmation click={() => this.handleConfirmation(false)} />
                 }
                 </Modal>}
-            	{notes}
+            	{notes.length > 0 ? notes : <EmptyArchive className={styles.EmptyArchive} />}
             </Fragment>
         );
     }

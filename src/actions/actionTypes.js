@@ -24,3 +24,4 @@ export const UPDATE_NOTE = 'UPDATE_NOTE';
 export const REMOVE_NOTE = 'REMOVE_NOTE';
 export const GET_UPDATED_NOTES = 'GET_UPDATED_NOTES';
 export const DELETE_NOTE = 'DELETE_NOTE';
+export const GET_ALL_PERSONS = 'GET_ALL_PERSONS';

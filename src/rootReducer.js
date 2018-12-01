@@ -11,7 +11,8 @@ import {
   createNoteFormButtonsReducer,
   personsInputsReducer,
   noteMenuReducer,
-  updateNotesReducer } from './reducers';
+  updateNotesReducer,
+  personsReducer } from './reducers';
 
 export default combineReducers({
    errors: errorReducer,
@@ -22,6 +23,7 @@ export default combineReducers({
    modal: modalReducer,
    noteFormButtons: createNoteFormButtonsReducer,
    personsInputs: personsInputsReducer,
+   persons: personsReducer,
    menu: noteMenuReducer,
    update: updateNotesReducer, 
    browser: createResponsiveStateReducer({

@@ -12,6 +12,7 @@ import PersonsInputs from '../../components/PersonsInputs';
 import ColorInput from '../../components/ColorInput';
 import { NoteDisplayTitle, NoteDisplayText, NoteDisplayButtons } from '../../components/NoteDisplay';
 import Confirmation from '../../components/Confirmation';
+import UpdateForm from '../UpdateForm';
 import { showForm } from '../../actions/createNoteForm';
 import { createNote } from '../../actions/createNote';
 import { renderNotes, updateNotes } from '../../actions/renderNotes';
@@ -217,16 +218,17 @@ class Notes extends PureComponent {
                         colorBtn={this.handleColorBtn} />
 	            </NoteContainer>
                 {this.props.openModal && <Modal clicked={this.handleCloseModal}>
-                    {this.props.alarmBtn && <AlarmInput alarm={this.state.alarm} change={this.handleChange} />}
+                    {this.props.alarmBtn && <AlarmInput status={true} alarm={this.state.alarm} change={this.handleChange} />}
                     {this.props.personsBtn && <PersonsInputs data={obj} 
                     accept={this.handleAcceptPerson} 
                     remove={this.handleRemovePerson} 
                     change={this.handleMultipleInputs}
                     name={this.state.name}
                     email={this.state.email} />}
-                    {this.props.colorBtn && <ColorInput color={this.state.color} change={this.handleChange} />}
+                    {this.props.colorBtn && <ColorInput status={true} color={this.state.color} change={this.handleChange} />}
                     {(this.props.archiveBtn || this.props.binBtn) && 
                     <Confirmation click={() => this.handleConfirmation(true)} />}
+                    {this.props.updateBtn && <UpdateForm />}
                 </Modal>}
                 {notes}
             </Fragment>
