@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { invertColor } from '../../helpers/InvertColor/InvertColor';
 import { interpolateColors } from '../../helpers/InterpolateColors/InterpolateColors';
@@ -10,17 +10,12 @@ import Modal from '../../components/Modal';
 import AlarmInput from '../../components/AlarmInput';
 import PersonsInputs from '../../components/PersonsInputs';
 import ColorInput from '../../components/ColorInput';
-import NoteMoreMenu from '../../components/NoteMoreMenu';
-import Comfirmation from '../../components/Comfirmation';
-import { ReactComponent as MoreBtn } from './more.svg';
+import { NoteDisplayTitle, NoteDisplayText, NoteDisplayButtons } from '../../components/NoteDisplay';
+import Confirmation from '../../components/Confirmation';
 import { showForm } from '../../actions/createNoteForm';
-import { 
-    updateBtnStatus, 
-    archiveBtnStatus, 
-    binBtnStatus, 
-    noteMenuItemsReset } from '../../actions/noteMenu';
 import { createNote } from '../../actions/createNote';
-import { renderNotes } from '../../actions/renderNotes';
+import { renderNotes, updateNotes } from '../../actions/renderNotes';
+import { noteMenuItemsReset, noteMenuActive } from '../../actions/noteMenu';
 import { showModal } from '../../actions/modal';
 import { 
     alarmClicked, 
@@ -29,7 +24,7 @@ import {
     resetClicked } from '../../actions/createNoteFormButtons';
 import { addInput } from '../../actions/personsInputs';
 import { removeAllInputs } from '../../actions/personsInputs';
-import styles from './Notes.module.scss';
+import { updateNote } from '../../actions/updateNotes';
 
 const obj = {};
 
@@ -44,7 +39,7 @@ const initialState = {
 
 const { title, text, alarm, name, email, color } = initialState;
 
-class Notes extends Component {
+class Notes extends PureComponent {
 
     constructor(props) {
         super(props);
@@ -52,7 +47,7 @@ class Notes extends Component {
         this.state = {
             ...initialState,
             notes: this.props.notes,
-            noteMenu: {}
+            currentNoteId: this.props.current
         }
     }
 
@@ -143,21 +138,32 @@ class Notes extends Component {
         this.props.colorClicked();
     }
 
-    handleNoteMenu = (event, id) => {
-        this.setState((state) => { return state.noteMenu[id] = !state.noteMenu[id] });
-    } 
+    handleConfirmation = (status) => {
 
-    handleNoteMenuList = (e, id) => {
-        if (this.state.noteMenu[id]) {
-            this.props.showModal();
+        const updatedNoteArchive = {
+            archive: status ? true : false
         }
 
-        e.target.innerHTML === 'Update' ? this.props.updateBtnStatus() : 
-        e.target.innerHTML === 'Move to Archive' ? this.props.archiveBtnStatus() : 
-        e.target.innerHTML === 'Move to Bin' ? this.props.binBtnStatus() : 
-        this.props.noteMenuItemsReset()
+        const updatedNoteBin = {
+            deleted: status ? true : false
+        }
 
-       window.scrollTo(0, 0)
+        if (this.props.archiveBtn) {
+            this.props.updateNote(this.state.currentNoteId, updatedNoteArchive, 'archive');
+            this.props.showModal();
+            this.props.noteMenuItemsReset();
+            this.props.noteMenuActive(null, this.state.currentNoteId);
+            this.props.updateNotes(this.state.currentNoteId);
+        }
+
+        if (this.props.binBtn) {
+            this.props.updateNote(this.state.currentNoteId, updatedNoteBin, 'delete');
+            this.props.showModal();
+            this.props.noteMenuItemsReset();
+            this.props.noteMenuActive(null, this.state.currentNoteId);
+            this.props.updateNotes(this.state.currentNoteId);
+        }
+
     }
 
     componentWillUnmount() {
@@ -168,16 +174,15 @@ class Notes extends Component {
         if(prevProps.notes !== this.props.notes) {
             this.setState({ notes: this.props.notes });
         }
+
+        if(prevProps.current !== this.props.current) {
+            this.setState({ currentNoteId: this.props.current });
+        }
     }
 
     componentDidMount() {
-        if(this.state.notes.length === 0) {
-            this.props.renderNotes();
-            console.log('yes')
-            this.props.removeAllInputs();
-        }
-
-        console.log('mounted')
+        this.props.renderNotes();
+        this.props.removeAllInputs();
     }
 
     render() {
@@ -187,22 +192,10 @@ class Notes extends Component {
                 const colorValue = `${note.color !== '#EBEBEB' ? invertColor(note.color, 'bw') : 'rgb(64,64,64)'}`;
                 return (
                     <NoteContainer active={false} key={note._id} color={colors}>
-                        <h1 className={styles.NoteTitle} 
-                        style={{ 
-                            color: colorValue
-                        }}>{note.title}</h1>
-                        <p style={{ 
-                            color: colorValue 
-                        }} className={styles.NoteText}>{note.text}</p>
-                        <div className={`${styles.ButtonContainer} w-100 flex justify-between items-center mt4 relative`}>
-                            <NoteMoreMenu 
-                            show={this.state.noteMenu[note._id]} 
-                            clicked={(e) => this.handleNoteMenuList(e, note._id)}
-                            color={colorValue} />
-                            <div className={`${styles.MoreBtn} flex items-center`} onClick={(e) => this.handleNoteMenu(e, note._id)}>
-                                <MoreBtn />
-                            </div>
-                        </div>
+                        <NoteDisplayTitle color={colorValue} title={note.title} />
+                        <NoteDisplayText color={colorValue} text={note.text} />
+                        <NoteDisplayButtons component='Notes' color={colorValue}
+                        id={note._id} />
                     </NoteContainer>
                 );
             }
@@ -233,12 +226,9 @@ class Notes extends Component {
                     email={this.state.email} />}
                     {this.props.colorBtn && <ColorInput color={this.state.color} change={this.handleChange} />}
                     {(this.props.archiveBtn || this.props.binBtn) && 
-                    <Comfirmation 
-                    update={this.props.updateBtn}
-                    archive={this.props.archiveBtn}
-                    bin={this.props.binBtn} />}
+                    <Confirmation click={() => this.handleConfirmation(true)} />}
                 </Modal>}
-                {notes.reverse()}
+                {notes}
             </Fragment>
         );
     }
@@ -251,16 +241,18 @@ const mapStateToProps = state => ({
     alarmBtn: state.noteFormButtons.alarmBtn,
     personsBtn: state.noteFormButtons.personsBtn,
     colorBtn: state.noteFormButtons.colorBtn,
-    noteMenu: state.menu.noteMenu,
     updateBtn: state.menu.updateBtn,
     archiveBtn: state.menu.archiveBtn,
-    binBtn: state.menu.binBtn
+    binBtn: state.menu.binBtn,
+    msg: state.update.msg,
+    current: state.menu.current
 });
 
 export default connect(mapStateToProps, { 
     showForm, 
     createNote, 
-    renderNotes, 
+    renderNotes,
+    updateNotes, 
     showModal,
     alarmClicked,
     personsClicked,
@@ -268,8 +260,7 @@ export default connect(mapStateToProps, {
     resetClicked,
     addInput,
     removeAllInputs,
-    updateBtnStatus,
-    archiveBtnStatus,
-    binBtnStatus,
-    noteMenuItemsReset
+    noteMenuItemsReset,
+    noteMenuActive,
+    updateNote
 })(Notes);

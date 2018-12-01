@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
-import { Switch, Route, withRouter } from 'react-router-dom'
-import { connect } from 'react-redux'
+import { Switch, Route, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Navigation from '../Navigation';
 import styles from './Dashboard.module.scss';
 
@@ -38,7 +38,7 @@ class Dashboard extends Component {
 	        	<Navigation location={location} />
 	        	<main className={this.props.nav.isOpen ? 
                 `${styles.Dashboard} ${styles.navActive} flex flex-column items-center` : 
-                `${styles.Dashboard} flex flex-column items-center`}>
+                `${styles.Dashboard} flex flex-column justify-start items-center`}>
                     {match.isExact ? 
                     <h1>Hello</h1> : 
                     <Switch>

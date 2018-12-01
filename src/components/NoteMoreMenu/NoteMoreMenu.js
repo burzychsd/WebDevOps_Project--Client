@@ -2,21 +2,14 @@ import React, { Component, Fragment } from 'react';
 import styles from './NoteMoreMenu.module.scss';
 import { StaggeredMotion, spring } from 'react-motion';
 
-const items = ['Update', 'Move to Archive', 'Move to Bin'];
-
 class NoteMoreMenu extends Component {
 
-	state = {
-		changeVal: false
-	}
-
-	componentDidMount() {
-		setTimeout(() => {
-			this.setState({ changeVal: true })
-		}, 2000)
-	}
-
 	render() {
+
+		const items = this.props.status === 'Notes' ? ['Update', 'Move to Archive', 'Move to Bin'] :
+					  this.props.status === 'Archive' ? ['Back to Notes', 'Move to Bin'] :
+				      ['Back to Notes', 'Delete permanently'];
+
 		return (
 	        <div className={styles.NoteMoreMenu}>
 	    		<ul>
@@ -33,7 +26,7 @@ class NoteMoreMenu extends Component {
 						        <button 
 						        key={i} 
 						        style={{ 
-						        	opacity: `${this.props.show ? style.o : this.state.changeVal ? style.o : 0}`, 
+						        	opacity: `${this.props.show ? style.o :  0}`, 
 						        	color: this.props.color }} 
 						        onClick={this.props.clicked}
 						        disabled={this.props.show ? false : true}>

@@ -7,6 +7,7 @@ import modalReducer from './modalReducer';
 import createNoteFormButtonsReducer from './createNoteFormButtonsReducer';
 import personsInputsReducer from './personsInputsReducer';
 import noteMenuReducer from './noteMenuReducer';
+import updateNotesReducer from './updateNotesReducer';
 
 export {
 	errorReducer,
@@ -17,5 +18,6 @@ export {
 	modalReducer,
 	createNoteFormButtonsReducer,
 	personsInputsReducer,
-	noteMenuReducer
+	noteMenuReducer,
+	updateNotesReducer
 } 
