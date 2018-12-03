@@ -4,9 +4,11 @@ import qs from 'qs';
 
 export const updateNote = (id, updatedNote, status) => dispatch => {
 	const url1 = `/api/notes/archive/${id}`;
-	const url2 = `/api/notes/delete/${id}`;
+	const url2 = `/api/notes/reminders/${id}`;
+	const url3 = `/api/notes/delete/${id}`;
 
-	const url = status === 'archive' ? url1 : url2;
+	const url = status === 'archive' ? url1 : 
+				status === 'reminders' ? url2 : url3;
 	
 	client.put(url, qs.stringify(updatedNote))
 	.then(res => dispatch({
@@ -32,9 +34,11 @@ export const deleteNote = (id) => dispatch => {
 
 export const getUpdatedNotes = (status) => dispatch => {
 	const url1 = '/api/notes/archive';
-	const url2 = '/api/notes/delete';
+	const url2 = '/api/notes/reminders';
+	const url3 = '/api/notes/delete';
 
-	const url = status === 'archive' ? url1 : url2;
+	const url = status === 'archive' ? url1 : 
+				status === 'reminders' ? url2 : url3;
 
 	client.get(url)
 	.then(res => dispatch({

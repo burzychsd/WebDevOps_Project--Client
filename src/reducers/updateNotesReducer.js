@@ -3,7 +3,13 @@ import { UPDATE_NOTE, GET_UPDATED_NOTES, REMOVE_NOTE, DELETE_NOTE } from '../act
 const initialState = {
 	archiveNotes: [],
 	deletedNotes: [],
+	remindersNotes: [],
 	msg: ''
+}
+
+const filtered = (arr, id) => {
+	const result = arr.filter(note => note._id !== id);
+	return result;
 }
 
 export default function(state = initialState, action) {
@@ -14,16 +20,23 @@ export default function(state = initialState, action) {
 				msg: action.msg.msg
 			}
 		case DELETE_NOTE:
-			const notes1 = state.deletedNotes.filter(note => note._id !== action.id);
+			
 			return {
 				...state,
-				deletedNotes: notes1
+				deletedNotes: filtered(state.deletedNotes, action.id),
+				archiveNotes: filtered(state.archiveNotes, action.id),
+				remindersNotes: filtered(state.remindersNotes, action.id)
 			}
 		case GET_UPDATED_NOTES:
 			if (action.status === 'archive') {
 				return {
 					...state,
 					archiveNotes: [...action.newNote]
+				}
+			} else if (action.status === 'reminders') {
+				return {
+					...state,
+					remindersNotes: [...action.newNote]
 				}
 			} else {
 				return {
@@ -33,16 +46,19 @@ export default function(state = initialState, action) {
 			}
 		case REMOVE_NOTE:
 			if (action.status === 'archive') {
-				const notes2 = state.archiveNotes.filter(note => note._id !== action.id);
 				return {
 					...state,
-					archiveNotes: notes2
+					archiveNotes: filtered(state.archiveNotes, action.id)
+				}
+			} else if (action.status === 'reminders') {
+				return {
+					...state,
+					remindersNotes: filtered(state.remindersNotes, action.id)
 				}
 			} else {
-				const notes3 = state.deletedNotes.filter(note => note._id !== action.id);
 				return {
 					...state,
-					deletedNotes: notes3
+					deletedNotes: filtered(state.deletedNotes, action.id)
 				}
 			} 
 		default:

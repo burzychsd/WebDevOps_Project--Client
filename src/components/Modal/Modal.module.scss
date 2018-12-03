@@ -29,7 +29,6 @@ $transition: all 0.4s cubic-bezier(.14,.05,.19,1.02);
 		border-radius: 2px;
 		height: 75vh;
 		max-height: 450px;
-		padding: 1em;
 		margin-top: 88px;
 		width: 40%;
 		min-width: 280px;
@@ -43,8 +42,10 @@ $transition: all 0.4s cubic-bezier(.14,.05,.19,1.02);
 
 		.ModalContent {
 			overflow-y: auto;
+			-webkit-overflow-scrolling: touch;
 			height: auto;
 			text-align: center;
+			padding: 1em;
 
 			.ModalCloseBtn {
 				position: absolute;

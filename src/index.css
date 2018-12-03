@@ -1,6 +1,13 @@
+/*Reset Safari User Agent Styles*/
+* {
+  -webkit-padding-before: 0px;
+  -webkit-padding-end: 0px;
+  -webkit-padding-after: 0px;
+  -webkit-padding-start: 0px;
+}
+
 html {
   min-height: 100%;
-  overflow-y: auto;
 }
 
 body {

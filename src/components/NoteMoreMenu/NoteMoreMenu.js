@@ -7,7 +7,8 @@ class NoteMoreMenu extends Component {
 	render() {
 
 		const items = this.props.status === 'Notes' ? ['Update', 'Move to Archive', 'Move to Bin'] :
-					  this.props.status === 'Archive' ? ['Back to Notes', 'Move to Bin'] :
+					  this.props.status === 'Archive' ? ['Back to Notes', 'Move to Bin'] : 
+					  this.props.status === 'Reminders' ? ['Alarm Cancel'] : 
 				      ['Back to Notes', 'Delete permanently'];
 
 		return (

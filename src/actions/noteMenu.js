@@ -1,4 +1,5 @@
 import { 
+	NOTE_MENU_REMINDERSBTN,
 	NOTE_MENU_RECOVERYBTN,
 	NOTE_MENU_CURRENT,
 	NOTE_MENU_ACTIVE,
@@ -35,6 +36,12 @@ export const binBtnStatus = () => {
 export const recoveryBtnStatus = () => {
 	return {
 		type: NOTE_MENU_RECOVERYBTN
+	}
+}
+
+export const remindersBtnStatus = () => {
+	return {
+		type: NOTE_MENU_REMINDERSBTN
 	}
 }
 

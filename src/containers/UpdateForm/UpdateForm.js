@@ -8,7 +8,8 @@ import AlarmInput from '../../components/AlarmInput';
 import ColorInput from '../../components/ColorInput';
 import { ReactComponent as AddBtn } from './add-btn.svg'; 
 import { ReactComponent as RemoveBtn } from './removeBtn.svg';
-import PersonInputs from './PersonInputs'; 
+import PersonInputs from './PersonInputs';
+import { ReactComponent as SubmitBtn } from '../../components/PersonsInputs/acceptBtn.svg'; 
 import styles from './UpdateForm.module.scss';
 
 const initialState = {
@@ -109,7 +110,8 @@ class UpdateForm extends Component {
 	    				<div className="w-100 flex justify-between items-center mb3" 
 	    				style={{ maxWidth: 400, height: 35 }}>
 							<h3 className="ma0 pa0">New Person</h3>
-							<RemoveBtn onClick={(e) => this.handleInput(e)} />
+							<RemoveBtn className={`${styles.RemoveBtn} pointer`} 
+							onClick={(e) => this.handleInput(e)} />
 	    				</div>
 	    				<PersonInputs
 	    				new={true} 
@@ -136,6 +138,8 @@ class UpdateForm extends Component {
             		onClick={(e) => this.handleInput(e, 'add')}/>
 					{persons}
 					{newPersons}
+                    <h3 className="mb1">Submit</h3>
+                    <SubmitBtn className="mv2" />
             	</form>
             </Fragment>
         );

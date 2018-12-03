@@ -17,11 +17,5 @@ $font-color: rgb(64,64,64);
 		outline: none;
 	}
 
-	&:first-child {
-		margin-left: 1em;
-	}
-
-	&:last-child {
-		margin-right: 1em;
-	}
+	margin: 0 0.5em;
 }

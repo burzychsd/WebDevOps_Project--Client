@@ -8,6 +8,7 @@ import {
     archiveBtnStatus, 
     binBtnStatus,
     recoveryBtnStatus,
+    remindersBtnStatus,
     deleteBtnStatus, 
     noteMenuItemsReset,
     noteMenuActive,
@@ -41,6 +42,7 @@ class NoteDisplayButtons extends Component {
         e.target.innerHTML === 'Move to Bin' ? this.props.binBtnStatus() : 
         e.target.innerHTML === 'Back to Notes' ? this.props.recoveryBtnStatus() : 
         e.target.innerHTML === 'Delete permanently' ? this.props.deleteBtnStatus() : 
+        e.target.innerHTML === 'Alarm Cancel' ? this.props.remindersBtnStatus() :  
         this.props.noteMenuItemsReset()
 
        window.scrollTo(0, 0)
@@ -73,7 +75,8 @@ export default connect(mapStateToProps, {
     archiveBtnStatus, 
     binBtnStatus,
     recoveryBtnStatus,
-    deleteBtnStatus, 
+    deleteBtnStatus,
+    remindersBtnStatus, 
     noteMenuItemsReset,
     noteMenuActive,
     getCurrentNote,

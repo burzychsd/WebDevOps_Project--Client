@@ -1,4 +1,5 @@
 import { 
+	NOTE_MENU_REMINDERSBTN,
 	NOTE_MENU_RECOVERYBTN,
 	NOTE_MENU_DELETEBTN,
 	NOTE_MENU_CURRENT,
@@ -14,6 +15,7 @@ const initialState = {
 	binBtn: false,
 	recoveryBtn: false,
 	deleteBtn: false,
+	remindersBtn: false,
 	isActive: {},
 	current: null
 };
@@ -54,6 +56,11 @@ export default function(state = initialState, action) {
 					...state,
 					recoveryBtn: !state.recoveryBtn
 				}
+			case NOTE_MENU_REMINDERSBTN:
+				return {
+					...state,
+					remindersBtn: !state.remindersBtn
+				}
 			case NOTE_MENU_DELETEBTN:
 				return {
 					...state,
@@ -66,6 +73,7 @@ export default function(state = initialState, action) {
 					archiveBtn: false,
 					binBtn: false,
 					recoveryBtn: false,
+					remindersBtn: false,
 					deleteBtn: false
 				}
 		default:
