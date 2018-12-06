@@ -1,4 +1,8 @@
-.AddBtn, .RemoveBtn {
+input[type='submit'] {
+	display: none;
+}
+
+.AddBtn, .RemoveBtn, .SubmitBtn {
 	outline: none;
 	-webkit-tap-highlight-color: transparent;
 

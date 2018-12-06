@@ -6,7 +6,6 @@ import ReactDOM from 'react-dom';
 import styles from './Modal.module.scss';
 
 const modalRoot = document.getElementById('modal-root');
-const html = document.getElementsByTagName('html')[0];
 
 class Modal extends Component {
 

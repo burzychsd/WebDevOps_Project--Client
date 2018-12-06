@@ -2,6 +2,10 @@ import React, { Component, Fragment } from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { getPersons } from '../../actions/persons';
+import { updateNote } from '../../actions/updateNotes';
+import { showModal } from '../../actions/modal';
+import { renderNotes } from '../../actions/renderNotes';
+import { noteMenuItemsReset } from '../../actions/noteMenu';
 import TitleInput from '../../components/CreateNoteForm/TitleInput';
 import TextInput from '../../components/CreateNoteForm/TextInput';
 import AlarmInput from '../../components/AlarmInput';
@@ -28,7 +32,8 @@ class UpdateForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-        	...initialState
+        	...initialState,
+            currentNoteId: this.props.current
         }
     }
 
@@ -37,25 +42,40 @@ class UpdateForm extends Component {
     }
 
     handlePersonData = () => {
+        return new Promise((resolve) => {
+            this.props.getPersons();
+            resolve();
+        });
+    }
 
-    	this.props.getPersons();
+    loadData = () => {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                const note = this.props.notes.filter(note => note._id === this.props.current);
+                const properPerson = this.props.persons.filter(person => note[0].persons.includes(person._id));
+                const names = properPerson.map(person => person['name']);
+                const emails = properPerson.map(person => person['email']);
 
-    	const promise = new Promise((resolve) => {
-			setTimeout(() => {
-				const note = this.props.notes.filter(note => note._id === this.props.current);
-				const properPerson = this.props.persons.filter(person => note[0].persons.includes(person._id));
-				const names = properPerson.map(person => person['name']);
-		    	const emails = properPerson.map(person => person['email']);
-		    	resolve(this.setState((state) => { 
-		    		return { 
-		    			name: state.name.concat(names),
-		    			email: state.email.concat(emails)
-		    		} 
-		    	}));
-			}, 200);
-    	});
+                this.setState((state) => { 
+                    return { 
+                        name: state.name.concat(names),
+                        email: state.email.concat(emails)
+                    } 
+                });
 
-    	promise.then(res => res);
+                resolve();
+            }, 400);
+        })
+    }
+
+    setInputsState = () => {
+        let inputsState = {};
+        this.state.name.forEach((person, i) => {
+            inputsState[`updatedName${i}`] = person;
+            inputsState[`updatedEmail${i}`] = this.state.email[i];
+        });
+
+        return this.setState({ ...inputsState });
     }
 
     handleInput = (e, status) => {
@@ -71,9 +91,50 @@ class UpdateForm extends Component {
     	});
     }
 
+    updateData = () => {
+        return new Promise((resolve) => {
+            const arr = Object.keys(this.state);
+            let keys = [];
+            const updatedNames = arr.filter(key => key.includes('updatedName')).map(key => {
+                keys.push(key);
+                return this.state[key];
+            });
+            const updatedEmails = arr.filter(key => key.includes('updatedEmail')).map(key => this.state[key]);
+            const newNames = arr.filter(key => key.includes('newName')).map(key => this.state[key]);
+            const newEmails = arr.filter(key => key.includes('newEmail')).map(key => this.state[key]);
+            const updatedNote = {
+                title: this.state.title,
+                text: this.state.text,
+                alarm: this.state.alarm,
+                color: this.state.color,
+                updatedNames: updatedNames.length > 0 ? JSON.stringify(updatedNames) : null,
+                updatedEmails: updatedEmails.length > 0 ? JSON.stringify(updatedEmails) : null,
+                newNames: newNames.length > 0 ? JSON.stringify(newNames) : null,
+                newEmails: newEmails.length > 0 ? JSON.stringify(newEmails) : null,
+                keys: keys.length > 0 ? JSON.stringify(keys) : null
+            };
+            this.props.updateNote(this.state.currentNoteId, updatedNote, 'update');
+            this.props.showModal();
+            this.props.noteMenuItemsReset();
+
+            resolve();
+        });
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.updateData().then(this.handlePersonData());
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if(prevProps.current !== this.props.current) {
+            this.setState({ currentNoteId: this.props.current });
+        }
+    }
+
     componentDidMount() {
     	const note = this.props.notes.filter(note => note._id === this.props.current)[0];
-    	this.handlePersonData();
+    	this.handlePersonData().then(this.loadData()).then(setTimeout(() => { this.setInputsState() }, 400));
     	const properDate = moment(note.alarm).format('YYYY-MM-DDTHH:MM:SS');
 
     	this.setState(
@@ -81,20 +142,22 @@ class UpdateForm extends Component {
     			title: note.title, 
     			text: note.text, 
     			alarm: note.alarm ? properDate : '', 
-    			color: note.color 
+    			color: note.color
     		}
     	);
     }
 
     render() {
 
-    	const { title, text, alarm, color, name, email } = this.state;
+    	const { title, text, alarm, color, name, email, newInputs } = this.state;
 
     	const persons = name.map((person, i) => {
 			return (
 				<PersonInputs key={i}
 				new={false} 
-				id={i} 
+				id={i}
+                name={`updatedName${i}`}
+                email={`updatedEmail${i}`} 
 				nameHolder={name[i]} 
 				emailHolder={email[i]}
 				change={this.handleChange} />
@@ -103,8 +166,8 @@ class UpdateForm extends Component {
 
     	let newPersons;
 
-    	if (this.state.newInputs) {
-    		newPersons = this.state.newInputs.map((person, i) => {
+    	if (newInputs) {
+    		newPersons = newInputs.map((person, i) => {
 	    		return (
 	    			<Fragment key={i}>
 	    				<div className="w-100 flex justify-between items-center mb3" 
@@ -128,18 +191,21 @@ class UpdateForm extends Component {
         return (
             <Fragment>
             	<h1 className="tc">Update Note</h1>
-            	<form className="flex flex-column justify-center items-center">
+            	<form className="flex flex-column justify-center items-center" onSubmit={this.handleSubmit}>
             		<TitleInput status={false} title={title} change={this.handleChange} />
             		<TextInput status={false} text={text} change={this.handleChange} />
             		<AlarmInput status={false} alarm={alarm} change={this.handleChange} />
             		<ColorInput status={false} color={color} change={this.handleChange} />
             		<h2 className="tc mt0">Persons</h2>
             		<AddBtn className={`${styles.AddBtn} mb3 pointer`} 
-            		onClick={(e) => this.handleInput(e, 'add')}/>
+            		onClick={(e) => this.handleInput(e, 'add')} />
 					{persons}
 					{newPersons}
                     <h3 className="mb1">Submit</h3>
-                    <SubmitBtn className="mv2" />
+                    <label>
+                        <input type="submit" />
+                        <SubmitBtn className={`${styles.SubmitBtn} mv2 pointer`} />
+                    </label>
             	</form>
             </Fragment>
         );
@@ -152,4 +218,10 @@ const mapStateToProps = (state) => ({
 	persons: state.persons.persons
 });
 
-export default connect(mapStateToProps, { getPersons })(UpdateForm);
+export default connect(mapStateToProps, { 
+    getPersons, 
+    updateNote, 
+    showModal, 
+    renderNotes,
+    noteMenuItemsReset 
+})(UpdateForm);

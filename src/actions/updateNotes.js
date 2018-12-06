@@ -3,12 +3,14 @@ import client from '../axios';
 import qs from 'qs';
 
 export const updateNote = (id, updatedNote, status) => dispatch => {
-	const url1 = `/api/notes/archive/${id}`;
-	const url2 = `/api/notes/reminders/${id}`;
-	const url3 = `/api/notes/delete/${id}`;
+	const url1 = `/api/notes/${id}`;
+	const url2 = `/api/notes/archive/${id}`;
+	const url3 = `/api/notes/reminders/${id}`;
+	const url4 = `/api/notes/delete/${id}`;
 
-	const url = status === 'archive' ? url1 : 
-				status === 'reminders' ? url2 : url3;
+	const url = status === 'update' ? url1 : 
+				status === 'archive' ? url2 : 
+				status === 'reminders' ? url3 : url4;
 	
 	client.put(url, qs.stringify(updatedNote))
 	.then(res => dispatch({

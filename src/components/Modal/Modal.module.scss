@@ -27,7 +27,8 @@ $transition: all 0.4s cubic-bezier(.14,.05,.19,1.02);
 	.ModalBody {
 		background: #FFF;
 		border-radius: 2px;
-		height: 75vh;
+		height: 70%;
+		min-height: 240px;
 		max-height: 450px;
 		margin-top: 88px;
 		width: 40%;

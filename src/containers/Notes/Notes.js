@@ -115,7 +115,7 @@ class Notes extends PureComponent {
 
         setTimeout(() => {
             this.props.renderNotes();
-        }, 100);
+        }, 500);
     }
 
     handleCloseModal = () => {
@@ -178,6 +178,10 @@ class Notes extends PureComponent {
 
         if(prevProps.current !== this.props.current) {
             this.setState({ currentNoteId: this.props.current });
+        }
+
+        if(prevProps.persons !== this.props.persons) {
+            this.props.renderNotes();
         }
     }
 
@@ -247,7 +251,8 @@ const mapStateToProps = state => ({
     archiveBtn: state.menu.archiveBtn,
     binBtn: state.menu.binBtn,
     msg: state.update.msg,
-    current: state.menu.current
+    current: state.menu.current,
+    persons: state.persons.persons
 });
 
 export default connect(mapStateToProps, { 
