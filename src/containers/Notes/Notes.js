@@ -6,6 +6,7 @@ import { hex2RGB } from '../../helpers/HexToRGB/HexToRGB';
 import CreateNoteBtn from '../../components/CreateNoteBtn';
 import NoteContainer from '../../components/NoteContainer';
 import CreateNoteForm from '../../components/CreateNoteForm';
+import { ReactComponent as AlarmIcon } from '../../components/CreateNoteForm/alarm.svg';
 import Modal from '../../components/Modal';
 import AlarmInput from '../../components/AlarmInput';
 import PersonsInputs from '../../components/PersonsInputs';
@@ -18,6 +19,7 @@ import { createNote } from '../../actions/createNote';
 import { renderNotes, updateNotes } from '../../actions/renderNotes';
 import { noteMenuItemsReset, noteMenuActive } from '../../actions/noteMenu';
 import { showModal } from '../../actions/modal';
+import { alarmStatus } from '../../actions/alarmTimer';
 import { 
     alarmClicked, 
     personsClicked, 
@@ -32,7 +34,7 @@ const obj = {};
 const initialState = {
     title: 'Title',
     text: 'Your text...',
-    alarm: '',
+    alarm: undefined,
     name: [],
     email: [],
     color: '#EBEBEB'
@@ -188,6 +190,7 @@ class Notes extends PureComponent {
     componentDidMount() {
         this.props.renderNotes();
         this.props.removeAllInputs();
+        this.props.alarmStatus();
     }
 
     render() {
@@ -197,6 +200,8 @@ class Notes extends PureComponent {
                 const colorValue = `${note.color !== '#EBEBEB' ? invertColor(note.color, 'bw') : 'rgb(64,64,64)'}`;
                 return (
                     <NoteContainer active={false} key={note._id} color={colors}>
+                        {note.alarm && <AlarmIcon className='absolute' 
+                        style={{ right: 0, marginRight: '0.85em' }} />}
                         <NoteDisplayTitle color={colorValue} title={note.title} />
                         <NoteDisplayText color={colorValue} text={note.text} />
                         <NoteDisplayButtons component='Notes' color={colorValue}
@@ -269,5 +274,6 @@ export default connect(mapStateToProps, {
     removeAllInputs,
     noteMenuItemsReset,
     noteMenuActive,
-    updateNote
+    updateNote,
+    alarmStatus
 })(Notes);

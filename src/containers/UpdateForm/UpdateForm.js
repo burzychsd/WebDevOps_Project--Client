@@ -135,13 +135,14 @@ class UpdateForm extends Component {
     componentDidMount() {
     	const note = this.props.notes.filter(note => note._id === this.props.current)[0];
     	this.handlePersonData().then(this.loadData()).then(setTimeout(() => { this.setInputsState() }, 400));
-    	const properDate = moment(note.alarm).format('YYYY-MM-DDTHH:MM:SS');
+    	const properDate = note.alarm ? 
+        moment(note.alarm).toISOString().split('').splice(0, 16).join('') : '';
 
     	this.setState(
     		{ 
     			title: note.title, 
     			text: note.text, 
-    			alarm: note.alarm ? properDate : '', 
+    			alarm: properDate, 
     			color: note.color
     		}
     	);

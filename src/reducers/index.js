@@ -9,6 +9,7 @@ import personsInputsReducer from './personsInputsReducer';
 import noteMenuReducer from './noteMenuReducer';
 import updateNotesReducer from './updateNotesReducer';
 import personsReducer from './personsReducer';
+import alarmTimerReducer from './alarmTimerReducer';
 
 export {
 	errorReducer,
@@ -21,5 +22,6 @@ export {
 	personsInputsReducer,
 	noteMenuReducer,
 	updateNotesReducer,
-	personsReducer
+	personsReducer,
+	alarmTimerReducer
 } 

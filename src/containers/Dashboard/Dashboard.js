@@ -10,6 +10,7 @@ import Archive from '../Archive';
 import Bin from '../Bin';
 import NotFound from '../../components/NotFound';
 
+
 const routes = [
   {
     path: "/dashboard/notes",

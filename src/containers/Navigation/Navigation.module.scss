@@ -1,5 +1,6 @@
 /* Styles for navigation*/
 $bg-color: #FFF;
+$transition: transform 0.4s cubic-bezier(.14,.05,.19,1.02);
 
 header {
 	height: 88px;
@@ -11,4 +12,24 @@ header {
 	-webkit-box-shadow: 0px 0.4px 6px 0px rgba(0,0,0,0.3);
 	        box-shadow: 0px 0.4px 6px 0px rgba(0,0,0,0.3);
 	z-index: 900;
+}
+
+.OverlayBlock {
+	-webkit-transform: translateX(100%);
+	    -ms-transform: translateX(100%);
+	        transform: translateX(100%);
+	-webkit-transition: $transition;
+	-o-transition: $transition;
+	transition: $transition;
+	background: $bg-color;
+	z-index: 998;
+}
+
+.OverlayBlockActive {
+	-webkit-transform: translateX(0%);
+	    -ms-transform: translateX(0%);
+	        transform: translateX(0%);
+	-webkit-transition: $transition;
+	-o-transition: $transition;
+	transition: $transition;
 }

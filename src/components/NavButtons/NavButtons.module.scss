@@ -3,7 +3,7 @@
 	cursor: pointer;
 	outline: none;
 	-webkit-tap-highlight-color: transparent;
-	z-index: 998;
+	
 
 	&:focus {
 		outline: none;
@@ -12,8 +12,10 @@
 
 .MenuBtn {
 	margin: 0 23px 0 23px;
+	z-index: 998;
 }
 
 .SearchBtn {
 	margin: 0 40px 0 30px;
+	z-index: 997;
 }
