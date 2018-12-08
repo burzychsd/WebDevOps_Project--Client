@@ -3,6 +3,7 @@ import { Switch, Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import Navigation from '../Navigation';
+import ChartContainer from '../../components/ChartContainer';
 import styles from './Dashboard.module.scss';
 import { navigationActive } from '../../actions/navigation';
 import { updateNote, removeNote } from '../../actions/updateNotes';
@@ -95,8 +96,18 @@ class Dashboard extends Component {
 	        	<main className={this.props.nav.isOpen ? 
                 `${styles.Dashboard} ${styles.navActive} flex flex-column items-center` : 
                 `${styles.Dashboard} flex flex-column justify-start items-center`}>
-                    {match.isExact ? 
-                    <h1>Hello</h1> : 
+                    {match.isExact ?
+                    <Fragment> 
+                      <h1>Dashboard</h1>
+                      <div className="w-100 flex flex-wrap justify-center items-center">
+                        <ChartContainer />
+                        <ChartContainer />
+                      </div>
+                      <div className="w-100 flex flex-wrap justify-center items-center">
+                        <ChartContainer />
+                        <ChartContainer />
+                      </div>
+                    </Fragment> : 
                     <Switch>
                     {routes.map((route, i) => (
                         <Route key={i} path={route.path} component={route.component} />
