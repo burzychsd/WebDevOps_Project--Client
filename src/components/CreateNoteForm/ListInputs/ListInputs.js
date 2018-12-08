@@ -13,11 +13,9 @@ class ListInputs extends Component {
     }
 
     componentDidMount() {
-        let indexes = [];
         if(this.props.list && this.props.listItems.length === 0) {
             this.props.list.forEach((item, i) => {
                 this.props.addInput();
-                indexes.push(i);
             });
         }
     }
@@ -29,12 +27,15 @@ class ListInputs extends Component {
 
     render() {
         const items = this.props.listItems.map((itemId, i) => {
-                this[`input${i}`] = React.createRef();
-                setTimeout(() => {
+                const promise = new Promise((resolve) => {
+                    this[`input${i}`] = React.createRef();
+                    resolve();
+                });
+                promise.then(() => {
                     if(this[`input${i}`].current.placeholder || this[`input${i}`].current.placeholder !== '') {
                         this[`input${i}`].current.disabled = true;
                     }
-                }, 200);
+                });
                 return (
                     <div className="w-100 ph2 mt2 flex justify-between items-center" key={itemId}>
                         <input className={`${styles.ListInput} w-80 mv2`} 
