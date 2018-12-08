@@ -5,11 +5,12 @@ import createNoteFormReducer from './createNoteFormReducer';
 import renderNotesReducer from './renderNotesReducer';
 import modalReducer from './modalReducer';
 import createNoteFormButtonsReducer from './createNoteFormButtonsReducer';
-import personsInputsReducer from './personsInputsReducer';
+import inputsReducer from './inputsReducer';
 import noteMenuReducer from './noteMenuReducer';
 import updateNotesReducer from './updateNotesReducer';
 import personsReducer from './personsReducer';
 import alarmTimerReducer from './alarmTimerReducer';
+import createListReducer from './createListReducer';
 
 export {
 	errorReducer,
@@ -19,9 +20,10 @@ export {
 	renderNotesReducer,
 	modalReducer,
 	createNoteFormButtonsReducer,
-	personsInputsReducer,
+	inputsReducer,
 	noteMenuReducer,
 	updateNotesReducer,
 	personsReducer,
-	alarmTimerReducer
+	alarmTimerReducer,
+	createListReducer
 } 

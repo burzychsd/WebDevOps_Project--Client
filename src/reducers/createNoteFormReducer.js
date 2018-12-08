@@ -1,4 +1,4 @@
-import { SHOW_NOTE_FORM } from '../actions/actionTypes';
+import { SHOW_NOTE_FORM, CLOSE_NOTE_FORM } from '../actions/actionTypes';
 
 const initialState = {
 	showForm: false
@@ -9,7 +9,12 @@ export default function(state = initialState, action) {
 		case SHOW_NOTE_FORM:
 			return {
 				...state,
-				showForm: !state.showForm
+				showForm: true
+			}
+		case CLOSE_NOTE_FORM:
+			return {
+				...state,
+				showForm: false
 			}
 		default:
 			return state;

@@ -8,9 +8,10 @@ export const registerUser = (user, history) => dispatch => {
     client.post('/api/register', qs.stringify(user))
             .then(res => history.push('/login'))
             .catch(err => {
+                const response = err.response;
                 dispatch({
                     type: GET_ERRORS,
-                    payload: err.response.data
+                    payload: response.data
                 });
             });
 }
@@ -24,10 +25,11 @@ export const loginUser = (user) => dispatch => {
                 const decoded = jwt_decode(token);
                 dispatch(setCurrentUser(decoded));
             })
-            .catch(err => {
+            .catch(error => {
+                const response = error.response;
                 dispatch({
                     type: GET_ERRORS,
-                    payload: err.response.data
+                    payload: response.data
                 });
             });
 }

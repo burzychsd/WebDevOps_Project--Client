@@ -2,7 +2,7 @@ import React, { Fragment, Component } from 'react';
 import { ReactComponent as AcceptBtn } from './acceptBtn.svg';
 import { ReactComponent as RemoveBtn } from '../Modal/close.svg';
 import { connect } from 'react-redux';
-import { removeInput } from '../../actions/personsInputs';
+import { removeInput } from '../../actions/inputs';
 import styles from './PersonsInputs.module.scss';
 
 class PersonsInputs extends Component {
@@ -63,7 +63,7 @@ class PersonsInputs extends Component {
 PersonsInputs.displayName = 'PersonsInputs';
 
 const mapStateToProps = state => ({
-    arrOfInputs: state.personsInputs.arrOfInputs
+    arrOfInputs: state.inputs.arrOfInputs
 });
 
 export default connect(mapStateToProps, { removeInput })(PersonsInputs);

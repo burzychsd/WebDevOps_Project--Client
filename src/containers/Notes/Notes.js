@@ -11,22 +11,22 @@ import Modal from '../../components/Modal';
 import AlarmInput from '../../components/AlarmInput';
 import PersonsInputs from '../../components/PersonsInputs';
 import ColorInput from '../../components/ColorInput';
-import { NoteDisplayTitle, NoteDisplayText, NoteDisplayButtons } from '../../components/NoteDisplay';
+import { NoteDisplayTitle, NoteDisplayText, NoteDisplayButtons, NoteDisplayList, NoteDisplayListItem } from '../../components/NoteDisplay';
 import Confirmation from '../../components/Confirmation';
 import UpdateForm from '../UpdateForm';
-import { showForm } from '../../actions/createNoteForm';
+import { showForm, closeForm } from '../../actions/createNoteForm';
 import { createNote } from '../../actions/createNote';
 import { renderNotes, updateNotes } from '../../actions/renderNotes';
 import { noteMenuItemsReset, noteMenuActive } from '../../actions/noteMenu';
 import { showModal } from '../../actions/modal';
 import { alarmStatus } from '../../actions/alarmTimer';
+import { listStatus, resetListStatus } from '../../actions/createList';
 import { 
     alarmClicked, 
     personsClicked, 
     colorClicked, 
     resetClicked } from '../../actions/createNoteFormButtons';
-import { addInput } from '../../actions/personsInputs';
-import { removeAllInputs } from '../../actions/personsInputs';
+import { removeAllInputs } from '../../actions/inputs';
 import { updateNote } from '../../actions/updateNotes';
 
 const obj = {};
@@ -34,13 +34,14 @@ const obj = {};
 const initialState = {
     title: 'Title',
     text: 'Your text...',
-    alarm: undefined,
+    alarm: '',
     name: [],
     email: [],
+    list: [],
     color: '#EBEBEB'
 }
 
-const { title, text, alarm, name, email, color } = initialState;
+const { title, text, alarm, name, email, color, list } = initialState;
 
 class Notes extends PureComponent {
 
@@ -50,12 +51,18 @@ class Notes extends PureComponent {
         this.state = {
             ...initialState,
             notes: this.props.notes,
-            currentNoteId: this.props.current
+            currentNoteId: this.props.current,
+            listStatus: this.props.list
         }
     }
 
     handleChange = (event) => {
         this.setState({ [event.target.name]: event.target.value });
+    }
+
+    handleOpenForm = () => {
+        this.props.showForm();
+        this.props.resetListStatus();
     }
 
     handleMultipleInputs = (event) => {
@@ -96,26 +103,30 @@ class Notes extends PureComponent {
     }
 
     handleCancel = () => {
-        this.props.showForm();
+        this.props.closeForm();
         this.props.removeAllInputs();
-        this.setState({ title, text, alarm, name, email, color });
+        this.setState({ title, text, alarm, name, email, color, list });
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
+        const keys = Object.keys(this.state);
+        const listItems = keys.filter(key => key.includes('listItem')).map(key => this.state[key]);
         const note = {
             title: this.state.title,
             text: this.state.text,
             alarm: this.state.alarm,
             name: JSON.stringify(this.state.name),
             email: JSON.stringify(this.state.email),
+            list: listItems ? JSON.stringify(listItems) : [],
             color: this.state.color 
         }
         this.props.createNote(note);
-        this.props.showForm();
-        this.setState({ title, text, alarm, name, email, color });
+        this.props.closeForm();
+        this.setState({ title, text, alarm, name, email, color, list });
 
         setTimeout(() => {
+            this.props.removeAllInputs();
             this.props.renderNotes();
         }, 500);
     }
@@ -139,6 +150,11 @@ class Notes extends PureComponent {
     handleColorBtn = () => {
         this.props.showModal();
         this.props.colorClicked();
+    }
+
+    handleListStatus = () => {
+        this.props.showForm();
+        this.props.listStatus();
     }
 
     handleConfirmation = (status) => {
@@ -185,6 +201,10 @@ class Notes extends PureComponent {
         if(prevProps.persons !== this.props.persons) {
             this.props.renderNotes();
         }
+
+        if(prevProps.list !== this.props.list) {
+            this.setState({ listStatus: this.props.list });
+        }
     }
 
     componentDidMount() {
@@ -198,12 +218,20 @@ class Notes extends PureComponent {
         const notes = this.state.notes.map(note => {
                 const colors = interpolateColors(`${hex2RGB(note.color)}`, 'rgb(235,235,235)', 5).map(el => `rgb(${el.join(',')})`);
                 const colorValue = `${note.color !== '#EBEBEB' ? invertColor(note.color, 'bw') : 'rgb(64,64,64)'}`;
+                const items = note.list.map((item, i) => 
+                    <NoteDisplayListItem key={i} item={item} color={colorValue} />
+                )
                 return (
                     <NoteContainer active={false} key={note._id} color={colors}>
                         {note.alarm && <AlarmIcon className='absolute' 
                         style={{ right: 0, marginRight: '0.85em' }} />}
                         <NoteDisplayTitle color={colorValue} title={note.title} />
-                        <NoteDisplayText color={colorValue} text={note.text} />
+                        {note.list.length === 0 ? 
+                            <NoteDisplayText color={colorValue} text={note.text} /> : 
+                            <NoteDisplayList>
+                                {items}
+                            </NoteDisplayList>
+                        }
                         <NoteDisplayButtons component='Notes' color={colorValue}
                         id={note._id} />
                     </NoteContainer>
@@ -214,7 +242,7 @@ class Notes extends PureComponent {
         return (
             <Fragment>
             	<h1 ref={(ref) => this.title = ref}>Notes</h1>
-            	<CreateNoteBtn click={this.props.showForm} /> 
+            	<CreateNoteBtn click={this.handleOpenForm} list={this.handleListStatus} /> 
 	            <NoteContainer active={true} show={this.props.noteForm}>
 	            		<CreateNoteForm
                         title={this.state.title} 
@@ -224,7 +252,8 @@ class Notes extends PureComponent {
                         submit={this.handleSubmit}
                         alarmBtn={this.handleAlarmBtn}
                         personsBtn={this.handlePersonsBtn}
-                        colorBtn={this.handleColorBtn} />
+                        colorBtn={this.handleColorBtn}
+                        list={this.state.listStatus} />
 	            </NoteContainer>
                 {this.props.openModal && <Modal clicked={this.handleCloseModal}>
                     {this.props.alarmBtn && <AlarmInput status={true} alarm={this.state.alarm} change={this.handleChange} />}
@@ -257,11 +286,13 @@ const mapStateToProps = state => ({
     binBtn: state.menu.binBtn,
     msg: state.update.msg,
     current: state.menu.current,
-    persons: state.persons.persons
+    persons: state.persons.persons,
+    list: state.list.listStatus
 });
 
 export default connect(mapStateToProps, { 
-    showForm, 
+    showForm,
+    closeForm, 
     createNote, 
     renderNotes,
     updateNotes, 
@@ -270,10 +301,11 @@ export default connect(mapStateToProps, {
     personsClicked,
     colorClicked,
     resetClicked,
-    addInput,
     removeAllInputs,
     noteMenuItemsReset,
     noteMenuActive,
     updateNote,
-    alarmStatus
+    alarmStatus,
+    listStatus,
+    resetListStatus
 })(Notes);

@@ -7,7 +7,7 @@ import { invertColor } from '../../helpers/InvertColor/InvertColor';
 import { interpolateColors } from '../../helpers/InterpolateColors/InterpolateColors';
 import { hex2RGB } from '../../helpers/HexToRGB/HexToRGB';
 import NoteContainer from '../../components/NoteContainer';
-import { NoteDisplayTitle, NoteDisplayText, NoteDisplayButtons } from '../../components/NoteDisplay';
+import { NoteDisplayTitle, NoteDisplayText, NoteDisplayButtons, NoteDisplayList, NoteDisplayListItem } from '../../components/NoteDisplay';
 import Modal from '../../components/Modal';
 import Confirmation from '../../components/Confirmation';
 import { ReactComponent as EmptyArchive } from './empty-archive.svg';
@@ -76,10 +76,18 @@ class Archive extends PureComponent {
     	const notes = this.state.updatedNotes.map(note => {
                 const colors = interpolateColors(`${hex2RGB(note.color)}`, 'rgb(235,235,235)', 5).map(el => `rgb(${el.join(',')})`);
                 const colorValue = `${note.color !== '#EBEBEB' ? invertColor(note.color, 'bw') : 'rgb(64,64,64)'}`;
+                const items = note.list.map((item, i) => 
+                    <NoteDisplayListItem key={i} item={item} color={colorValue} />
+                )
                 return (
                     <NoteContainer active={false} key={note._id} color={colors}>
                         <NoteDisplayTitle color={colorValue} title={note.title} />
-                        <NoteDisplayText color={colorValue} text={note.text} />
+                        {note.list.length === 0 ? 
+                            <NoteDisplayText color={colorValue} text={note.text} /> : 
+                            <NoteDisplayList>
+                                {items}
+                            </NoteDisplayList>
+                        }
                         <NoteDisplayButtons component='Archive' color={colorValue} 
                         id={note._id} />
                     </NoteContainer>

@@ -5,13 +5,15 @@ import { ReactComponent as PersonsIcon } from './persons.svg';
 import { ReactComponent as ColorIcon } from './color.svg';
 import TitleInput from './TitleInput';
 import TextInput from './TextInput';
+import ListInputs from './ListInputs';
 
 const CreateNoteForm = (props) => {
 
     return (
         <form className="w-100 flex flex-column justify-center pt3 ph2" style={{ background: '#EBEBEB', borderRadius: 25 }} onSubmit={props.submit}>
         	<TitleInput status={true} title={props.title} change={props.change} />
-            <TextInput status={true} text={props.text} change={props.change} />
+            {!props.list && <TextInput status={true} text={props.text} change={props.change} />}
+            {props.list && <ListInputs status={true} change={props.change} />}
             <div className="w-100 mt3 flex justify-between align-center">
                 <div className="flex justify-center self-center">
                     <AlarmIcon onClick={props.alarmBtn} className="mh2" style={{ cursor: 'pointer' }} />
@@ -29,5 +31,7 @@ const CreateNoteForm = (props) => {
 };
 
 CreateNoteForm.displayName = 'CreateNoteForm';
+
+
 
 export default CreateNoteForm;

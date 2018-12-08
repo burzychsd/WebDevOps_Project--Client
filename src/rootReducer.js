@@ -9,11 +9,12 @@ import {
   renderNotesReducer, 
   modalReducer,
   createNoteFormButtonsReducer,
-  personsInputsReducer,
+  inputsReducer,
   noteMenuReducer,
   updateNotesReducer,
   personsReducer,
-  alarmTimerReducer } from './reducers';
+  alarmTimerReducer,
+  createListReducer } from './reducers';
 
 export default combineReducers({
    errors: errorReducer,
@@ -23,11 +24,12 @@ export default combineReducers({
    renderNotes: renderNotesReducer,
    modal: modalReducer,
    noteFormButtons: createNoteFormButtonsReducer,
-   personsInputs: personsInputsReducer,
+   inputs: inputsReducer,
    persons: personsReducer,
    menu: noteMenuReducer,
    update: updateNotesReducer,
-   timer: alarmTimerReducer, 
+   timer: alarmTimerReducer,
+   list: createListReducer, 
    browser: createResponsiveStateReducer({
    	extraSmall: 480,
     small: 559,

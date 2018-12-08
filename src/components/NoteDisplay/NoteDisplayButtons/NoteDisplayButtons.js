@@ -44,8 +44,6 @@ class NoteDisplayButtons extends Component {
         e.target.innerHTML === 'Delete permanently' ? this.props.deleteBtnStatus() : 
         e.target.innerHTML === 'Alarm Cancel' ? this.props.remindersBtnStatus() :  
         this.props.noteMenuItemsReset()
-
-       window.scrollTo(0, 0)
     }
 
 	render() {

@@ -6,8 +6,10 @@ import { updateNote } from '../../actions/updateNotes';
 import { showModal } from '../../actions/modal';
 import { renderNotes } from '../../actions/renderNotes';
 import { noteMenuItemsReset } from '../../actions/noteMenu';
+import { removeAllInputs } from '../../actions/inputs';
 import TitleInput from '../../components/CreateNoteForm/TitleInput';
 import TextInput from '../../components/CreateNoteForm/TextInput';
+import ListInputs from '../../components/CreateNoteForm/ListInputs';
 import AlarmInput from '../../components/AlarmInput';
 import ColorInput from '../../components/ColorInput';
 import { ReactComponent as AddBtn } from './add-btn.svg'; 
@@ -22,6 +24,7 @@ const initialState = {
     alarm: '',
     name: [],
     email: [],
+    list: [],
     color: '',
     newInputs: []
 }
@@ -51,7 +54,7 @@ class UpdateForm extends Component {
     loadData = () => {
         return new Promise((resolve) => {
             setTimeout(() => {
-                const note = this.props.notes.filter(note => note._id === this.props.current);
+                const note = this.props.notes.filter(note => note._id === this.props.current); 
                 const properPerson = this.props.persons.filter(person => note[0].persons.includes(person._id));
                 const names = properPerson.map(person => person['name']);
                 const emails = properPerson.map(person => person['email']);
@@ -91,6 +94,13 @@ class UpdateForm extends Component {
     	});
     }
 
+    handleRemoveItem = (item) => {
+        this.setState((state) => { 
+            const filtered = state.list.filter((el) => el !== item);
+            return { list: filtered.length !== 0 ? filtered : [null]} 
+        });
+    }
+
     updateData = () => {
         return new Promise((resolve) => {
             const arr = Object.keys(this.state);
@@ -102,6 +112,7 @@ class UpdateForm extends Component {
             const updatedEmails = arr.filter(key => key.includes('updatedEmail')).map(key => this.state[key]);
             const newNames = arr.filter(key => key.includes('newName')).map(key => this.state[key]);
             const newEmails = arr.filter(key => key.includes('newEmail')).map(key => this.state[key]);
+            const newList = arr.filter(key => key.includes('newListItem')).map(key => this.state[key]);
             const updatedNote = {
                 title: this.state.title,
                 text: this.state.text,
@@ -111,12 +122,13 @@ class UpdateForm extends Component {
                 updatedEmails: updatedEmails.length > 0 ? JSON.stringify(updatedEmails) : null,
                 newNames: newNames.length > 0 ? JSON.stringify(newNames) : null,
                 newEmails: newEmails.length > 0 ? JSON.stringify(newEmails) : null,
-                keys: keys.length > 0 ? JSON.stringify(keys) : null
+                keys: keys.length > 0 ? JSON.stringify(keys) : null,
+                list: JSON.stringify(this.state.list),
+                newList: JSON.stringify(newList)
             };
             this.props.updateNote(this.state.currentNoteId, updatedNote, 'update');
             this.props.showModal();
             this.props.noteMenuItemsReset();
-
             resolve();
         });
     }
@@ -124,6 +136,7 @@ class UpdateForm extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         this.updateData().then(this.handlePersonData());
+        this.props.removeAllInputs();
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -143,9 +156,14 @@ class UpdateForm extends Component {
     			title: note.title, 
     			text: note.text, 
     			alarm: properDate, 
-    			color: note.color
+    			color: note.color,
+                list: note.list
     		}
     	);
+    }
+
+    componentWillUnmount() {
+        this.props.removeAllInputs();
     }
 
     render() {
@@ -188,13 +206,22 @@ class UpdateForm extends Component {
 	    	})
     	}
 
-
         return (
             <Fragment>
             	<h1 className="tc">Update Note</h1>
             	<form className="flex flex-column justify-center items-center" onSubmit={this.handleSubmit}>
             		<TitleInput status={false} title={title} change={this.handleChange} />
-            		<TextInput status={false} text={text} change={this.handleChange} />
+            		{this.state.list.length === 0 ? 
+                        <TextInput status={false} text={text} change={this.handleChange} /> : 
+                        <div className="mt3 mb4">
+                            <h2 className="tc mt0 mb3">List</h2>
+                            <ListInputs 
+                            status={false} 
+                            list={this.state.list} 
+                            remove={this.handleRemoveItem}
+                            change={this.handleChange} />
+                        </div>
+                    }
             		<AlarmInput status={false} alarm={alarm} change={this.handleChange} />
             		<ColorInput status={false} color={color} change={this.handleChange} />
             		<h2 className="tc mt0">Persons</h2>
@@ -216,7 +243,8 @@ class UpdateForm extends Component {
 const mapStateToProps = (state) => ({
 	current: state.menu.current,
 	notes: state.renderNotes.notes,
-	persons: state.persons.persons
+	persons: state.persons.persons,
+    listItems: state.inputs.listItems
 });
 
 export default connect(mapStateToProps, { 
@@ -224,5 +252,6 @@ export default connect(mapStateToProps, {
     updateNote, 
     showModal, 
     renderNotes,
-    noteMenuItemsReset 
+    noteMenuItemsReset,
+    removeAllInputs 
 })(UpdateForm);

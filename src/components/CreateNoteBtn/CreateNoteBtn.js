@@ -6,7 +6,7 @@ const CreateNoteBtn = (props) => {
     return (
     	<div className={styles.BtnContainer}>
     		<button className='noselect' onClick={props.click} >Create new note...</button>
-    		<ListBtn className={styles.ListBtn} />
+    		<ListBtn className={styles.ListBtn} onClick={props.list} />
     	</div>
     );
 };

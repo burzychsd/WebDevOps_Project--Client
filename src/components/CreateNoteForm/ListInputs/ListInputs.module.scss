@@ -1,0 +1,29 @@
+$input-font: 'Source Sans Pro', sans-serif;
+$bg-color: #FFFAFA;
+$color: rgb(64,64,64);
+$border: none;
+
+.ListInput {
+	height: 30px;
+	padding: 0.5em;
+	outline: none;
+	background: $bg-color;
+	border: $border;
+	border-radius: 5px;
+	font-family: $input-font;
+	color: $color;
+
+	&:focus {
+		outline: none;
+	}
+}
+
+.RemoveBtn {
+	outline: none;
+	-webkit-tap-highlight-color: transparent;
+	cursor: pointer;
+
+	&:focus {
+		outline: none;
+	}
+}

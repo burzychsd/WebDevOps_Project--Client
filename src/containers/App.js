@@ -26,27 +26,25 @@ if(localStorage.jwtToken) {
   }
 }  
 
-store.subscribe(() => {
-  const state = store.getState();
-  const notes = state.renderNotes.notes;
-  const timer = state.timer.alarmTimer;
-  const status = state.timer.alarmStatus;
-  notes.forEach(note => {
-    if(note.alarm && timer !== '') {
-      const condition = moment(timer).isSame(
-        moment(note.alarm).toISOString().split('').splice(0, 16).join(''), 'minute');
-      if(condition && status) {
-        const sound = document.getElementById('alarm-sound');
-        sound.play();
-      }
-    }
-  });
-});
-
 class App extends Component {
 
   componentDidMount() {
     this.interval = setInterval(() => store.dispatch(alarmTimer()), 2500);
+    store.subscribe(() => {
+      const state = store.getState();
+      const notes = state.renderNotes.notes;
+      const timer = state.timer.alarmTimer;
+      notes.forEach(note => {
+        if(note.alarm && timer !== '') {
+          const condition = moment(timer).isSame(
+            moment(note.alarm).toISOString().split('').splice(0, 16).join(''), 'minute');
+          if(condition) {
+            const sound = document.getElementById('alarm-sound');
+            sound.play();
+          }
+        }
+      });
+    });
   }
 
   componentWillUnmount() {
