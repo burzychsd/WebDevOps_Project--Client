@@ -27,7 +27,7 @@ import {
     colorClicked, 
     resetClicked } from '../../actions/createNoteFormButtons';
 import { removeAllInputs } from '../../actions/inputs';
-import { updateNote } from '../../actions/updateNotes';
+import { updateNote, getUpdatedNotes } from '../../actions/updateNotes';
 
 const obj = {};
 
@@ -186,6 +186,9 @@ class Notes extends PureComponent {
     }
 
     componentWillUnmount() {
+        this.props.getUpdatedNotes('reminders');
+        this.props.getUpdatedNotes('archive');
+        this.props.getUpdatedNotes('delete');
         return this.props.noteForm ? this.props.showForm() : null;
     }
 
@@ -307,5 +310,6 @@ export default connect(mapStateToProps, {
     updateNote,
     alarmStatus,
     listStatus,
-    resetListStatus
+    resetListStatus,
+    getUpdatedNotes
 })(Notes);

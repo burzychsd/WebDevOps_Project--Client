@@ -29,7 +29,7 @@ if(localStorage.jwtToken) {
 class App extends Component {
 
   componentDidMount() {
-    this.interval = setInterval(() => store.dispatch(alarmTimer()), 2500);
+    this.interval = setInterval(() => store.dispatch(alarmTimer()), 1000);
     store.subscribe(() => {
       const state = store.getState();
       const notes = state.renderNotes.notes;

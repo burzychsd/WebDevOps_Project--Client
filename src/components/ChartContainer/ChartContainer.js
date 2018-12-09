@@ -3,9 +3,9 @@ import styles from './ChartContainer.module.scss';
 
 const ChartContainer = (props) => {
     return (
-        <canvas className={styles.ChartContainer}>
+        <div className={styles.ChartContainer}>
         	{props.children}
-        </canvas>
+        </div>
     );
 };
 

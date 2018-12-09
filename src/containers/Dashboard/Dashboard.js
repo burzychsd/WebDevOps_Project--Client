@@ -1,12 +1,13 @@
-import React, { Component, Fragment } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import Navigation from '../Navigation';
 import ChartContainer from '../../components/ChartContainer';
+import NotesChart from '../../components/ChartContainer/NotesChart';
 import styles from './Dashboard.module.scss';
 import { navigationActive } from '../../actions/navigation';
-import { updateNote, removeNote } from '../../actions/updateNotes';
+import { updateNote, removeNote, getUpdatedNotes } from '../../actions/updateNotes';
 import { renderNotes } from '../../actions/renderNotes';
 
 import Notes from '../Notes';
@@ -37,7 +38,7 @@ const routes = [
   }
 ];
 
-class Dashboard extends Component {
+class Dashboard extends PureComponent {
 
     constructor(props) {
       super(props);
@@ -82,6 +83,10 @@ class Dashboard extends Component {
 
     componentDidMount() {
       sound.addEventListener('play', this.handlePlay);
+      this.props.renderNotes();
+      this.props.getUpdatedNotes('reminders');
+      this.props.getUpdatedNotes('archive');
+      this.props.getUpdatedNotes('delete');
     }
 
     componentWillUnmount() {
@@ -90,6 +95,7 @@ class Dashboard extends Component {
 
     render() {
         const { location, match } = this.props;
+
         return (
         	<Fragment>
 	        	<Navigation location={location} show={this.state.show} sound={this.handleSound}/>
@@ -100,8 +106,12 @@ class Dashboard extends Component {
                     <Fragment> 
                       <h1>Dashboard</h1>
                       <div className="w-100 flex flex-wrap justify-center items-center">
-                        <ChartContainer />
-                        <ChartContainer />
+                        <ChartContainer>
+                          <NotesChart status={true} />
+                        </ChartContainer>
+                        <ChartContainer>
+                          <NotesChart status={false} />
+                        </ChartContainer>
                       </div>
                       <div className="w-100 flex flex-wrap justify-center items-center">
                         <ChartContainer />
@@ -130,5 +140,6 @@ export default connect(mapStateToProps, {
   navigationActive,
   updateNote,
   removeNote,
-  renderNotes
+  renderNotes,
+  getUpdatedNotes
 })(withRouter(Dashboard));

@@ -1,8 +1,8 @@
-import React, { Component, Fragment } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { getPersons } from '../../actions/persons';
-import { updateNote } from '../../actions/updateNotes';
+import { updateNote, removeNote } from '../../actions/updateNotes';
 import { showModal } from '../../actions/modal';
 import { renderNotes } from '../../actions/renderNotes';
 import { noteMenuItemsReset } from '../../actions/noteMenu';
@@ -30,7 +30,7 @@ const initialState = {
 }
 
 
-class UpdateForm extends Component {
+class UpdateForm extends PureComponent {
 
     constructor(props) {
         super(props);
@@ -127,6 +127,9 @@ class UpdateForm extends Component {
                 newList: JSON.stringify(newList)
             };
             this.props.updateNote(this.state.currentNoteId, updatedNote, 'update');
+            if (this.state.alarm === '') {
+                this.props.removeNote(this.state.currentNoteId, 'reminders');
+            }
             this.props.showModal();
             this.props.noteMenuItemsReset();
             resolve();
@@ -135,8 +138,10 @@ class UpdateForm extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        this.updateData().then(this.handlePersonData());
-        this.props.removeAllInputs();
+        this.updateData().then(() => {
+            this.handlePersonData();
+            this.props.removeAllInputs();
+        });
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -253,5 +258,6 @@ export default connect(mapStateToProps, {
     showModal, 
     renderNotes,
     noteMenuItemsReset,
-    removeAllInputs 
+    removeAllInputs,
+    removeNote 
 })(UpdateForm);
