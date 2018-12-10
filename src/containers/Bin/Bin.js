@@ -7,6 +7,7 @@ import { invertColor } from '../../helpers/InvertColor/InvertColor';
 import { interpolateColors } from '../../helpers/InterpolateColors/InterpolateColors';
 import { hex2RGB } from '../../helpers/HexToRGB/HexToRGB';
 import NoteContainer from '../../components/NoteContainer';
+import { renderNotes } from '../../actions/renderNotes';
 import { NoteDisplayTitle, NoteDisplayText, NoteDisplayButtons, NoteDisplayList, NoteDisplayListItem } from '../../components/NoteDisplay';
 import Modal from '../../components/Modal';
 import Confirmation from '../../components/Confirmation';
@@ -31,6 +32,10 @@ class Bin extends PureComponent {
         if(prevProps.current !== this.props.current) {
             this.setState({ currentNoteId: this.props.current });
         }
+    }
+
+    componentWillUnmount() {
+        this.props.renderNotes();
     }
 
 	componentDidMount() {
@@ -118,5 +123,6 @@ export default connect(mapStateToProps, {
     updateNote,
     noteMenuActive,
     removeNote,
-    deleteNote 
+    deleteNote,
+    renderNotes
 })(Bin);

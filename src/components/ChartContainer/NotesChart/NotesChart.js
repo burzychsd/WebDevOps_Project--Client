@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Doughnut } from 'react-chartjs-2';
+import { Doughnut, Bar } from 'react-chartjs-2';
+import moment from 'moment';
+
+const dateRefs = [moment().subtract(2, 'months').format('MMMM'), moment().subtract(1, 'months').format('MMMM'), moment().format('MMMM')];
 
 class NotesChart extends Component {
     constructor(props) {
@@ -31,15 +34,33 @@ class NotesChart extends Component {
       }
     }
 
+    checkData = (data, arr) => {
+    	const datesData = data.map(el => arr.filter(a => moment(a.date).format('MMMM').includes(el)));
+
+    	return datesData;
+    }
+
     render() {
     	const { notes, archiveNotes, deletedNotes, remindersNotes } = this.state;
+    	const allNotes = [notes, archiveNotes, deletedNotes, remindersNotes].reduce((a, b) => a.concat(b));
+    	const barData = this.checkData(dateRefs, allNotes).map((arr, i) => { return { x: moment().month(dateRefs[i]), y: arr.length } });
+    	const allNotesLength = [notes.length, archiveNotes.length, deletedNotes.length, remindersNotes.length];
+    	
     	const data = {
           datasets: [{
-            data: [notes.length, archiveNotes.length, deletedNotes.length, remindersNotes.length],
+            data: allNotesLength,
             backgroundColor: ['#FFFFEA', '#00CECB', '#FFED66', '#FF5E5B']
           }],
           labels: ['Notes', 'Archive-Notes', 'Bin-Notes', 'Reminders']
         };
+
+        const data2 = {
+        	datasets: [{
+        		data: barData, 
+        		backgroundColor: '#FF5E5B',
+        		label: 'Notes per Month'
+        	}]
+        }
 
         const options = {
         	legend: {
@@ -58,13 +79,53 @@ class NotesChart extends Component {
         	}
         }
 
-        return this.props.status ?
+        const options2 = {
+        	layout: {
+	            padding: {
+	                left: 10,
+	                right: 0,
+	                top: 20,
+	                bottom: 0
+	            }
+	        },
+	        scales: {
+	        	yAxes: [{
+		            type: 'linear',
+		            distribution: 'series',
+		            ticks: {
+		            	suggestedMin: 0,
+                		suggestedMax: 100
+		            }
+		        }],
+	            xAxes: [{
+	                type: 'time',
+	                distribution: 'series',
+	                time: {
+	                	min: moment().subtract(2, 'months'),
+	                    max: moment(),
+	                    unit: 'month'
+	                },
+	                ticks: {
+	                	source: 'data',
+	                	bounds: 'ticks'
+	                }
+	            }]
+	        }
+        }
+
+        return this.props.status && this.props.chart === 'Doughnut' ?
         (
         	<Doughnut data={data} width={220} height={197} options={options} /> 	
+        ) : this.props.status && this.props.chart === 'Bar' ? 
+        (
+        	<Bar data={data2} width={130} height={110} options={options2} />
         ) : 
         (
         	<div className="w-100 flex flex-column justify-center items-center">
-				<h2>Notes</h2>
+				<h2 className="mb2">Notes</h2>
+				<h3>Reminders: {remindersNotes.length}</h3>
+				<h3>Archive: {archiveNotes.length}</h3>
+				<h3>Bin: {deletedNotes.length}</h3>
         	</div>
         )
     }

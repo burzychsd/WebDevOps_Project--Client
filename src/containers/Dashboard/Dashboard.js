@@ -107,14 +107,16 @@ class Dashboard extends PureComponent {
                       <h1>Dashboard</h1>
                       <div className="w-100 flex flex-wrap justify-center items-center">
                         <ChartContainer>
-                          <NotesChart status={true} />
+                          <NotesChart status={true} chart="Doughnut"/>
                         </ChartContainer>
                         <ChartContainer>
                           <NotesChart status={false} />
                         </ChartContainer>
                       </div>
                       <div className="w-100 flex flex-wrap justify-center items-center">
-                        <ChartContainer />
+                        <ChartContainer>
+                          <NotesChart status={true} chart="Bar" />
+                        </ChartContainer>
                         <ChartContainer />
                       </div>
                     </Fragment> : 

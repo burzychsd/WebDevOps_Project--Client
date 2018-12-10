@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { updateNote, getUpdatedNotes, removeNote } from '../../actions/updateNotes';
 import { noteMenuItemsReset, noteMenuActive } from '../../actions/noteMenu';
 import { showModal } from '../../actions/modal';
+import { renderNotes } from '../../actions/renderNotes';
 import { invertColor } from '../../helpers/InvertColor/InvertColor';
 import { interpolateColors } from '../../helpers/InterpolateColors/InterpolateColors';
 import { hex2RGB } from '../../helpers/HexToRGB/HexToRGB';
@@ -31,6 +32,10 @@ class Reminders extends PureComponent {
         if(prevProps.current !== this.props.current) {
             this.setState({ currentNoteId: this.props.current });
         }
+    }
+
+    componentWillUnmount() {
+        this.props.renderNotes();
     }
 
 	componentDidMount() {
@@ -108,5 +113,6 @@ export default connect(mapStateToProps, {
     noteMenuItemsReset,
     updateNote,
     noteMenuActive,
-    removeNote 
+    removeNote,
+    renderNotes 
 })(Reminders);
