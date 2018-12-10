@@ -36,13 +36,12 @@ class NotesChart extends Component {
 
     checkData = (data, arr) => {
     	const datesData = data.map(el => arr.filter(a => moment(a.date).format('MMMM').includes(el)));
-
     	return datesData;
     }
 
     render() {
     	const { notes, archiveNotes, deletedNotes, remindersNotes } = this.state;
-    	const allNotes = [notes, archiveNotes, deletedNotes, remindersNotes].reduce((a, b) => a.concat(b));
+    	const allNotes = [notes, archiveNotes, deletedNotes];
     	const barData = this.checkData(dateRefs, allNotes).map((arr, i) => { return { x: moment().month(dateRefs[i]), y: arr.length } });
     	const allNotesLength = [notes.length, archiveNotes.length, deletedNotes.length, remindersNotes.length];
     	
