@@ -55,7 +55,6 @@ class Dashboard extends PureComponent {
         resolve(current);
       });
 
-      this.setState({ show: false });
       promise.then((res) => {
         const { updateNote, renderNotes, removeNote } = this.props;
         const obj = {
@@ -63,7 +62,10 @@ class Dashboard extends PureComponent {
         }
         updateNote(res, obj, 'reminders');
         removeNote(res, 'reminders');
-        setTimeout(() => renderNotes(), 400);
+        setTimeout(() => {
+          renderNotes();
+          this.setState({ show: false });
+        }, 400);
       });
     }
 

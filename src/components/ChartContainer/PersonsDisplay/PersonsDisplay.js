@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import ReactSwipe from 'react-swipe';
-import { ReactComponent as Next } from './next.svg';
 import { ReactComponent as Prev } from './prev.svg';
+import { ReactComponent as Next } from './next.svg';
 
 const PersonsDisplay = (props) => {
 
@@ -54,8 +54,8 @@ const PersonsDisplay = (props) => {
 				{personsDisplay}
 			</ReactSwipe>
 			<div className="flex justify-around items-center absolute" style={{ width: 80, bottom: 0 }}>
-				<Next className="pointer" onClick={() => reactSwipeEl.next()} />
-      			<Prev className="pointer" onClick={() => reactSwipeEl.prev()} />
+				<Prev className="pointer" onClick={() => reactSwipeEl.prev()} />
+      			<Next className="pointer" onClick={() => reactSwipeEl.next()} />
 			</div>
         </Fragment>
     );
