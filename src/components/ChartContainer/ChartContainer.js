@@ -3,7 +3,7 @@ import styles from './ChartContainer.module.scss';
 
 const ChartContainer = (props) => {
     return (
-        <div className={styles.ChartContainer}>
+        <div className={`${styles.ChartContainer} flex flex-column justify-center items-center`}>
         	{props.children}
         </div>
     );

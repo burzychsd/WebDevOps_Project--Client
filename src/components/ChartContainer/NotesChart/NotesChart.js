@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Doughnut, Bar } from 'react-chartjs-2';
 import moment from 'moment';
@@ -120,12 +120,14 @@ class NotesChart extends Component {
         	<Bar data={data2} width={130} height={110} options={options2} />
         ) : 
         (
-        	<div className="w-100 flex flex-column justify-center items-center">
-				<h2 className="mb2">Notes</h2>
-				<h3>Reminders: {remindersNotes.length}</h3>
-				<h3>Archive: {archiveNotes.length}</h3>
-				<h3>Bin: {deletedNotes.length}</h3>
-        	</div>
+            <Fragment>
+                <h2 className="absolute" style={{ top: 0 }}>Notes</h2>
+            	<div className="w-100 h-100 flex flex-column justify-center items-center">
+    				<h3 className="mb0 pa0">Reminders: {remindersNotes.length}</h3>
+    				<h3 className="mb0 pa0">Archive: {archiveNotes.length}</h3>
+    				<h3 className="mb0 pa0">Bin: {deletedNotes.length}</h3>
+            	</div>
+            </Fragment>
         )
     }
 }

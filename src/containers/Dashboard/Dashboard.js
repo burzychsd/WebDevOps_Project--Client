@@ -5,8 +5,10 @@ import moment from 'moment';
 import Navigation from '../Navigation';
 import ChartContainer from '../../components/ChartContainer';
 import NotesChart from '../../components/ChartContainer/NotesChart';
+import PersonsDisplay from '../../components/ChartContainer/PersonsDisplay';
 import styles from './Dashboard.module.scss';
 import { navigationActive } from '../../actions/navigation';
+import { getPersons } from '../../actions/persons';
 import { updateNote, removeNote, getUpdatedNotes } from '../../actions/updateNotes';
 import { renderNotes } from '../../actions/renderNotes';
 
@@ -43,7 +45,8 @@ class Dashboard extends PureComponent {
     constructor(props) {
       super(props);
       this.state = {
-        show: false
+        show: false,
+        persons: this.props.persons
       }
     }
 
@@ -81,12 +84,19 @@ class Dashboard extends PureComponent {
       }
     }
 
+    componentDidUpdate(prevProps, prevState) {
+      if(prevProps.persons !== this.props.persons) {
+        this.setState({ persons: this.props.persons });
+      }
+    }
+
     componentDidMount() {
       sound.addEventListener('play', this.handlePlay);
       this.props.renderNotes();
       this.props.getUpdatedNotes('reminders');
       this.props.getUpdatedNotes('archive');
       this.props.getUpdatedNotes('delete');
+      this.props.getPersons();
     }
 
     componentWillUnmount() {
@@ -95,6 +105,7 @@ class Dashboard extends PureComponent {
 
     render() {
         const { location, match } = this.props;
+        const { persons } = this.state;
 
         return (
         	<Fragment>
@@ -117,7 +128,9 @@ class Dashboard extends PureComponent {
                         <ChartContainer>
                           <NotesChart status={true} chart="Bar" />
                         </ChartContainer>
-                        <ChartContainer />
+                        <ChartContainer>
+                          <PersonsDisplay persons={persons}/>
+                        </ChartContainer>
                       </div>
                     </Fragment> : 
                     <Switch>
@@ -135,7 +148,8 @@ class Dashboard extends PureComponent {
 const mapStateToProps = state => ({
     nav: state.nav,
     notes: state.renderNotes.notes,
-    alarmTimer: state.timer.alarmTimer
+    alarmTimer: state.timer.alarmTimer,
+    persons: state.persons.persons
 });
 
 export default connect(mapStateToProps, {
@@ -143,5 +157,6 @@ export default connect(mapStateToProps, {
   updateNote,
   removeNote,
   renderNotes,
-  getUpdatedNotes
+  getUpdatedNotes,
+  getPersons
 })(withRouter(Dashboard));
