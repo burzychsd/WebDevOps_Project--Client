@@ -14,7 +14,8 @@ import {
   updateNotesReducer,
   personsReducer,
   alarmTimerReducer,
-  createListReducer } from './reducers';
+  createListReducer,
+  searchBoxReducer } from './reducers';
 
 export default combineReducers({
    errors: errorReducer,
@@ -29,7 +30,8 @@ export default combineReducers({
    menu: noteMenuReducer,
    update: updateNotesReducer,
    timer: alarmTimerReducer,
-   list: createListReducer, 
+   list: createListReducer,
+   search: searchBoxReducer, 
    browser: createResponsiveStateReducer({
    	extraSmall: 480,
     small: 559,

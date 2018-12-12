@@ -28,6 +28,8 @@ import {
     resetClicked } from '../../actions/createNoteFormButtons';
 import { removeAllInputs } from '../../actions/inputs';
 import { updateNote, getUpdatedNotes } from '../../actions/updateNotes';
+import { searchBoxStatus } from '../../actions/searchBox';
+import { getPersons } from '../../actions/persons';
 
 const obj = {};
 
@@ -189,6 +191,8 @@ class Notes extends PureComponent {
         this.props.getUpdatedNotes('reminders');
         this.props.getUpdatedNotes('archive');
         this.props.getUpdatedNotes('delete');
+        this.props.searchBoxStatus();
+        this.props.getPersons();
         return this.props.noteForm ? this.props.showForm() : null;
     }
 
@@ -214,6 +218,7 @@ class Notes extends PureComponent {
         this.props.renderNotes();
         this.props.removeAllInputs();
         this.props.alarmStatus();
+        this.props.searchBoxStatus();
     }
 
     render() {
@@ -274,7 +279,7 @@ class Notes extends PureComponent {
                 {this.props.noMatch !== '' ? 
                     <h1>{this.props.noMatch.error}</h1> 
                     : 
-                    <Fragment>{notes}</Fragment>
+                    <Fragment>{notes.reverse()}</Fragment>
                 }
             </Fragment>
         );
@@ -316,5 +321,7 @@ export default connect(mapStateToProps, {
     alarmStatus,
     listStatus,
     resetListStatus,
-    getUpdatedNotes
+    getUpdatedNotes,
+    searchBoxStatus,
+    getPersons
 })(Notes);

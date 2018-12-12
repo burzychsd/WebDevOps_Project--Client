@@ -14,11 +14,8 @@ class Navigation extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			search: '',
-			searchIcon: false
+			search: ''
 		}
-
-		this.searchBox = React.createRef();
 	}
 
 	handleChange = async (event) => {
@@ -28,8 +25,13 @@ class Navigation extends Component {
 
 	handleSubmitSearch = (event) => {
 		event.preventDefault();
-		this.setState((state) => { return { searchIcon: !state.searchIcon } });
-		this.props.history.push('/dashboard/notes');
+		const condition = this.props.location.pathname === '/dashboard/notes';
+
+		if(!condition) {
+			this.props.history.push('/dashboard/notes');
+		}
+
+		this.props.renderNotes(this.state.search);
 	}
 
 	handleLogout = (event) => {
@@ -50,7 +52,10 @@ class Navigation extends Component {
 	        			<span className="b pointer" onClick={this.props.sound}>X</span>
 	        		</div>
 	        		<NavButtons open={this.props.navigationActive} search={this.handleSubmitSearch} />
-	        		<SearchBox status={this.state.searchIcon} searchRef={this.searchBox} value={this.state.search} change={this.handleChange} />
+	        		<SearchBox 
+	        		status={this.props.searchBox}  
+	        		value={this.state.search} 
+	        		change={this.handleChange} />
 					<SideBar 
 					logout={this.handleLogout} 
 					status={this.props.nav.isOpen}
@@ -67,7 +72,8 @@ class Navigation extends Component {
 const mapStateToProps = state => ({
 	nav: state.nav,
 	user: state.auth.user,
-	browser: state.browser
+	browser: state.browser,
+	searchBox: state.search.searchBox
 });
 
 Navigation.displayName = 'Navigation';

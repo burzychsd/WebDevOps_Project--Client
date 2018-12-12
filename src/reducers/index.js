@@ -11,6 +11,7 @@ import updateNotesReducer from './updateNotesReducer';
 import personsReducer from './personsReducer';
 import alarmTimerReducer from './alarmTimerReducer';
 import createListReducer from './createListReducer';
+import searchBoxReducer from './searchBoxReducer';
 
 export {
 	errorReducer,
@@ -25,5 +26,6 @@ export {
 	updateNotesReducer,
 	personsReducer,
 	alarmTimerReducer,
-	createListReducer
+	createListReducer,
+	searchBoxReducer
 } 

@@ -41,7 +41,7 @@ class NotesChart extends Component {
 
     render() {
     	const { notes, archiveNotes, deletedNotes, remindersNotes } = this.state;
-    	const allNotes = [notes, archiveNotes, deletedNotes];
+    	const allNotes = [...notes, ...archiveNotes, ...deletedNotes];
     	const barData = this.checkData(dateRefs, allNotes).map((arr, i) => { return { x: moment().month(dateRefs[i]), y: arr.length } });
     	const allNotesLength = [notes.length, archiveNotes.length, deletedNotes.length, remindersNotes.length];
     	
@@ -57,7 +57,7 @@ class NotesChart extends Component {
         	datasets: [{
         		data: barData, 
         		backgroundColor: '#FF5E5B',
-        		label: 'Notes per Month'
+        		label: 'Notes'
         	}]
         }
 
