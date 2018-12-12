@@ -1,4 +1,5 @@
 export const GET_ERRORS = 'GET_ERRORS';
+export const NO_MATCH = 'NO_MATCH';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const NAVIGATION_ACTIVE = 'NAVIGATION_ACTIVE';
 export const SHOW_NOTE_FORM = 'SHOW_NOTE_FORM';

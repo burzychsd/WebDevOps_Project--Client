@@ -2,6 +2,7 @@ $input-font: 'Source Sans Pro', sans-serif;
 $bg-color: #EBEBEB;
 $color: rgb(64,64,64);
 $border: none;
+$transition: all 0.4s cubic-bezier(.14,.05,.19,1.02);
 
 input[type="search"] {
 	&::-webkit-search-cancel-button {
@@ -10,18 +11,21 @@ input[type="search"] {
 }
 
 .SearchBox {
-	width: 230px;
+	width: 0px;
 	height: 50px;
 	margin-right: 23px;
 	right: 25px;
 	font-size: 16px;
 	padding: 1em 3.4em 1em 1em;
-	background: $bg-color;
+	background: transparent;
 	border: $border;
 	border-radius: 20px;
 	outline: none;
 	font-family: $input-font;
 	color: $color;
+	-webkit-transition: $transition;
+	-o-transition: $transition;
+	transition: $transition;
 
 	&::-webkit-input-placeholder {
 		font-family: $input-font;
@@ -46,4 +50,12 @@ input[type="search"] {
 		color: $color;
 		font-size: 16px;
 	}
+}
+
+.SearchBoxActive {
+	width: 230px;
+	background: $bg-color;
+	-webkit-transition: $transition;
+	-o-transition: $transition;
+	transition: $transition;
 }

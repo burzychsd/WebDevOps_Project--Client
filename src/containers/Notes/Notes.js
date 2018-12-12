@@ -271,7 +271,11 @@ class Notes extends PureComponent {
                     <Confirmation click={() => this.handleConfirmation(true)} />}
                     {this.props.updateBtn && <UpdateForm />}
                 </Modal>}
-                {notes}
+                {this.props.noMatch !== '' ? 
+                    <h1>{this.props.noMatch.error}</h1> 
+                    : 
+                    <Fragment>{notes}</Fragment>
+                }
             </Fragment>
         );
     }
@@ -280,6 +284,7 @@ class Notes extends PureComponent {
 const mapStateToProps = state => ({
     noteForm: state.noteForm.showForm,
     notes: state.renderNotes.notes,
+    noMatch: state.renderNotes.error,
     openModal: state.modal.showModal,
     alarmBtn: state.noteFormButtons.alarmBtn,
     personsBtn: state.noteFormButtons.personsBtn,

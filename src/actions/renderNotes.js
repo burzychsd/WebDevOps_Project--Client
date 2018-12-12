@@ -1,13 +1,20 @@
 import client from '../axios';
-import { RENDER_NOTES, UPDATE_NOTES } from './actionTypes';
+import { RENDER_NOTES, UPDATE_NOTES, NO_MATCH } from './actionTypes';
 
-export const renderNotes = () => dispatch => {
-	client.get('/api/notes')
+export const renderNotes = (query) => dispatch => {
+
+	const url = query && query !== '' ? `/api/notes?search=${query}` : '/api/notes';
+
+	client.get(url)
 	.then(res => dispatch({
 		type: RENDER_NOTES,
-		newNote: res.data
+		newNotes: res.data.notes,
+		error: res.data.msg
 	}))
-	.catch(err => console.log(err));
+	.catch(err => dispatch({
+		type: NO_MATCH,
+		error: err.response.data
+	}));
 }
 
 export const updateNotes = (id) => {
