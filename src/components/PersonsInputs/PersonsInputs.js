@@ -1,8 +1,15 @@
+// DEPENDENCIES
 import React, { Fragment, Component } from 'react';
+import { connect } from 'react-redux';
+
+// ACTIONS
+import { removeInput } from '../../actions/inputs';
+
+// COMPONENTS
 import { ReactComponent as AcceptBtn } from './acceptBtn.svg';
 import { ReactComponent as RemoveBtn } from '../Modal/close.svg';
-import { connect } from 'react-redux';
-import { removeInput } from '../../actions/inputs';
+
+// STYLES
 import styles from './PersonsInputs.module.scss';
 
 class PersonsInputs extends Component {

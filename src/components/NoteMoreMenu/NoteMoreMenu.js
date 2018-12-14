@@ -1,6 +1,9 @@
+// DEPENDENCIES
 import React, { Component, Fragment } from 'react';
-import styles from './NoteMoreMenu.module.scss';
 import { StaggeredMotion, spring } from 'react-motion';
+
+// STYLES
+import styles from './NoteMoreMenu.module.scss';
 
 class NoteMoreMenu extends Component {
 

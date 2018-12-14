@@ -1,17 +1,35 @@
+// DEPENDENCIES
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { updateNote, getUpdatedNotes, removeNote, deleteNote } from '../../actions/updateNotes';
-import { noteMenuItemsReset, noteMenuActive } from '../../actions/noteMenu';
-import { showModal } from '../../actions/modal';
-import { invertColor } from '../../helpers/InvertColor/InvertColor';
-import { interpolateColors } from '../../helpers/InterpolateColors/InterpolateColors';
-import { hex2RGB } from '../../helpers/HexToRGB/HexToRGB';
-import NoteContainer from '../../components/NoteContainer';
-import { renderNotes } from '../../actions/renderNotes';
-import { NoteDisplayTitle, NoteDisplayText, NoteDisplayButtons, NoteDisplayList, NoteDisplayListItem } from '../../components/NoteDisplay';
-import Modal from '../../components/Modal';
-import Confirmation from '../../components/Confirmation';
+
+// ACTIONS
+import { 
+    updateNote, 
+    getUpdatedNotes, 
+    removeNote, 
+    deleteNote,
+    noteMenuItemsReset, 
+    noteMenuActive,
+    showModal,
+    renderNotes 
+} from '../../actions';
+
+// ACTIONS
+import { invertColor, interpolateColors, hex2RGB } from '../../helpers';
+
+// COMPONENTS
+import { 
+    NoteContainer,
+    NoteDisplayTitle, 
+    NoteDisplayText, 
+    NoteDisplayButtons, 
+    NoteDisplayList, 
+    NoteDisplayListItem,
+    Modal,
+    Confirmation } from '../../components';
 import { ReactComponent as EmptyBin } from './empty-bin.svg';
+
+// STYLES
 import styles from './Bin.module.scss';
 
 class Bin extends PureComponent {

@@ -1,4 +1,7 @@
+// DEPENDENCIES
 import React from 'react';
+
+// STYLES
 import styles from './SubmitBtn.module.scss';
 
 const SubmitBtn = (props) => {

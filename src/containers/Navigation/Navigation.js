@@ -1,12 +1,19 @@
+// DEPENDENCIES
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import NavButtons from '../../components/NavButtons';
-import SearchBox from '../../components/SearchBox';
-import SideBar from '../../components/SideBar';
-import { logoutUser } from '../../actions/auth';
-import { navigationActive } from '../../actions/navigation';
-import { renderNotes } from '../../actions/renderNotes';
+
+// ACTIONS
+import { 
+	logoutUser,
+	navigationActive,
+	renderNotes 
+} from '../../actions';
+
+// COMPONENTS
+import { NavButtons, SearchBox, SideBar } from '../../components';
+
+// STYLES
 import styles from './Navigation.module.scss';
 
 class Navigation extends Component {

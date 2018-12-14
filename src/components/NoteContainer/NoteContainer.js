@@ -1,6 +1,11 @@
+// DEPENDENCIES
 import React, { Fragment } from 'react';
-import styles from './NoteContainer.module.scss';
+
+// HELPERS
 import FadeTransition from '../../helpers/FadeTransition';
+
+// STYLES
+import styles from './NoteContainer.module.scss';
 
 const NoteContainer = (props) => {
 	

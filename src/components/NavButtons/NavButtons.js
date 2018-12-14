@@ -1,6 +1,11 @@
+// DEPENDENCIES
 import React, { Fragment } from 'react';
+
+// COMPONENTS
 import { ReactComponent as MenuBtn } from './menu.svg';
 import { ReactComponent as SearchBtn } from './search.svg';
+
+// STYLES
 import styles from './NavButtons.module.scss';
 
 const NavButtons = (props) => {

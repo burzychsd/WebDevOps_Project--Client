@@ -1,8 +1,10 @@
+// DEPENDENCIES
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Doughnut, Bar } from 'react-chartjs-2';
 import moment from 'moment';
 
+// GLOBAL VARIABLES
 const dateRefs = [moment().subtract(2, 'months').format('MMMM'), moment().subtract(1, 'months').format('MMMM'), moment().format('MMMM')];
 
 class NotesChart extends Component {

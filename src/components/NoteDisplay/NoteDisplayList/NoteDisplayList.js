@@ -1,3 +1,4 @@
+// DEPENDENCIES
 import React from 'react';
 
 const NoteDisplayList = (props) => {

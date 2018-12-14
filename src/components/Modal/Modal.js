@@ -1,10 +1,16 @@
+// DEPENDENCIES
 import React, { Component, Fragment } from 'react';
 import scrollLock from 'scroll-lock';
 import { connect } from 'react-redux';
-import { ReactComponent as CloseBtn } from './close.svg';
 import ReactDOM from 'react-dom';
+
+// COMPONENTS
+import { ReactComponent as CloseBtn } from './close.svg';
+
+// STYLES
 import styles from './Modal.module.scss';
 
+// GLOBAL VARIABLES
 const modalRoot = document.getElementById('modal-root');
 
 class Modal extends Component {

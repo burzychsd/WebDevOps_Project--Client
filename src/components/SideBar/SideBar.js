@@ -1,7 +1,12 @@
+// DEPENDENCIES
 import React from 'react';
+
+// COMPONENTS
 import Avatar from './Avatar';
 import NavigationLinks from './NavigationLinks';
 import LogoutBtn from './LogoutBtn';
+
+// STYLES
 import styles from './SideBar.module.scss';
 
 const SideBar = (props) => {

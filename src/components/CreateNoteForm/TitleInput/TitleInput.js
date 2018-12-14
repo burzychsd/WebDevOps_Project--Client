@@ -1,4 +1,7 @@
+// DEPENDENCIES
 import React from 'react';
+
+// STYLES
 import styles from './TitleInput.module.scss';
 
 const TitleInput = (props) => {

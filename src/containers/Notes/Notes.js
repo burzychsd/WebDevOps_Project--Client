@@ -1,36 +1,54 @@
+// DEPENDENCIES
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { invertColor } from '../../helpers/InvertColor/InvertColor';
-import { interpolateColors } from '../../helpers/InterpolateColors/InterpolateColors';
-import { hex2RGB } from '../../helpers/HexToRGB/HexToRGB';
-import CreateNoteBtn from '../../components/CreateNoteBtn';
-import NoteContainer from '../../components/NoteContainer';
-import CreateNoteForm from '../../components/CreateNoteForm';
-import { ReactComponent as AlarmIcon } from '../../components/CreateNoteForm/alarm.svg';
-import Modal from '../../components/Modal';
-import AlarmInput from '../../components/AlarmInput';
-import PersonsInputs from '../../components/PersonsInputs';
-import ColorInput from '../../components/ColorInput';
-import { NoteDisplayTitle, NoteDisplayText, NoteDisplayButtons, NoteDisplayList, NoteDisplayListItem } from '../../components/NoteDisplay';
-import Confirmation from '../../components/Confirmation';
-import UpdateForm from '../UpdateForm';
-import { showForm, closeForm } from '../../actions/createNoteForm';
-import { createNote } from '../../actions/createNote';
-import { renderNotes, updateNotes } from '../../actions/renderNotes';
-import { noteMenuItemsReset, noteMenuActive } from '../../actions/noteMenu';
-import { showModal } from '../../actions/modal';
-import { alarmStatus } from '../../actions/alarmTimer';
-import { listStatus, resetListStatus } from '../../actions/createList';
-import { 
-    alarmClicked, 
-    personsClicked, 
-    colorClicked, 
-    resetClicked } from '../../actions/createNoteFormButtons';
-import { removeAllInputs } from '../../actions/inputs';
-import { updateNote, getUpdatedNotes } from '../../actions/updateNotes';
-import { searchBoxStatus } from '../../actions/searchBox';
-import { getPersons } from '../../actions/persons';
 
+// ACTIONS
+import { 
+    showForm, 
+    closeForm,
+    createNote,
+    renderNotes, 
+    updateNotes,
+    noteMenuItemsReset, 
+    noteMenuActive,
+    showModal,
+    alarmStatus,
+    listStatus, 
+    resetListStatus,
+    alarmClicked,
+    personsClicked,
+    colorClicked,
+    resetClicked,
+    removeAllInputs,
+    updateNote, 
+    getUpdatedNotes,
+    searchBoxStatus,
+    getPersons 
+} from '../../actions';
+
+// HELPERS
+import { invertColor, interpolateColors, hex2RGB } from '../../helpers';
+
+// COMPONENTS
+import {
+    CreateNoteBtn,
+    NoteContainer,
+    CreateNoteForm,
+    Modal,
+    AlarmInput,
+    PersonsInputs,
+    ColorInput,
+    NoteDisplayTitle,
+    NoteDisplayText,
+    NoteDisplayButtons, 
+    NoteDisplayList,
+    NoteDisplayListItem,
+    Confirmation 
+} from '../../components';
+import { ReactComponent as AlarmIcon } from '../../components/CreateNoteForm/alarm.svg';
+import UpdateForm from '../UpdateForm';
+
+// GLOBAL VARIABLES
 const obj = {};
 
 const initialState = {

@@ -1,5 +1,8 @@
+// DEPENDENCIES
 import React, { Fragment } from 'react';
 import ReactSwipe from 'react-swipe';
+
+// COMPONENTS
 import { ReactComponent as Prev } from './prev.svg';
 import { ReactComponent as Next } from './next.svg';
 

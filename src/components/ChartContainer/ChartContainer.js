@@ -1,4 +1,7 @@
+// DEPENDENCIES
 import React from 'react';
+
+// STYLES
 import styles from './ChartContainer.module.scss';
 
 const ChartContainer = (props) => {

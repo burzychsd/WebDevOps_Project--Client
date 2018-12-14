@@ -1,23 +1,35 @@
 import React, { PureComponent, Fragment } from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import { getPersons } from '../../actions/persons';
-import { updateNote, removeNote } from '../../actions/updateNotes';
-import { showModal } from '../../actions/modal';
-import { renderNotes } from '../../actions/renderNotes';
-import { noteMenuItemsReset } from '../../actions/noteMenu';
-import { removeAllInputs } from '../../actions/inputs';
-import TitleInput from '../../components/CreateNoteForm/TitleInput';
-import TextInput from '../../components/CreateNoteForm/TextInput';
-import ListInputs from '../../components/CreateNoteForm/ListInputs';
-import AlarmInput from '../../components/AlarmInput';
-import ColorInput from '../../components/ColorInput';
+
+// ACTIONS
+import { 
+    getPersons,
+    updateNote, 
+    removeNote,
+    showModal,
+    renderNotes,
+    noteMenuItemsReset,
+    removeAllInputs 
+} from '../../actions';
+
+// COMPONENTS
+import { 
+    TitleInput,
+    TextInput,
+    ListInputs,
+    AlarmInput,
+    ColorInput 
+} from '../../components';
+import PersonInputs from './PersonInputs';
 import { ReactComponent as AddBtn } from './add-btn.svg'; 
 import { ReactComponent as RemoveBtn } from './removeBtn.svg';
-import PersonInputs from './PersonInputs';
 import { ReactComponent as SubmitBtn } from '../../components/PersonsInputs/acceptBtn.svg'; 
+
+// STYLES
 import styles from './UpdateForm.module.scss';
 
+// GLOBAL VARIABLES
 const initialState = {
 	title: '',
     text: '',
@@ -28,7 +40,6 @@ const initialState = {
     color: '',
     newInputs: []
 }
-
 
 class UpdateForm extends PureComponent {
 

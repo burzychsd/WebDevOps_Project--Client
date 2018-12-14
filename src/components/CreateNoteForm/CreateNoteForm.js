@@ -1,11 +1,16 @@
+// DEPENDENCIES
 import React from 'react';
-import styles from './CreateNoteForm.module.scss';
+
+// COMPONENTS
 import { ReactComponent as AlarmIcon } from './alarm.svg';
 import { ReactComponent as PersonsIcon } from './persons.svg';
 import { ReactComponent as ColorIcon } from './color.svg';
 import TitleInput from './TitleInput';
 import TextInput from './TextInput';
 import ListInputs from './ListInputs';
+
+// STYLES
+import styles from './CreateNoteForm.module.scss';
 
 const CreateNoteForm = (props) => {
 

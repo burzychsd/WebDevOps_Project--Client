@@ -1,5 +1,10 @@
+// DEPENDENCIES
 import React from 'react';
+
+// COMPONENTS
 import NavigationLink from './NavigationLink';
+
+// STYLES
 import styles from './NavigationLinks.module.scss';
 
 const NavigationLinks = (props) => {

@@ -1,5 +1,10 @@
+// DEPENDENCIES
 import React from 'react';
+
+// COMPONENTS
 import { ReactComponent as ListBtn } from './list-icon.svg';
+
+// STYLES
 import styles from './CreateNoteBtn.module.scss';
 
 const CreateNoteBtn = (props) => {

@@ -1,5 +1,8 @@
+// DEPENDENCIES
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+
+// STYLES
 import styles from './NavigationLink.module.scss';
 
 const NavigationLink = (props) => {

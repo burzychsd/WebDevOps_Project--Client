@@ -1,4 +1,7 @@
+// DEPENDENCIES
 import React from 'react';
+
+// STYLES
 import styles from './Avatar.module.scss';
 
 const Avatar = (props) => {

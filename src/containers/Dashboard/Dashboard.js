@@ -1,23 +1,36 @@
+// DEPENDENCIES
 import React, { PureComponent, Fragment } from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import moment from 'moment';
+
+// ACTIONS
+import { 
+  navigationActive,
+  getPersons,
+  updateNote, 
+  removeNote, 
+  getUpdatedNotes,
+  renderNotes 
+} from '../../actions';
+
+// COMPONENTS
 import Navigation from '../Navigation';
-import ChartContainer from '../../components/ChartContainer';
-import NotesChart from '../../components/ChartContainer/NotesChart';
-import PersonsDisplay from '../../components/ChartContainer/PersonsDisplay';
-import styles from './Dashboard.module.scss';
-import { navigationActive } from '../../actions/navigation';
-import { getPersons } from '../../actions/persons';
-import { updateNote, removeNote, getUpdatedNotes } from '../../actions/updateNotes';
-import { renderNotes } from '../../actions/renderNotes';
+import { 
+  ChartContainer,
+  NotesChart,
+  PersonsDisplay,
+  NotFound } from '../../components';
 
 import Notes from '../Notes';
 import Reminders from '../Reminders';
 import Archive from '../Archive';
 import Bin from '../Bin';
-import NotFound from '../../components/NotFound';
 
+// STYLES
+import styles from './Dashboard.module.scss';
+
+// GLOBAL VARIABLES
 const sound = document.getElementById('alarm-sound');
 let current;
 

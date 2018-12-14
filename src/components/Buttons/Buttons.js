@@ -1,5 +1,8 @@
+// DEPENDENCIES
 import React from 'react';
 import { Link } from 'react-router-dom';
+
+// STYLES
 import styles from './Buttons.module.scss';
 
 const Buttons = (props) => {

@@ -1,4 +1,7 @@
+// DEPENDENCIES
 import React from 'react';
+
+// STYLES
 import styles from './NoteDisplayTitle.module.scss';
 
 const NoteDisplayTitle = (props) => {

@@ -1,8 +1,8 @@
+// DEPENDENCIES
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import styles from './NoteDisplayButtons.module.scss';
-import NoteMoreMenu from '../../NoteMoreMenu';
-import { ReactComponent as MoreBtn } from './more.svg';
+
+// ACTIONS
 import { 
     updateBtnStatus, 
     archiveBtnStatus, 
@@ -12,8 +12,16 @@ import {
     deleteBtnStatus, 
     noteMenuItemsReset,
     noteMenuActive,
-    getCurrentNote } from '../../../actions/noteMenu';
-import { showModal } from '../../../actions/modal';
+    getCurrentNote,
+    showModal 
+} from '../../../actions';
+
+// COMPONENTS
+import NoteMoreMenu from '../../NoteMoreMenu';
+import { ReactComponent as MoreBtn } from './more.svg';
+
+// STYLES
+import styles from './NoteDisplayButtons.module.scss';
 
 class NoteDisplayButtons extends Component {
 	constructor(props) {

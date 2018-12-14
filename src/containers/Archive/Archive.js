@@ -1,17 +1,34 @@
+// DEPENDENCIES
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { updateNote, getUpdatedNotes, removeNote } from '../../actions/updateNotes';
-import { noteMenuItemsReset, noteMenuActive } from '../../actions/noteMenu';
-import { showModal } from '../../actions/modal';
-import { renderNotes } from '../../actions/renderNotes';
-import { invertColor } from '../../helpers/InvertColor/InvertColor';
-import { interpolateColors } from '../../helpers/InterpolateColors/InterpolateColors';
-import { hex2RGB } from '../../helpers/HexToRGB/HexToRGB';
-import NoteContainer from '../../components/NoteContainer';
-import { NoteDisplayTitle, NoteDisplayText, NoteDisplayButtons, NoteDisplayList, NoteDisplayListItem } from '../../components/NoteDisplay';
-import Modal from '../../components/Modal';
-import Confirmation from '../../components/Confirmation';
+
+// ACTIONS
+import { 
+    updateNote, 
+    getUpdatedNotes, 
+    removeNote,
+    noteMenuItemsReset, 
+    noteMenuActive,
+    showModal,
+    renderNotes
+ } from '../../actions';
+
+ // HELPERS
+import { invertColor, interpolateColors, hex2RGB } from '../../helpers';
+
+// COMPONENTS
+import { 
+    NoteContainer, 
+    NoteDisplayTitle, 
+    NoteDisplayText, 
+    NoteDisplayButtons, 
+    NoteDisplayList, 
+    NoteDisplayListItem,
+    Modal,
+    Confirmation } from '../../components';
 import { ReactComponent as EmptyArchive } from './empty-archive.svg';
+
+// STYLES
 import styles from './Archive.module.scss';
 
 class Archive extends PureComponent {

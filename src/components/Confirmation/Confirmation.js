@@ -1,5 +1,10 @@
+// DEPENDENCIES
 import React from 'react';
+
+// COMPONENTS
 import { ReactComponent as ConfirmBtn } from '../PersonsInputs/acceptBtn.svg';
+
+// STYLES
 import styles from './Confirmation.module.scss';
 
 const Confirmation = (props) => {

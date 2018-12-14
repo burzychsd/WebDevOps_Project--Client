@@ -1,7 +1,14 @@
+// DEPENDENCIES
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
+// ACTIONS
+import { addInput, removeInput } from '../../../actions';
+
+// COMPONENTS
 import { ReactComponent as RemoveBtn } from './close.svg';
-import { addInput, removeInput } from '../../../actions/inputs';
+
+// STYLES
 import styles from './ListInputs.module.scss';
 
 class ListInputs extends Component {

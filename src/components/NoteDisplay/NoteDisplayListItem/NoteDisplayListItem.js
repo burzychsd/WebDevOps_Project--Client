@@ -1,4 +1,7 @@
+// DEPENDENCIES
 import React, { Component } from 'react';
+
+// STYLES
 import styles from './NoteDisplayListItem.module.scss';
 
 class NoteDisplayListItem extends Component {

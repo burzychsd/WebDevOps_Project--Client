@@ -1,6 +1,8 @@
+// DEPENDENCIES
 import React, { Fragment } from 'react';
 import moment from 'moment';
 
+// GLOBAL VARIABLES
 const date = moment().toISOString();
 const dateValue = moment().format("YYYY-MM-DDTHH:mm");
 

@@ -1,20 +1,25 @@
+// DEPENDENCIES
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import moment from 'moment';
-import PrivateRoute from '../helpers/PrivateRoute';
 import { Provider } from 'react-redux';
 import store from '../store';
 import jwt_decode from 'jwt-decode';
 import setAuthToken from '../setAuthToken';
-import { setCurrentUser, logoutUser } from '../actions/auth';
-import { alarmTimer } from '../actions/alarmTimer';
 
-import Home from '../components/Home';
+// ACTIONS
+import { setCurrentUser, logoutUser, alarmTimer } from '../actions';
+
+// HELPERS
+import { PrivateRoute } from '../helpers';
+
+// COMPONENTS
 import Register from './Register';
 import Login from './Login';
 import Dashboard from './Dashboard';
-import NotFound from '../components/NotFound';
+import { NotFound, Home } from '../components';
 
+// GLOBAL
 if(localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
   const decoded = jwt_decode(localStorage.jwtToken);

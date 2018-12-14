@@ -1,5 +1,8 @@
+// DEPENDENCIES
 import React from 'react';
 import { Link } from 'react-router-dom';
+
+// COMPONENTS
 import { ReactComponent as BackIcon } from './backBtn.svg';
 
 const BackBtn = () => {

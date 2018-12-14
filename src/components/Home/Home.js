@@ -1,7 +1,12 @@
+// DEPENDENCIES
 import React from 'react';
+
+// COMPONENTS
 import { ReactComponent as Logo } from './logo.svg';
 import Buttons from '../Buttons';
 import { ReactComponent as Github } from './githubIcon.svg';
+
+// STYLES
 import styles from './Home.module.scss';
 
 const Home = (props) => {

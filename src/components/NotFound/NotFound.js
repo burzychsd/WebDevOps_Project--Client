@@ -1,4 +1,7 @@
+// DEPENDENCIES
 import React from 'react';
+
+// COMPONENTS
 import { ReactComponent as NotFoundPic } from './not-found.svg';
 
 const NotFound = () => {

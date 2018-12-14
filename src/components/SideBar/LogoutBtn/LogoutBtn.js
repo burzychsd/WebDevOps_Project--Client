@@ -1,4 +1,7 @@
+// DEPENDENCIES
 import React from 'react';
+
+// STYLES
 import styles from './LogoutBtn.module.scss';
 
 const LogoutBtn = (props) => {

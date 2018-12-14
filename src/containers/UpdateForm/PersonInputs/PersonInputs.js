@@ -1,3 +1,4 @@
+// DEPENDENCIES
 import React, { Fragment } from 'react';
 
 const PersonInputs = (props) => {

@@ -1,9 +1,13 @@
+// DEPENDENCIES
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { registerUser } from '../../actions/auth';
-import { FormContainer, FormTitle, FormBody, Input, SubmitBtn } from '../../components/Form';
-import BackBtn from '../../components/Buttons/BackBtn';
+
+// ACTIONS
+import { registerUser } from '../../actions';
+
+// COMPONENTS
+import { FormContainer, FormTitle, FormBody, Input, SubmitBtn, BackBtn } from '../../components';
 
 class Register extends Component {
 
