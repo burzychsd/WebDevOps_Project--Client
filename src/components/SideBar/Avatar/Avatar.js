@@ -5,9 +5,12 @@ import React from 'react';
 import styles from './Avatar.module.scss';
 
 const Avatar = (props) => {
+
+	const { avatarPic } = props;
+
     return (
         <div className={styles.Avatar}>
-        	<img src={props.avatarPic} alt="avatar"/>
+        	<img src={avatarPic} alt="avatar"/>
         </div>
     );
 };

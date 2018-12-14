@@ -35,36 +35,45 @@ class Archive extends PureComponent {
 
 	constructor(props) {
 		super(props);
+        const { updatedNotes, current } = this.props;
 		this.state = {
-			updatedNotes: this.props.updatedNotes,
-            currentNoteId: this.props.current
+			updatedNotes,
+            currentNoteId: current
 		}
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-        if(prevProps.updatedNotes !== this.props.updatedNotes) {
-            this.setState({ updatedNotes: this.props.updatedNotes });
+        const { updatedNotes, current } = this.props;
+        if(prevProps.updatedNotes !== updatedNotes) {
+            this.setState({ updatedNotes });
         }
 
-        if(prevProps.current !== this.props.current) {
-            this.setState({ currentNoteId: this.props.current });
+        if(prevProps.current !== current) {
+            this.setState({ currentNoteId: current });
         }
     }
 
     componentWillUnmount() {
-        this.props.renderNotes();
+        const { renderNotes } = this.props;
+        renderNotes();
     }
 
 	componentDidMount() {
-		this.props.getUpdatedNotes('archive');
+        const { getUpdatedNotes } = this.props;
+		getUpdatedNotes('archive');
 	}
 
     handleCloseModal = () => {
-        this.props.showModal();
-        this.props.noteMenuItemsReset();
+        const { showModal, noteMenuItemsReset } = this.props;
+        showModal();
+        noteMenuItemsReset();
     }
 
     handleConfirmation = (status) => {
+
+        const { recoveryBtn, updateNote, showModal, noteMenuItemsReset, 
+                noteMenuActive, removeNote, binBtn } = this.props;
+        const { currentNoteId } = this.state;
 
         const updatedNoteArchive = {
             archive: status ? true : false
@@ -75,27 +84,29 @@ class Archive extends PureComponent {
             archive: false
         }
 
-        if (this.props.recoveryBtn) {
-            this.props.updateNote(this.state.currentNoteId, updatedNoteArchive, 'archive');
-            this.props.showModal();
-            this.props.noteMenuItemsReset();
-            this.props.noteMenuActive(null, this.state.currentNoteId);
-            this.props.removeNote(this.state.currentNoteId, 'archive');
+        if (recoveryBtn) {
+            updateNote(currentNoteId, updatedNoteArchive, 'archive');
+            showModal();
+            noteMenuItemsReset();
+            noteMenuActive(null, currentNoteId);
+            removeNote(currentNoteId, 'archive');
         }
 
-        if (this.props.binBtn) {
-            this.props.updateNote(this.state.currentNoteId, updatedNoteBin, 'archive');
-            this.props.showModal();
-            this.props.noteMenuItemsReset();
-            this.props.noteMenuActive(null, this.state.currentNoteId);
-            this.props.removeNote(this.state.currentNoteId, 'archive');
+        if (binBtn) {
+            updateNote(currentNoteId, updatedNoteBin, 'archive');
+            showModal();
+            noteMenuItemsReset();
+            noteMenuActive(null, currentNoteId);
+            removeNote(currentNoteId, 'archive');
         }
 
     }
 
     render() {
 
-    	const notes = this.state.updatedNotes.map(note => {
+        const { openModal, recoveryBtn, binBtn } = this.props;
+        const { updatedNotes } = this.state;
+    	const notes = updatedNotes.map(note => {
                 const colors = interpolateColors(`${hex2RGB(note.color)}`, 'rgb(235,235,235)', 5).map(el => `rgb(${el.join(',')})`);
                 const colorValue = `${note.color !== '#EBEBEB' ? invertColor(note.color, 'bw') : 'rgb(64,64,64)'}`;
                 const items = note.list.map((item, i) => 
@@ -120,8 +131,8 @@ class Archive extends PureComponent {
         return (
             <Fragment>
             	<h1>Archive</h1>
-                {this.props.openModal && <Modal clicked={this.handleCloseModal}>
-                {(this.props.recoveryBtn || this.props.binBtn) && 
+                {openModal && <Modal clicked={this.handleCloseModal}>
+                {(recoveryBtn || binBtn) && 
                     <Confirmation click={() => this.handleConfirmation(false)} />
                 }
                 </Modal>}

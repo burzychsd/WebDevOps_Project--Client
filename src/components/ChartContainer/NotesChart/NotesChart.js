@@ -10,30 +10,34 @@ const dateRefs = [moment().subtract(2, 'months').format('MMMM'), moment().subtra
 class NotesChart extends Component {
     constructor(props) {
         super(props);
+        const { archiveNotes, deletedNotes, remindersNotes, notes } = this.props;
         this.state = {
-        	archiveNotes: this.props.archiveNotes,
-	        deletedNotes: this.props.deletedNotes,
-	        remindersNotes: this.props.remindersNotes,
-	        notes: this.props.notes
+        	archiveNotes: archiveNotes,
+	        deletedNotes: deletedNotes,
+	        remindersNotes: remindersNotes,
+	        notes: notes
         }
     }
 
     componentDidUpdate(prevProps, prevState) {
-      if(prevProps.archiveNotes !== this.props.archiveNotes) {
-        this.setState({ archiveNotes: this.props.archiveNotes })
-      }
 
-      if(prevProps.deletedNotes !== this.props.deletedNotes) {
-        this.setState({ deletedNotes: this.props.deletedNotes })
-      }
+        const { archiveNotes, deletedNotes, remindersNotes, notes } = this.props;
 
-      if(prevProps.remindersNotes !== this.props.remindersNotes) {
-        this.setState({ remindersNotes: this.props.remindersNotes })
-      }
+        if(prevProps.archiveNotes !== archiveNotes) {
+            this.setState({ archiveNotes: archiveNotes })
+        }
 
-      if(prevProps.notes !== this.props.notes) {
-        this.setState({ notes: this.props.notes })
-      }
+        if(prevProps.deletedNotes !== deletedNotes) {
+            this.setState({ deletedNotes: deletedNotes })
+        }
+
+        if(prevProps.remindersNotes !== remindersNotes) {
+            this.setState({ remindersNotes: remindersNotes })
+        }
+
+        if(prevProps.notes !== notes) {
+            this.setState({ notes: notes })
+        }
     }
 
     checkData = (data, arr) => {
@@ -114,10 +118,12 @@ class NotesChart extends Component {
 	        }
         }
 
-        return this.props.status && this.props.chart === 'Doughnut' ?
+        const { status, chart } = this.props;
+
+        return status && chart === 'Doughnut' ?
         (
         	<Doughnut data={data} width={220} height={197} options={options} /> 	
-        ) : this.props.status && this.props.chart === 'Bar' ? 
+        ) : status && chart === 'Bar' ? 
         (
         	<Bar data={data2} width={130} height={110} options={options2} />
         ) : 

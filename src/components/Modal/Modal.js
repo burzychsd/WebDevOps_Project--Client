@@ -24,15 +24,16 @@ class Modal extends Component {
 	}
 
     render() {
+    	const { nav,children, clicked } = this.props;
         return ReactDOM.createPortal(
         	<Fragment>
-	            <div className={this.props.nav ? `${styles.ModalBackground} ${styles.navActive}` : `${styles.ModalBackground}`}>
+	            <div className={nav ? `${styles.ModalBackground} ${styles.navActive}` : `${styles.ModalBackground}`}>
 	            	<div className={`${styles.ModalBody} flex flex-column`}>
 	            		<div className={styles.ModalContent} ref={(ref) => this.content = ref}>
 	            			<div className="w-100 relative" style={{ height: 30 }}>
-		        				<CloseBtn className={styles.ModalCloseBtn} onClick={this.props.clicked}/>
+		        				<CloseBtn className={styles.ModalCloseBtn} onClick={clicked}/>
 		        			</div>
-				        		{this.props.children}
+				        		{children}
 		            	</div>
 			        </div>
 	            </div>

@@ -10,19 +10,22 @@ import LogoutBtn from './LogoutBtn';
 import styles from './SideBar.module.scss';
 
 const SideBar = (props) => {
+
+    const { status, avatar, username, clicked, logout, size } = props;
+
     return (
-        <div className={props.status ? 
+        <div className={status ? 
             `${styles.SideBar} ${styles.SideBarActive} flex flex-column justify-center items-center fixed` : 
             `${styles.SideBar} flex flex-column justify-center items-center fixed`}>
         	<div className={`${styles.CloseBtnContainer} w-100 flex absolute`}>
         	</div>
         	<div className={`${styles.SideBarContainer} flex flex-column items-center`}>
-				<Avatar avatarPic={props.avatar} />
-				<p className={styles.userName}>{props.username}</p>
+				<Avatar avatarPic={avatar} />
+				<p className={styles.userName}>{username}</p>
 				<hr className="w-80" style={{ border: '0.5px solid #EBEBEB' }} />
-				<NavigationLinks isOpen={props.clicked} mobile={props.size} />
+				<NavigationLinks isOpen={clicked} mobile={size} />
 				<hr className="w-80 mt3" style={{ border: '0.5px solid #EBEBEB' }} />
-				<LogoutBtn logoutClick={props.logout} />
+				<LogoutBtn logoutClick={logout} />
         	</div>
         </div>
     );

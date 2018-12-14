@@ -8,13 +8,16 @@ import NavigationLink from './NavigationLink';
 import styles from './NavigationLinks.module.scss';
 
 const NavigationLinks = (props) => {
+
+	const { mobile, isOpen } = props;
+
     return (
         <ul className={styles.NavigationLinks}>
-        	<NavigationLink isMobile={props.mobile} isClicked={props.isOpen} location="/dashboard" link="Dashboard" />
-        	<NavigationLink isMobile={props.mobile} isClicked={props.isOpen} location="/dashboard/notes" link="Notes" />
-			<NavigationLink isMobile={props.mobile} isClicked={props.isOpen} location="/dashboard/reminders" link="Reminders" />
-			<NavigationLink isMobile={props.mobile} isClicked={props.isOpen} location="/dashboard/archive" link="Archive" />
-			<NavigationLink isMobile={props.mobile} isClicked={props.isOpen} location="/dashboard/bin" link="Bin" />
+        	<NavigationLink isMobile={mobile} isClicked={isOpen} location="/dashboard" link="Dashboard" />
+        	<NavigationLink isMobile={mobile} isClicked={isOpen} location="/dashboard/notes" link="Notes" />
+			<NavigationLink isMobile={mobile} isClicked={isOpen} location="/dashboard/reminders" link="Reminders" />
+			<NavigationLink isMobile={mobile} isClicked={isOpen} location="/dashboard/archive" link="Archive" />
+			<NavigationLink isMobile={mobile} isClicked={isOpen} location="/dashboard/bin" link="Bin" />
         </ul>
     );
 };

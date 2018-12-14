@@ -9,19 +9,20 @@ class NoteMoreMenu extends Component {
 
 	render() {
 
-		const items = this.props.status === 'Notes' ? ['Update', 'Move to Archive', 'Move to Bin'] :
-					  this.props.status === 'Archive' ? ['Back to Notes', 'Move to Bin'] : 
-					  this.props.status === 'Reminders' ? ['Alarm Cancel'] : 
+		const { status, show, color, clicked } = this.props;
+		const items = status === 'Notes' ? ['Update', 'Move to Archive', 'Move to Bin'] :
+					  status === 'Archive' ? ['Back to Notes', 'Move to Bin'] : 
+					  status === 'Reminders' ? ['Alarm Cancel'] : 
 				      ['Back to Notes', 'Delete permanently'];
 
 		return (
 	        <div className={styles.NoteMoreMenu}>
 	    		<ul>
 	    			<StaggeredMotion 
-	    			defaultStyles={[{o: this.props.show ? 0 : 1}, {o: this.props.show ? 0 : 1}, {o: this.props.show ? 0 : 1}]}
+	    			defaultStyles={[{o: show ? 0 : 1}, {o: show ? 0 : 1}, {o: show ? 0 : 1}]}
 					styles={prevInterpolatedStyles => prevInterpolatedStyles.map((_, i) => {
 						return i === 0
-						  ? {o: this.props.show ? spring(1) : spring(0)}
+						  ? {o: show ? spring(1) : spring(0)}
 						  : {o: spring(prevInterpolatedStyles[i - 1].o)}
 					})}>
 	    				{interpolatingStyles =>
@@ -30,10 +31,10 @@ class NoteMoreMenu extends Component {
 						        <button 
 						        key={i} 
 						        style={{ 
-						        	opacity: `${this.props.show ? style.o :  0}`, 
-						        	color: this.props.color }} 
-						        onClick={this.props.clicked}
-						        disabled={this.props.show ? false : true}>
+						        	opacity: `${show ? style.o :  0}`, 
+						        	color: color }} 
+						        onClick={clicked}
+						        disabled={show ? false : true}>
 						        {items[i]}</button>)
 						      }
 						    </Fragment>

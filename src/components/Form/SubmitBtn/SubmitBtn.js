@@ -5,8 +5,11 @@ import React from 'react';
 import styles from './SubmitBtn.module.scss';
 
 const SubmitBtn = (props) => {
+
+	const { button } = props;
+
     return (
-        <button className={styles.SubmitBtn} type="submit">{props.button}</button>
+        <button className={styles.SubmitBtn} type="submit">{button}</button>
     );
 };
 

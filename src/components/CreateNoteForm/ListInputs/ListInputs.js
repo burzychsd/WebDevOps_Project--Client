@@ -20,20 +20,23 @@ class ListInputs extends Component {
     }
 
     componentDidMount() {
-        if(this.props.list && this.props.listItems.length === 0) {
-            this.props.list.forEach((item, i) => {
-                this.props.addInput();
+        const { list, listItems, addInput } = this.props;
+        if(list && listItems.length === 0) {
+            list.forEach((item, i) => {
+                addInput();
             });
         }
     }
 
     handleItems = (itemId, item) => {
-        this.props.removeInput(itemId);
-        this.props.remove(item);
+        const { removeInput, remove } = this.props;
+        removeInput(itemId);
+        remove(item);
     }
 
     render() {
-        const items = this.props.listItems.map((itemId, i) => {
+        const { listItems, status, list, addInput, removeInput, change } = this.props;
+        const items = listItems.map((itemId, i) => {
                 const promise = new Promise((resolve) => {
                     this[`input${i}`] = React.createRef();
                     resolve();
@@ -47,12 +50,12 @@ class ListInputs extends Component {
                     <div className="w-100 ph2 mt2 flex justify-between items-center" key={itemId}>
                         <input className={`${styles.ListInput} w-80 mv2`} 
                         ref={this[`input${i}`]}
-                        placeholder={this.props.status ? '' : this.props.list[i]}
-                        type="text" name={this.props.status ? `listItem${i}` : `newListItem${i}`} onChange={this.props.change} required={this.props.status ? true : false} />
+                        placeholder={status ? '' : list[i]}
+                        type="text" name={status ? `listItem${i}` : `newListItem${i}`} onChange={change} required={status ? true : false} />
                         <div className="h-100 flex justify-center items-center"
                         style={{ width: 30 }} 
-                        onClick={() => this.props.status ? this.props.removeInput(itemId) : 
-                        this.handleItems(itemId, this.props.list[i])}>
+                        onClick={() => status ? removeInput(itemId) : 
+                        this.handleItems(itemId, list[i])}>
                             <RemoveBtn className={styles.RemoveBtn} />
                         </div>
                     </div>
@@ -62,7 +65,7 @@ class ListInputs extends Component {
 
         return (
             <div className="w-100 flex flex-column">
-                <p className="pl2 mv1 pointer" onClick={() => this.props.addInput()}>Click here to add list item...</p>
+                <p className="pl2 mv1 pointer" onClick={() => addInput()}>Click here to add list item...</p>
                 {items}
             </div>
         );

@@ -8,19 +8,21 @@ import FadeTransition from '../../helpers/FadeTransition';
 import styles from './NoteContainer.module.scss';
 
 const NoteContainer = (props) => {
+
+	const { active, show, children, color } = props;
 	
     return (
     	<Fragment>
-    	{props.active ? 
-	    	<FadeTransition showed={props.show} duration={200} style={{ background: '#EBEBEB' }}>
+    	{active ? 
+	    	<FadeTransition showed={show} duration={200} style={{ background: '#EBEBEB' }}>
 				<div className={styles.NoteContainer}>
-					{props.children}
+					{children}
 				</div> 
 			</FadeTransition> : 
 			<div className={`${styles.NoteContainer} pt3 pr3 pl3 pb1`} 
 			style={{ 
-				backgroundImage: `linear-gradient(to right bottom, ${props.color.join(',')})` }}>
-				{props.children}
+				backgroundImage: `linear-gradient(to right bottom, ${color.join(',')})` }}>
+				{children}
 			</div>
 		}
 		</Fragment>

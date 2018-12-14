@@ -6,6 +6,9 @@ import Textarea from 'react-textarea-autosize';
 import styles from './TextInput.module.scss';
 
 const TextInput = (props) => {
+
+    const { status, text, change } = props;
+
     return (
         <Textarea className={styles.TextInput} 
             style={{ 
@@ -13,11 +16,11 @@ const TextInput = (props) => {
             	minHeight: 50, 
             	padding: '0.5em', 
             	maxWidth: 'calc(400px + 1em)',
-            	border: !props.status ? '1px solid rgb(92,92,92)' : 'none',
-        		borderRadius: props.status ? 25 : 0,
-        		marginBottom: props.status ? 0 : '1em' 
+            	border: !status ? '1px solid rgb(92,92,92)' : 'none',
+        		borderRadius: status ? 25 : 0,
+        		marginBottom: status ? 0 : '1em' 
         	}} 
-            name="text" value={props.text} onChange={props.change} />
+            name="text" value={text} onChange={change} />
     );
 };
 

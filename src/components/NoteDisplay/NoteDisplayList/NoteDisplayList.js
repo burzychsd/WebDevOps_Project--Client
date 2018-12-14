@@ -2,9 +2,12 @@
 import React from 'react';
 
 const NoteDisplayList = (props) => {
+
+	const { children } = props;
+
     return (
         <ul className="w-100 mh0 mv2 pa0 list">
-        	{props.children}
+        	{children}
         </ul>
     );
 };

@@ -39,7 +39,9 @@ const PersonsDisplay = (props) => {
 		stopPropagation: false
 	}
 
-	const personsDisplay = props.persons.map(person => 
+	const { persons } = props;
+
+	const personsDisplay = persons.map(person => 
 		<div className="h-100 flex flex-column justify-center items-center" style={styles.child} key={person._id}>
 			<h3>{person.name}</h3>
 			<h4>{person.email}</h4>
@@ -52,7 +54,7 @@ const PersonsDisplay = (props) => {
 			<ReactSwipe
 			className="w-100 carousel"
 			swipeOptions={options}
-			childCount={props.persons.length}
+			childCount={persons.length}
 			ref={el => (reactSwipeEl = el)}>
 				{personsDisplay}
 			</ReactSwipe>

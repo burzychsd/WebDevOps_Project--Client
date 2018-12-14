@@ -27,16 +27,19 @@ class Login extends Component {
 
 	handleSubmit = (event) => {
 		event.preventDefault();
+		const { loginUser, history } = this.props;
+		const { email, password } = this.state;
 		const user = {
-			email: this.state.email,
-			password: this.state.password
+			email,
+			password
 		}
-		this.props.loginUser(user, this.props.history)
+		loginUser(user, history)
 	}
 
 	componentWillReceiveProps(nextProps) {
+		const { history } = this.props;
 		if(nextProps.auth.isAuthenticated) {
-            this.props.history.push('/dashboard')
+            history.push('/dashboard')
         }
 		if(nextProps.errors) {
 			this.setState({
@@ -46,13 +49,14 @@ class Login extends Component {
 	}
 
 	componentDidMount() {
-		if(this.props.auth.isAuthenticated) {
-            this.props.history.push('/dashboard');
+		const { auth, history } = this.props;
+		if(auth.isAuthenticated) {
+            history.push('/dashboard');
         }
 	}
 
 	render() {
-		const { errors } = this.state;
+		const { errors, email, password } = this.state;
 		return (
 			<Fragment>
 				<div className="w-100 relative">
@@ -67,7 +71,7 @@ class Login extends Component {
 							inputText="Email..."
 							inputName="email"
 							change={this.handleInputChange}
-							inputValue={this.state.email}
+							inputValue={email}
 							/>
 							{errors.email && (<small className="f6 black-60 db tc">
 						      {errors.email}
@@ -77,7 +81,7 @@ class Login extends Component {
 							inputText="Password..."
 							inputName="password"
 							change={this.handleInputChange}
-							inputValue={this.state.password}
+							inputValue={password}
 							/>
 							{errors.password && (<small className="f6 black-60 db tc">
 						      {errors.password}

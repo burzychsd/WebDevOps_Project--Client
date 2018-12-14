@@ -18,11 +18,14 @@ class NoteDisplayListItem extends Component {
 	}
 
 	render() {
+
+		const { color, item } = this.props;
+		const { checked } = this.state;
 		return (
-	        <li className={this.state.checked ? `${styles.Item} w-100 mv2 strike` : 
+	        <li className={checked ? `${styles.Item} w-100 mv2 strike` : 
 	        `${styles.Item} w-100 mv2`} 
-	        style={{ color: `${this.props.color}` }}
-	        onClick={this.handleChecked}>{this.props.item}</li>
+	        style={{ color: `${color}` }}
+	        onClick={this.handleChecked}>{item}</li>
 	    );
 	}
 };

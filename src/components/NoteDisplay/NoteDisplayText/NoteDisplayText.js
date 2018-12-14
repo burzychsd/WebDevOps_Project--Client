@@ -5,8 +5,11 @@ import React from 'react';
 import styles from './NoteDisplayText.module.scss';
 
 const NoteDisplayText = (props) => {
+
+	const { color, text } = props;
+
     return (
-        <p style={{ color: props.color }} className={styles.NoteText}>{props.text}</p>
+        <p style={{ color }} className={styles.NoteText}>{text}</p>
 
     );
 };

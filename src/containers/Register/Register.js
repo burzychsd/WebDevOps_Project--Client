@@ -28,13 +28,15 @@ class Register extends Component {
 
 	handleSubmit = (event) => {
 		event.preventDefault();
+		const { username, email, password, password2 } = this.state;
+		const { registerUser, history } = this.props;
 		const user = {
-			username: this.state.username,
-			email: this.state.email,
-			password: this.state.password,
-			password2: this.state.password2
+			username,
+			email,
+			password,
+			password2
 		}
-		this.props.registerUser(user, this.props.history);
+		registerUser(user, history);
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -44,13 +46,14 @@ class Register extends Component {
 	}
 
 	componentDidMount() {
-		if(this.props.auth.isAuthenticated) {
-            this.props.history.push('/dashboard');
+		const { history, auth } = this.props;
+		if(auth.isAuthenticated) {
+            history.push('/dashboard');
         }
 	}
 
 	render() {
-		const { errors } = this.state;
+		const { errors, username, email, password, password2 } = this.state;
 		return (
 			<Fragment>
 				<div className="w-100 relative">
@@ -65,7 +68,7 @@ class Register extends Component {
 							inputText="Username..."
 							inputName="username"
 							change={this.handleInputChange}
-							inputValue={this.state.username}
+							inputValue={username}
 							/>
 							{errors.username && (<small className="f6 black-60 db tc">
 						      {errors.username}
@@ -75,7 +78,7 @@ class Register extends Component {
 							inputText="Email..."
 							inputName="email"
 							change={this.handleInputChange}
-							inputValue={this.state.email}
+							inputValue={email}
 							/>
 							{errors.email && (<small className="f6 black-60 db tc">
 						      {errors.email}
@@ -85,7 +88,7 @@ class Register extends Component {
 							inputText="Password..."
 							inputName="password"
 							change={this.handleInputChange}
-							inputValue={this.state.password}
+							inputValue={password}
 							/>
 							{errors.password && (<small className="f6 black-60 db tc">
 						      {errors.password}
@@ -95,7 +98,7 @@ class Register extends Component {
 							inputText="Confirm password..."
 							inputName="password2"
 							change={this.handleInputChange}
-							inputValue={this.state.password2}
+							inputValue={password2}
 							/>
 							{errors.password2 && (<small className="f6 black-60 db tc">
 						      {errors.password2}

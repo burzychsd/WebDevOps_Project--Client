@@ -15,21 +15,23 @@ import styles from './PersonsInputs.module.scss';
 class PersonsInputs extends Component {
 
 	handleRemoveInput = (event, removeBtn, name, email) => {
-		this.props.remove(name, email);
+		const { remove } = this.props;
+		remove(name, email);
 		removeBtn.style.display = 'none';
 	}
 
 	render() {
 
-		const arr = this.props.arrOfInputs;
-		const names = this.props.name;
-		const emails = this.props.email;
+		const { arrOfInputs, name, email, accept, change } = this.props;
+		const arr = arrOfInputs;
+		const names = name;
+		const emails = email;
 
 		const inputs = arr.map((key, i) => 
 			<div className="flex flex-column justify-center items-center" key={key}>
-				<form className={styles.PersonsForm} onSubmit={(e) => this.props.accept(e, this[`inputName${key}`], this[`inputEmail${key}`])}>
-					<input className={styles.PersonsInputs} type="text" placeholder="Full Name" name={`name[${i}]`} onChange={this.props.change} ref={(input) => this[`inputName${key}`] = input} pattern=".{3,25}" required title="3 to 25 characters"/>
-					<input className={styles.PersonsInputs} type="email" placeholder="Email" name={`email[${i}]`} onChange={this.props.change} ref={(input) => this[`inputEmail${key}`] = input} required />
+				<form className={styles.PersonsForm} onSubmit={(e) => accept(e, this[`inputName${key}`], this[`inputEmail${key}`])}>
+					<input className={styles.PersonsInputs} type="text" placeholder="Full Name" name={`name[${i}]`} onChange={change} ref={(input) => this[`inputName${key}`] = input} pattern=".{3,25}" required title="3 to 25 characters"/>
+					<input className={styles.PersonsInputs} type="email" placeholder="Email" name={`email[${i}]`} onChange={change} ref={(input) => this[`inputEmail${key}`] = input} required />
 					<div className="flex justify-center items-center">
 						<div ref={(button) => this.acceptBtn = button}>
 							<label>

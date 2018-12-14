@@ -45,9 +45,10 @@ class UpdateForm extends PureComponent {
 
     constructor(props) {
         super(props);
+        const { current } = this.props;
         this.state = {
         	...initialState,
-            currentNoteId: this.props.current
+            currentNoteId: current
         }
     }
 
@@ -57,7 +58,8 @@ class UpdateForm extends PureComponent {
 
     handlePersonData = () => {
         return new Promise((resolve) => {
-            this.props.getPersons();
+            const { getPersons } = this.props;
+            getPersons();
             resolve();
         });
     }
@@ -65,8 +67,9 @@ class UpdateForm extends PureComponent {
     loadData = () => {
         return new Promise((resolve) => {
             setTimeout(() => {
-                const note = this.props.notes.filter(note => note._id === this.props.current); 
-                const properPerson = this.props.persons.filter(person => note[0].persons.includes(person._id));
+                const { notes, current, persons } = this.props;
+                const note = notes.filter(note => note._id === current); 
+                const properPerson = persons.filter(person => note[0].persons.includes(person._id));
                 const names = properPerson.map(person => person['name']);
                 const emails = properPerson.map(person => person['email']);
 
@@ -83,10 +86,11 @@ class UpdateForm extends PureComponent {
     }
 
     setInputsState = () => {
+        const { name, email } = this.state;
         let inputsState = {};
-        this.state.name.forEach((person, i) => {
+        name.forEach((person, i) => {
             inputsState[`updatedName${i}`] = person;
-            inputsState[`updatedEmail${i}`] = this.state.email[i];
+            inputsState[`updatedEmail${i}`] = email[i];
         });
 
         return this.setState({ ...inputsState });
@@ -113,6 +117,8 @@ class UpdateForm extends PureComponent {
     }
 
     updateData = () => {
+        const { updateNote, removeNote, showModal, noteMenuItemsReset } = this.props;
+        const { title, text, alarm, color, list, currentNoteId } = this.state;
         return new Promise((resolve) => {
             const arr = Object.keys(this.state);
             let keys = [];
@@ -125,45 +131,48 @@ class UpdateForm extends PureComponent {
             const newEmails = arr.filter(key => key.includes('newEmail')).map(key => this.state[key]);
             const newList = arr.filter(key => key.includes('newListItem')).map(key => this.state[key]);
             const updatedNote = {
-                title: this.state.title,
-                text: this.state.text,
-                alarm: this.state.alarm,
-                color: this.state.color,
+                title,
+                text,
+                alarm,
+                color,
                 updatedNames: updatedNames.length > 0 ? JSON.stringify(updatedNames) : null,
                 updatedEmails: updatedEmails.length > 0 ? JSON.stringify(updatedEmails) : null,
                 newNames: newNames.length > 0 ? JSON.stringify(newNames) : null,
                 newEmails: newEmails.length > 0 ? JSON.stringify(newEmails) : null,
                 keys: keys.length > 0 ? JSON.stringify(keys) : null,
-                list: JSON.stringify(this.state.list),
+                list: JSON.stringify(list),
                 newList: JSON.stringify(newList)
             };
-            this.props.updateNote(this.state.currentNoteId, updatedNote, 'update');
-            if (this.state.alarm === '') {
-                this.props.removeNote(this.state.currentNoteId, 'reminders');
+            updateNote(currentNoteId, updatedNote, 'update');
+            if (alarm === '') {
+                removeNote(currentNoteId, 'reminders');
             }
-            this.props.showModal();
-            this.props.noteMenuItemsReset();
+            showModal();
+            noteMenuItemsReset();
             resolve();
         });
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
+        const { removeAllInputs } = this.props;
         this.updateData().then(() => {
             this.handlePersonData();
-            this.props.removeAllInputs();
+            removeAllInputs();
         });
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if(prevProps.current !== this.props.current) {
-            this.setState({ currentNoteId: this.props.current });
+        const { current } = this.props;
+        if(prevProps.current !== current) {
+            this.setState({ currentNoteId: current });
         }
     }
 
     componentDidMount() {
-    	const note = this.props.notes.filter(note => note._id === this.props.current)[0];
-    	this.handlePersonData().then(this.loadData()).then(setTimeout(() => { this.setInputsState() }, 400));
+        const { notes, current } = this.props;
+    	const note = notes.filter(note => note._id === current)[0];
+    	this.handlePersonData().then(() => this.loadData()).then(() => setTimeout(() => { this.setInputsState() }, 400));
     	const properDate = note.alarm ? 
         moment(note.alarm).toISOString().split('').splice(0, 16).join('') : '';
 
@@ -179,17 +188,18 @@ class UpdateForm extends PureComponent {
     }
 
     componentWillUnmount() {
-        this.props.removeAllInputs();
+        const { removeAllInputs } = this.props;
+        removeAllInputs();
     }
 
     render() {
 
-    	const { title, text, alarm, color, name, email, newInputs } = this.state;
+    	const { title, text, alarm, color, name, email, newInputs, list } = this.state;
 
     	const persons = name.map((person, i) => {
 			return (
 				<PersonInputs key={i}
-				new={false} 
+				newPerson={false} 
 				id={i}
                 name={`updatedName${i}`}
                 email={`updatedEmail${i}`} 
@@ -212,7 +222,7 @@ class UpdateForm extends PureComponent {
 							onClick={(e) => this.handleInput(e)} />
 	    				</div>
 	    				<PersonInputs
-	    				new={true} 
+	    				newPerson={true} 
 						id={i} 
 						nameHolder='Full Name'
 						emailHolder='Email'
@@ -227,13 +237,13 @@ class UpdateForm extends PureComponent {
             	<h1 className="tc">Update Note</h1>
             	<form className="flex flex-column justify-center items-center" onSubmit={this.handleSubmit}>
             		<TitleInput status={false} title={title} change={this.handleChange} />
-            		{this.state.list.length === 0 ? 
+            		{list.length === 0 ? 
                         <TextInput status={false} text={text} change={this.handleChange} /> : 
                         <div className="mt3 mb4">
                             <h2 className="tc mt0 mb3">List</h2>
                             <ListInputs 
                             status={false} 
-                            list={this.state.list} 
+                            list={list} 
                             remove={this.handleRemoveItem}
                             change={this.handleChange} />
                         </div>

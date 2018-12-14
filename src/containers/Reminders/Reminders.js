@@ -36,53 +36,65 @@ class Reminders extends PureComponent {
 
 	constructor(props) {
 		super(props);
+        const { updatedNotes, current } = this.props;
 		this.state = {
-			updatedNotes: this.props.updatedNotes,
-            currentNoteId: this.props.current
+			updatedNotes,
+            currentNoteId: current
 		}
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-        if(prevProps.updatedNotes !== this.props.updatedNotes) {
-            this.setState({ updatedNotes: this.props.updatedNotes });
+        const { updatedNotes, current } = this.props;
+
+        if(prevProps.updatedNotes !== updatedNotes) {
+            this.setState({ updatedNotes });
         }
 
-        if(prevProps.current !== this.props.current) {
-            this.setState({ currentNoteId: this.props.current });
+        if(prevProps.current !== current) {
+            this.setState({ currentNoteId: current });
         }
     }
 
     componentWillUnmount() {
-        this.props.renderNotes();
+        const { renderNotes } = this.props;
+        renderNotes();
     }
 
 	componentDidMount() {
-		this.props.getUpdatedNotes('reminders');
+        const { getUpdatedNotes } = this.props;
+		getUpdatedNotes('reminders');
 	}
 
     handleCloseModal = () => {
-        this.props.showModal();
-        this.props.noteMenuItemsReset();
+        const { showModal, noteMenuItemsReset } = this.props;
+        showModal();
+        noteMenuItemsReset();
     }
 
     handleConfirmation = (status) => {
+
+        const { updateNote, showModal, noteMenuItemsReset, 
+                noteMenuActive, removeNote, remindersBtn } = this.props;
+        const { currentNoteId } = this.state;
 
         const updatedNoteReminders = {
         	alarm: ''
         }
 
-        if (this.props.remindersBtn) {
-            this.props.updateNote(this.state.currentNoteId, updatedNoteReminders, 'reminders');
-            this.props.showModal();
-            this.props.noteMenuItemsReset();
-            this.props.noteMenuActive(null, this.state.currentNoteId);
-            this.props.removeNote(this.state.currentNoteId, 'reminders');
+        if (remindersBtn) {
+            updateNote(currentNoteId, updatedNoteReminders, 'reminders');
+            showModal();
+            noteMenuItemsReset();
+            noteMenuActive(null, currentNoteId);
+            removeNote(currentNoteId, 'reminders');
         }
     }
 
     render() {
 
-    	const notes = this.state.updatedNotes.map(note => {
+        const { remindersBtn, openModal } = this.props;
+        const { updatedNotes } = this.state;
+    	const notes = updatedNotes.map(note => {
                 const colors = interpolateColors(`${hex2RGB(note.color)}`, 'rgb(235,235,235)', 5).map(el => `rgb(${el.join(',')})`);
                 const colorValue = `${note.color !== '#EBEBEB' ? invertColor(note.color, 'bw') : 'rgb(64,64,64)'}`;
                 const items = note.list.map((item, i) => 
@@ -107,8 +119,8 @@ class Reminders extends PureComponent {
         return (
             <Fragment>
             	<h1>Reminders</h1>
-            	{this.props.openModal && <Modal clicked={this.handleCloseModal}>
-                {(this.props.remindersBtn) && 
+            	{openModal && <Modal clicked={this.handleCloseModal}>
+                {(remindersBtn) && 
                     <Confirmation click={() => this.handleConfirmation(false)} />
                 }
                 </Modal>}

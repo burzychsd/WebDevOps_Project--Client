@@ -67,55 +67,61 @@ class Notes extends PureComponent {
 
     constructor(props) {
         super(props);
-
+        const { notes, current, list } = this.props;
         this.state = {
             ...initialState,
-            notes: this.props.notes,
-            currentNoteId: this.props.current,
-            listStatus: this.props.list
+            notes,
+            currentNoteId: current,
+            listStatus: list
         }
     }
+
+    filteredListItems = (keys) => keys.filter(key => key.includes('listItem'))
+                                      .map(key => this.setState({ [key]: '' }));
 
     handleChange = (event) => {
         this.setState({ [event.target.name]: event.target.value });
     }
 
     handleOpenForm = () => {
-        this.props.showForm();
-        this.props.resetListStatus();
+        const { showForm, resetListStatus } = this.props;
+        showForm();
+        resetListStatus();
     }
 
     handleMultipleInputs = (event) => {
         obj[event.target.name] = event.target.value;
     }
 
-    handleAcceptPerson = (event, name, email) => {
+    handleAcceptPerson = (event, nameEl, emailEl) => {
         event.preventDefault();
+        const { name, email } = this.state;
         const arrOfNames = Object.keys(obj).filter(key => key.includes('name')).map(key => obj[key]);
         const arrOfEmails = Object.keys(obj).filter(key => key.includes('email')).map(key => obj[key]);
         const condition1 = !arrOfNames.includes('') && !arrOfEmails.includes('');
-        const condition2 = !this.state.name.includes(name.value) && !this.state.email.includes(email.value);
+        const condition2 = !name.includes(nameEl.value) && !email.includes(emailEl.value);
 
         if (arrOfNames.length > 0 && arrOfEmails.length > 0 && condition1) {
             this.setState((state) => { 
                 return { 
-                    name: name.value && email.value && condition2 ? [...state.name, name.value] : state.name,
-                    email: name.value && email.value && condition2 ? [...state.email, email.value] : state.email
+                    name: nameEl.value && emailEl.value && condition2 ? [...state.name, nameEl.value] : state.name,
+                    email: nameEl.value && emailEl.value && condition2 ? [...state.email, emailEl.value] : state.email
                 } 
             });
         }
 
-        if(name.value && email.value) {
+        if(nameEl.value && emailEl.value) {
             setTimeout(() => {
-                name.value = '';
-                email.value = '';
+                nameEl.value = '';
+                emailEl.value = '';
             }, 0.001);
         }
     }
 
-    handleRemovePerson = (name, email) => {
-        const names = Array.isArray(this.state.name) ? this.state.name.filter(val => val !== name) : this.state.name;
-        const emails = Array.isArray(this.state.name) ? this.state.email.filter(val => val !== email) : this.state.email;
+    handleRemovePerson = (nameEl, emailEl) => {
+        const { name, email } = this.state;
+        const names = Array.isArray(name) ? name.filter(val => val !== nameEl) : name;
+        const emails = Array.isArray(name) ? email.filter(val => val !== emailEl) : email;
         this.setState({
                 name: names, 
                 email: emails 
@@ -123,61 +129,75 @@ class Notes extends PureComponent {
     }
 
     handleCancel = () => {
-        this.props.closeForm();
-        this.props.removeAllInputs();
+        const { closeForm, removeAllInputs } = this.props;
+        closeForm();
+        removeAllInputs();
+        this.filteredListItems(Object.keys(this.state));
         this.setState({ title, text, alarm, name, email, color, list });
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
-        const keys = Object.keys(this.state);
-        const listItems = keys.filter(key => key.includes('listItem')).map(key => this.state[key]);
-        const note = {
-            title: this.state.title,
-            text: this.state.text,
-            alarm: this.state.alarm,
-            name: JSON.stringify(this.state.name),
-            email: JSON.stringify(this.state.email),
-            list: listItems ? JSON.stringify(listItems) : [],
-            color: this.state.color 
-        }
-        this.props.createNote(note);
-        this.props.closeForm();
-        this.setState({ title, text, alarm, name, email, color, list });
+        const promise = new Promise((resolve) => {
+            const { createNote, closeForm } = this.props;
+            const { title, text, alarm, name, email, color} = this.state;
+            const keys = Object.keys(this.state);
+            const listItems = keys.filter(key => key.includes('listItem')).map(key => this.state[key]);
+            const note = { title, text, alarm, name: JSON.stringify(name),
+                email: JSON.stringify(email),
+                list: listItems ? JSON.stringify(listItems) : [],
+                color 
+            };
+            createNote(note);
+            closeForm();
+            this.setState({ title, text, alarm, name, email, color, list });
+            resolve(keys);
+        })
 
-        setTimeout(() => {
-            this.props.removeAllInputs();
-            this.props.renderNotes();
-        }, 500);
+        promise.then((keys) => {
+            const { removeAllInputs, renderNotes } = this.props;
+            this.filteredListItems(keys);
+            removeAllInputs();
+            setTimeout(() => renderNotes(), 400);
+        });
     }
 
     handleCloseModal = () => {
-        this.props.showModal();
-        this.props.resetClicked();
-        this.props.noteMenuItemsReset();
+        const { showModal, resetClicked, noteMenuItemsReset } = this.props;
+        showModal();
+        resetClicked();
+        noteMenuItemsReset();
     }
 
     handleAlarmBtn = () => {
-        this.props.showModal();
-        this.props.alarmClicked();
+        const { showModal, alarmClicked } = this.props;
+        showModal();
+        alarmClicked();
     }
 
     handlePersonsBtn = () => {
-        this.props.showModal();
-        this.props.personsClicked();
+        const { showModal, personsClicked } = this.props;
+        showModal();
+        personsClicked();
     }
 
     handleColorBtn = () => {
-        this.props.showModal();
-        this.props.colorClicked();
+        const { showModal, colorClicked } = this.props;
+        showModal();
+        colorClicked();
     }
 
     handleListStatus = () => {
-        this.props.showForm();
-        this.props.listStatus();
+        const { showForm, listStatus } = this.props;
+        showForm();
+        listStatus();
     }
 
     handleConfirmation = (status) => {
+
+        const { archiveBtn, updateNote, showModal, noteMenuItemsReset, 
+                noteMenuActive, updateNotes, binBtn } = this.props;
+        const { currentNoteId } = this.state;
 
         const updatedNoteArchive = {
             archive: status ? true : false
@@ -187,61 +207,68 @@ class Notes extends PureComponent {
             deleted: status ? true : false
         }
 
-        if (this.props.archiveBtn) {
-            this.props.updateNote(this.state.currentNoteId, updatedNoteArchive, 'archive');
-            this.props.showModal();
-            this.props.noteMenuItemsReset();
-            this.props.noteMenuActive(null, this.state.currentNoteId);
-            this.props.updateNotes(this.state.currentNoteId);
+        if (archiveBtn) {
+            updateNote(currentNoteId, updatedNoteArchive, 'archive');
+            showModal();
+            noteMenuItemsReset();
+            noteMenuActive(null, currentNoteId);
+            updateNotes(currentNoteId);
         }
 
-        if (this.props.binBtn) {
-            this.props.updateNote(this.state.currentNoteId, updatedNoteBin, 'delete');
-            this.props.showModal();
-            this.props.noteMenuItemsReset();
-            this.props.noteMenuActive(null, this.state.currentNoteId);
-            this.props.updateNotes(this.state.currentNoteId);
+        if (binBtn) {
+            updateNote(currentNoteId, updatedNoteBin, 'delete');
+            showModal();
+            noteMenuItemsReset();
+            noteMenuActive(null, currentNoteId);
+            updateNotes(currentNoteId);
         }
 
     }
 
     componentWillUnmount() {
-        this.props.getUpdatedNotes('reminders');
-        this.props.getUpdatedNotes('archive');
-        this.props.getUpdatedNotes('delete');
-        this.props.searchBoxStatus();
-        this.props.getPersons();
-        return this.props.noteForm ? this.props.showForm() : null;
+        const { getUpdatedNotes, searchBoxStatus, getPersons, noteForm, showForm } = this.props;
+        getUpdatedNotes('reminders');
+        getUpdatedNotes('archive');
+        getUpdatedNotes('delete');
+        searchBoxStatus();
+        getPersons();
+        return noteForm ? showForm() : null;
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if(prevProps.notes !== this.props.notes) {
-            this.setState({ notes: this.props.notes });
+        const { notes, current, persons, list } = this.props;
+
+        if(prevProps.notes !== notes) {
+            this.setState({ notes });
         }
 
-        if(prevProps.current !== this.props.current) {
-            this.setState({ currentNoteId: this.props.current });
+        if(prevProps.current !== current) {
+            this.setState({ currentNoteId: current });
         }
 
-        if(prevProps.persons !== this.props.persons) {
+        if(prevProps.persons !== persons) {
             this.props.renderNotes();
         }
 
-        if(prevProps.list !== this.props.list) {
-            this.setState({ listStatus: this.props.list });
+        if(prevProps.list !== list) {
+            this.setState({ listStatus: list });
         }
     }
 
     componentDidMount() {
-        this.props.renderNotes();
-        this.props.removeAllInputs();
-        this.props.alarmStatus();
-        this.props.searchBoxStatus();
+        const { renderNotes, removeAllInputs, alarmStatus, searchBoxStatus } = this.props;
+        renderNotes();
+        removeAllInputs();
+        alarmStatus();
+        searchBoxStatus();
     }
 
     render() {
 
-        const notes = this.state.notes.map(note => {
+        const { noteForm, openModal, archiveBtn, binBtn, alarmBtn, colorBtn, personsBtn, 
+                updateBtn, noMatch } = this.props;
+        const { notes, title, text, listStatus, alarm, name, email, color } = this.state;
+        const notesItems = notes.map(note => {
                 const colors = interpolateColors(`${hex2RGB(note.color)}`, 'rgb(235,235,235)', 5).map(el => `rgb(${el.join(',')})`);
                 const colorValue = `${note.color !== '#EBEBEB' ? invertColor(note.color, 'bw') : 'rgb(64,64,64)'}`;
                 const items = note.list.map((item, i) => 
@@ -269,35 +296,35 @@ class Notes extends PureComponent {
             <Fragment>
             	<h1 ref={(ref) => this.title = ref}>Notes</h1>
             	<CreateNoteBtn click={this.handleOpenForm} list={this.handleListStatus} /> 
-	            <NoteContainer active={true} show={this.props.noteForm}>
+	            <NoteContainer active={true} show={noteForm}>
 	            		<CreateNoteForm
-                        title={this.state.title} 
-                        text={this.state.text}
+                        title={title} 
+                        text={text}
                         change={this.handleChange}
                         cancel={this.handleCancel}
                         submit={this.handleSubmit}
                         alarmBtn={this.handleAlarmBtn}
                         personsBtn={this.handlePersonsBtn}
                         colorBtn={this.handleColorBtn}
-                        list={this.state.listStatus} />
+                        list={listStatus} />
 	            </NoteContainer>
-                {this.props.openModal && <Modal clicked={this.handleCloseModal}>
-                    {this.props.alarmBtn && <AlarmInput status={true} alarm={this.state.alarm} change={this.handleChange} />}
-                    {this.props.personsBtn && <PersonsInputs data={obj} 
+                {openModal && <Modal clicked={this.handleCloseModal}>
+                    {alarmBtn && <AlarmInput status={true} alarm={alarm} change={this.handleChange} />}
+                    {personsBtn && <PersonsInputs data={obj} 
                     accept={this.handleAcceptPerson} 
                     remove={this.handleRemovePerson} 
                     change={this.handleMultipleInputs}
-                    name={this.state.name}
-                    email={this.state.email} />}
-                    {this.props.colorBtn && <ColorInput status={true} color={this.state.color} change={this.handleChange} />}
-                    {(this.props.archiveBtn || this.props.binBtn) && 
+                    name={name}
+                    email={email} />}
+                    {colorBtn && <ColorInput status={true} color={color} change={this.handleChange} />}
+                    {(archiveBtn || binBtn) && 
                     <Confirmation click={() => this.handleConfirmation(true)} />}
-                    {this.props.updateBtn && <UpdateForm />}
+                    {updateBtn && <UpdateForm />}
                 </Modal>}
-                {this.props.noMatch !== '' ? 
-                    <h1>{this.props.noMatch.error}</h1> 
+                {noMatch !== '' ? 
+                    <h1>{noMatch.error}</h1> 
                     : 
-                    <Fragment>{notes.reverse()}</Fragment>
+                    <Fragment>{notesItems.reverse()}</Fragment>
                 }
             </Fragment>
         );

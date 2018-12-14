@@ -26,50 +26,57 @@ class Navigation extends Component {
 	}
 
 	handleChange = async (event) => {
+		const { renderNotes } = this.props;
+		const { search } = this.state;
 		await this.setState({ [event.target.name]: event.target.value });
-		this.props.renderNotes(this.state.search);
+		renderNotes(search);
 	}
 
 	handleSubmitSearch = (event) => {
 		event.preventDefault();
-		const condition = this.props.location.pathname === '/dashboard/notes';
+		const { location, history, renderNotes } = this.props;
+		const { search } = this.state;
+		const condition = location.pathname === '/dashboard/notes';
 
 		if(!condition) {
-			this.props.history.push('/dashboard/notes');
+			history.push('/dashboard/notes');
 		}
 
-		this.props.renderNotes(this.state.search);
+		renderNotes(search);
 	}
 
 	handleLogout = (event) => {
+		const { logoutUser, history } = this.props;
 		event.preventDefault();
-		this.props.logoutUser(this.props.history)
+		logoutUser(history)
 	}
 
 	render() {
 
+		const { show, sound, navigationActive, searchBox, nav, user, browser } = this.props;
+		const { search } = this.state;
 		 return (
 	        <header className="w-100 fixed">
 	        	<nav className="w-100 h-100 flex justify-between items-center relative">
-	        		<div className={!this.props.show ? 
+	        		<div className={!show ? 
 	        			`${styles.OverlayBlock} w-100 h-100 absolute flex justify-center items-center` : 
 	        			`${styles.OverlayBlock} ${styles.OverlayBlockActive} w-100 h-100 absolute flex justify-center items-center`
 	        		}>
 	        			<p className="ph2 tc b">The alarm has been triggered</p>
-	        			<span className="b pointer" onClick={this.props.sound}>X</span>
+	        			<span className="b pointer" onClick={sound}>X</span>
 	        		</div>
-	        		<NavButtons open={this.props.navigationActive} search={this.handleSubmitSearch} />
+	        		<NavButtons open={navigationActive} search={this.handleSubmitSearch} />
 	        		<SearchBox 
-	        		status={this.props.searchBox}  
-	        		value={this.state.search} 
+	        		status={searchBox}  
+	        		value={search} 
 	        		change={this.handleChange} />
 					<SideBar 
 					logout={this.handleLogout} 
-					status={this.props.nav.isOpen}
-					username={this.props.user.username}
-					avatar={this.props.user.avatar}
-					clicked={this.props.navigationActive}
-					size={this.props.browser.lessThan.medium} />
+					status={nav.isOpen}
+					username={user.username}
+					avatar={user.avatar}
+					clicked={navigationActive}
+					size={browser.lessThan.medium} />
 	        	</nav>
 	        </header>
 	    );

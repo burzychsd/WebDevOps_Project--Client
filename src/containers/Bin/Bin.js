@@ -36,61 +36,72 @@ class Bin extends PureComponent {
 
 	constructor(props) {
 		super(props);
+        const { updatedNotes, current } = this.props;
 		this.state = {
-			updatedNotes: this.props.updatedNotes,
-            currentNoteId: this.props.current
+			updatedNotes,
+            currentNoteId: current
 		}
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-        if(prevProps.updatedNotes !== this.props.updatedNotes) {
-            this.setState({ updatedNotes: this.props.updatedNotes });
+        const { updatedNotes, current } = this.props;
+        if(prevProps.updatedNotes !== updatedNotes) {
+            this.setState({ updatedNotes });
         }
 
-        if(prevProps.current !== this.props.current) {
-            this.setState({ currentNoteId: this.props.current });
+        if(prevProps.current !== current) {
+            this.setState({ currentNoteId: current });
         }
     }
 
     componentWillUnmount() {
-        this.props.renderNotes();
+        const { renderNotes } = this.props;
+        renderNotes();
     }
 
 	componentDidMount() {
-		this.props.getUpdatedNotes('delete');
+        const { getUpdatedNotes } = this.props;
+		getUpdatedNotes('delete');
 	}
 
     handleCloseModal = () => {
-        this.props.showModal();
-        this.props.noteMenuItemsReset();
+        const { showModal, noteMenuItemsReset } = this.props;
+        showModal();
+        noteMenuItemsReset();
     }
 
     handleConfirmation = (status) => {
+
+        const { recoveryBtn, updateNote, showModal, noteMenuItemsReset, 
+                noteMenuActive, removeNote, deleteBtn, deleteNote } = this.props;
+        const { currentNoteId } = this.state;
 
         const updatedNoteArchive = {
             deleted: status ? true : false
         }
 
-        if (this.props.recoveryBtn) {
-            this.props.updateNote(this.state.currentNoteId, updatedNoteArchive, 'delete');
-            this.props.showModal();
-            this.props.noteMenuItemsReset();
-            this.props.noteMenuActive(null, this.state.currentNoteId);
-            this.props.removeNote(this.state.currentNoteId, 'delete');
+        if (recoveryBtn) {
+            updateNote(currentNoteId, updatedNoteArchive, 'delete');
+            showModal();
+            noteMenuItemsReset();
+            noteMenuActive(null, currentNoteId);
+            removeNote(currentNoteId, 'delete');
         }
 
-        if(this.props.deleteBtn) {
-        	this.props.deleteNote(this.state.currentNoteId);
-            this.props.showModal();
-            this.props.noteMenuItemsReset();
-            this.props.noteMenuActive(null, this.state.currentNoteId);
+        if(deleteBtn) {
+        	deleteNote(currentNoteId);
+            showModal();
+            noteMenuItemsReset();
+            noteMenuActive(null, currentNoteId);
         }
 
     }
 
     render() {
 
-    	const notes = this.state.updatedNotes.map(note => {
+        const { openModal, recoveryBtn, deleteBtn } = this.props;
+        const { updatedNotes } = this.state;
+    	const notes = updatedNotes.map(note => {
                 const colors = interpolateColors(`${hex2RGB(note.color)}`, 'rgb(235,235,235)', 5).map(el => `rgb(${el.join(',')})`);
                 const colorValue = `${note.color !== '#EBEBEB' ? invertColor(note.color, 'bw') : 'rgb(64,64,64)'}`;
                 const items = note.list.map((item, i) => 
@@ -115,8 +126,8 @@ class Bin extends PureComponent {
         return (
             <Fragment>
                 <h1>Bin</h1>
-                {this.props.openModal && <Modal clicked={this.handleCloseModal}>
-                {(this.props.recoveryBtn || this.props.deleteBtn) && 
+                {openModal && <Modal clicked={this.handleCloseModal}>
+                {(recoveryBtn || deleteBtn) && 
                     <Confirmation click={() => this.handleConfirmation(false)} />
                 }
                 </Modal>}

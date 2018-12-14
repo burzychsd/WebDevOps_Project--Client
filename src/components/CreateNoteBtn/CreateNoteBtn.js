@@ -8,10 +8,13 @@ import { ReactComponent as ListBtn } from './list-icon.svg';
 import styles from './CreateNoteBtn.module.scss';
 
 const CreateNoteBtn = (props) => {
+
+	const { click, list } = props;
+
     return (
     	<div className={styles.BtnContainer}>
-    		<button className='noselect' onClick={props.click} >Create new note...</button>
-    		<ListBtn className={styles.ListBtn} onClick={props.list} />
+    		<button className='noselect' onClick={click} >Create new note...</button>
+    		<ListBtn className={styles.ListBtn} onClick={list} />
     	</div>
     );
 };

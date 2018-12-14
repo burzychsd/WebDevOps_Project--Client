@@ -5,14 +5,17 @@ import React from 'react';
 import styles from './Input.module.scss';
 
 const Input = (props) => {
+
+    const { inputType, inputText, inputName, change, inputValue } = props;
+
     return (
         <input
-        type={props.inputType}
-        placeholder={props.inputText}
+        type={inputType}
+        placeholder={inputText}
         className={styles.Input}
-        name={props.inputName}
-        onChange={props.change}
-        value={props.inputValue}
+        name={inputName}
+        onChange={change}
+        value={inputValue}
         />
     );
 };

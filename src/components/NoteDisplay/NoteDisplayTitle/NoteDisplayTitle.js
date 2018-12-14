@@ -5,10 +5,13 @@ import React from 'react';
 import styles from './NoteDisplayTitle.module.scss';
 
 const NoteDisplayTitle = (props) => {
+
+	const { color, title } = props;
+
     return (
         <h1 
         className={styles.NoteTitle} 
-        style={{ color: props.color }}>{props.title}</h1>
+        style={{ color }}>{title}</h1>
     );
 };
 

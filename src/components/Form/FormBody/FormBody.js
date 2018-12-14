@@ -5,9 +5,12 @@ import React from 'react';
 import styles from './FormBody.module.scss';
 
 const FormBody = (props) => {
+
+	const { children, submit } = props;
+
     return (
-       <form className={`${styles.FormBody} flex flex-column justify-between items-center`} onSubmit={props.submit}>
-			{props.children}
+       <form className={`${styles.FormBody} flex flex-column justify-between items-center`} onSubmit={submit}>
+			{children}
        </form> 
     );
 };

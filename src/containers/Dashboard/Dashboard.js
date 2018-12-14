@@ -57,9 +57,10 @@ class Dashboard extends PureComponent {
 
     constructor(props) {
       super(props);
+      const { persons } = this.props;
       this.state = {
         show: false,
-        persons: this.props.persons
+        persons: persons
       }
     }
 
@@ -85,6 +86,7 @@ class Dashboard extends PureComponent {
     handlePlay = () => {
       this.setState({ show: true });
       const { notes, alarmTimer } = this.props;
+      const { show } = this.state;
       const notesWithAlarms = notes.filter(note => note.alarm);
       const currentNote = notesWithAlarms.filter(note => 
         moment(
@@ -93,25 +95,27 @@ class Dashboard extends PureComponent {
         
       current = currentNote._id;
 
-      if(!this.state.show) {
+      if(!show) {
         sound.pause();
         sound.currentTime = 0;
       }
     }
 
     componentDidUpdate(prevProps, prevState) {
-      if(prevProps.persons !== this.props.persons) {
-        this.setState({ persons: this.props.persons });
+      const { persons } = this.props;
+      if(prevProps.persons !== persons) {
+        this.setState({ persons });
       }
     }
 
     componentDidMount() {
+      const { renderNotes, getUpdatedNotes, getPersons } = this.props;
       sound.addEventListener('play', this.handlePlay);
-      this.props.renderNotes();
-      this.props.getUpdatedNotes('reminders');
-      this.props.getUpdatedNotes('archive');
-      this.props.getUpdatedNotes('delete');
-      this.props.getPersons();
+      renderNotes();
+      getUpdatedNotes('reminders');
+      getUpdatedNotes('archive');
+      getUpdatedNotes('delete');
+      getPersons();
     }
 
     componentWillUnmount() {
@@ -119,13 +123,13 @@ class Dashboard extends PureComponent {
     }
 
     render() {
-        const { location, match } = this.props;
-        const { persons } = this.state;
+        const { location, match, nav } = this.props;
+        const { persons, show } = this.state;
 
         return (
         	<Fragment>
-	        	<Navigation location={location} show={this.state.show} sound={this.handleSound}/>
-	        	<main className={this.props.nav.isOpen ? 
+	        	<Navigation location={location} show={show} sound={this.handleSound}/>
+	        	<main className={nav.isOpen ? 
                 `${styles.Dashboard} ${styles.navActive} flex flex-column items-center` : 
                 `${styles.Dashboard} flex flex-column justify-start items-center`}>
                     {match.isExact ?

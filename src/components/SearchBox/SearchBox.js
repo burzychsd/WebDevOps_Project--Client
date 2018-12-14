@@ -5,12 +5,15 @@ import React from 'react';
 import styles from './SearchBox.module.scss';
 
 const SearchBox = (props) => {
+
+	const { status, searchRef, value, change } = props;
+
     return (
-        <input className={props.status ? `${styles.SearchBox} ${styles.SearchBoxActive}` : styles.SearchBox}
-        ref={props.searchRef} 
-        type="search" name="search" value={props.value} 
+        <input className={status ? `${styles.SearchBox} ${styles.SearchBoxActive}` : styles.SearchBox}
+        ref={searchRef} 
+        type="search" name="search" value={value} 
         results={5} placeholder="Search notes by title..." 
-        onChange={props.change}/>
+        onChange={change}/>
     );
 };
 
