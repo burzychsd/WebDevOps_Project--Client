@@ -29,14 +29,13 @@ class NoteMoreMenu extends Component {
 	    				{interpolatingStyles =>
 						    <Fragment>
 						      {interpolatingStyles.map((style, i) => {
-						      	
 						        return (<button 
 						        key={shortid.generate()} 
 						        style={{ 
 						        	opacity: `${show ? style.o :  0}`, 
-						        	color: color }} 
-						        onClick={clicked}
-						        disabled={show ? false : true}>
+						        	color: color,
+						        	display: `${show ? null : 'none'}` }} 
+						        onClick={clicked}>
 						        {items[i]}</button>
 						        )})
 						      }
