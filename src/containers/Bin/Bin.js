@@ -1,6 +1,7 @@
 // DEPENDENCIES
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
+import shortid from 'shortid';
 
 // ACTIONS
 import { 
@@ -105,7 +106,7 @@ class Bin extends PureComponent {
                 const colors = interpolateColors(`${hex2RGB(note.color)}`, 'rgb(235,235,235)', 5).map(el => `rgb(${el.join(',')})`);
                 const colorValue = `${note.color !== '#EBEBEB' ? invertColor(note.color, 'bw') : 'rgb(64,64,64)'}`;
                 const items = note.list.map((item, i) => 
-                    <NoteDisplayListItem key={i} item={item} color={colorValue} />
+                    <NoteDisplayListItem key={shortid.generate()} item={item} color={colorValue} />
                 )
                 return (
                     <NoteContainer active={false} key={note._id} color={colors}>

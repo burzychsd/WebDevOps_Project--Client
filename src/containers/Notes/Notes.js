@@ -1,6 +1,7 @@
 // DEPENDENCIES
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
+import shortid from 'shortid';
 
 // ACTIONS
 import { 
@@ -225,14 +226,13 @@ class Notes extends PureComponent {
 
     }
 
-    componentWillUnmount() {
-        const { getUpdatedNotes, searchBoxStatus, getPersons, noteForm, showForm } = this.props;
-        getUpdatedNotes('reminders');
-        getUpdatedNotes('archive');
-        getUpdatedNotes('delete');
-        searchBoxStatus();
-        getPersons();
-        return noteForm ? showForm() : null;
+    async componentWillUnmount() {
+        const { getUpdatedNotes, searchBoxStatus, getPersons } = this.props;
+        await getUpdatedNotes('reminders');
+        await getUpdatedNotes('archive');
+        await getUpdatedNotes('delete');
+        await searchBoxStatus();
+        await getPersons();
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -255,12 +255,12 @@ class Notes extends PureComponent {
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         const { renderNotes, removeAllInputs, alarmStatus, searchBoxStatus } = this.props;
-        renderNotes();
-        removeAllInputs();
-        alarmStatus();
-        searchBoxStatus();
+        await removeAllInputs();
+        await alarmStatus();
+        await searchBoxStatus();
+        await renderNotes();
     }
 
     render() {
@@ -272,7 +272,7 @@ class Notes extends PureComponent {
                 const colors = interpolateColors(`${hex2RGB(note.color)}`, 'rgb(235,235,235)', 5).map(el => `rgb(${el.join(',')})`);
                 const colorValue = `${note.color !== '#EBEBEB' ? invertColor(note.color, 'bw') : 'rgb(64,64,64)'}`;
                 const items = note.list.map((item, i) => 
-                    <NoteDisplayListItem key={i} item={item} color={colorValue} />
+                    <NoteDisplayListItem key={shortid.generate()} item={item} color={colorValue} />
                 )
                 return (
                     <NoteContainer active={false} key={note._id} color={colors}>

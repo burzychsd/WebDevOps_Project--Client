@@ -12,6 +12,7 @@ $border: none;
 	border-radius: 5px;
 	font-family: $input-font;
 	color: $color;
+	-webkit-tap-highlight-color: transparent;
 
 	&:focus {
 		outline: none;

@@ -1,6 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
+import shortid from 'shortid';
 
 // ACTIONS
 import { 
@@ -130,11 +131,7 @@ class UpdateForm extends PureComponent {
             const newNames = arr.filter(key => key.includes('newName')).map(key => this.state[key]);
             const newEmails = arr.filter(key => key.includes('newEmail')).map(key => this.state[key]);
             const newList = arr.filter(key => key.includes('newListItem')).map(key => this.state[key]);
-            const updatedNote = {
-                title,
-                text,
-                alarm,
-                color,
+            const updatedNote = { title, text, alarm, color,
                 updatedNames: updatedNames.length > 0 ? JSON.stringify(updatedNames) : null,
                 updatedEmails: updatedEmails.length > 0 ? JSON.stringify(updatedEmails) : null,
                 newNames: newNames.length > 0 ? JSON.stringify(newNames) : null,
@@ -198,7 +195,7 @@ class UpdateForm extends PureComponent {
 
     	const persons = name.map((person, i) => {
 			return (
-				<PersonInputs key={i}
+				<PersonInputs key={shortid.generate()}
 				newPerson={false} 
 				id={i}
                 name={`updatedName${i}`}
@@ -214,7 +211,7 @@ class UpdateForm extends PureComponent {
     	if (newInputs) {
     		newPersons = newInputs.map((person, i) => {
 	    		return (
-	    			<Fragment key={i}>
+	    			<Fragment key={shortid.generate()}>
 	    				<div className="w-100 flex justify-between items-center mb3" 
 	    				style={{ maxWidth: 400, height: 35 }}>
 							<h3 className="ma0 pa0">New Person</h3>

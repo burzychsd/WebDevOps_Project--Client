@@ -1,6 +1,7 @@
 // DEPENDENCIES
 import React, { Component, Fragment } from 'react';
 import { StaggeredMotion, spring } from 'react-motion';
+import shortid from 'shortid';
 
 // STYLES
 import styles from './NoteMoreMenu.module.scss';
@@ -27,15 +28,17 @@ class NoteMoreMenu extends Component {
 					})}>
 	    				{interpolatingStyles =>
 						    <Fragment>
-						      {interpolatingStyles.map((style, i) =>
-						        <button 
-						        key={i} 
+						      {interpolatingStyles.map((style, i) => {
+						      	
+						        return (<button 
+						        key={shortid.generate()} 
 						        style={{ 
 						        	opacity: `${show ? style.o :  0}`, 
 						        	color: color }} 
 						        onClick={clicked}
 						        disabled={show ? false : true}>
-						        {items[i]}</button>)
+						        {items[i]}</button>
+						        )})
 						      }
 						    </Fragment>
 						}

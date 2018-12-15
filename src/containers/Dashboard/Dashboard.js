@@ -3,6 +3,7 @@ import React, { PureComponent, Fragment } from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import shortid from 'shortid';
 
 // ACTIONS
 import { 
@@ -36,18 +37,22 @@ let current;
 
 const routes = [
   {
+    _id: shortid.generate(),
     path: "/dashboard/notes",
     component: Notes
   },
   {
+    _id: shortid.generate(),
     path: "/dashboard/reminders",
     component: Reminders
   },
   {
+    _id: shortid.generate(),
     path: "/dashboard/archive",
     component: Archive
   },
   {
+    _id: shortid.generate(),
     path: "/dashboard/bin",
     component: Bin
   }
@@ -108,14 +113,14 @@ class Dashboard extends PureComponent {
       }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
       const { renderNotes, getUpdatedNotes, getPersons } = this.props;
       sound.addEventListener('play', this.handlePlay);
-      renderNotes();
-      getUpdatedNotes('reminders');
-      getUpdatedNotes('archive');
-      getUpdatedNotes('delete');
-      getPersons();
+      await getUpdatedNotes('reminders');
+      await getUpdatedNotes('archive');
+      await getUpdatedNotes('delete');
+      await getPersons();
+      await renderNotes();
     }
 
     componentWillUnmount() {
@@ -154,7 +159,7 @@ class Dashboard extends PureComponent {
                     </Fragment> : 
                     <Switch>
                     {routes.map((route, i) => (
-                        <Route key={i} path={route.path} component={route.component} />
+                        <Route key={route._id} path={route.path} component={route.component} />
                     ))}
                     <Route component={NotFound} />
                     </Switch>}

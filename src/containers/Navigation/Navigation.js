@@ -25,11 +25,8 @@ class Navigation extends Component {
 		}
 	}
 
-	handleChange = async (event) => {
-		const { renderNotes } = this.props;
-		const { search } = this.state;
-		await this.setState({ [event.target.name]: event.target.value });
-		renderNotes(search);
+	handleChange = (event) => {
+		this.setState({ [event.target.name]: event.target.value })
 	}
 
 	handleSubmitSearch = (event) => {
@@ -49,6 +46,15 @@ class Navigation extends Component {
 		const { logoutUser, history } = this.props;
 		event.preventDefault();
 		logoutUser(history)
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		const { search } = this.state;
+		const { renderNotes } = this.props;
+		
+		if(prevState.search !== search) {
+			renderNotes(search);
+		}
 	}
 
 	render() {
