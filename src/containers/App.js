@@ -1,6 +1,6 @@
 // DEPENDENCIES
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch, hashHistory } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch, } from 'react-router-dom';
 import moment from 'moment';
 import { Provider } from 'react-redux';
 import store from '../store';
@@ -59,7 +59,7 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-      	<Router history={hashHistory} basename={process.env.PUBLIC_URL}>
+      	<Router basename={process.env.PUBLIC_URL}>
 	      	<Switch>
 	      		<Route exact path="/" component={Home} />
 	      		<Route exact path="/register" component={Register} />
