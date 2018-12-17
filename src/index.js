@@ -1,7 +1,5 @@
-import 'core-js/es6/map';
-import 'core-js/es6/set';
 // Makes sure that it works on ie9 and ie10
-import 'react-app-polyfill/ie9';
+import "@babel/polyfill";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'tachyons';
