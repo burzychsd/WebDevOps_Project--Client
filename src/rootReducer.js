@@ -17,7 +17,7 @@ import {
   createListReducer,
   searchBoxReducer } from './reducers';
 
-export default combineReducers({
+const appReducer = combineReducers({
    errors: errorReducer,
    auth: authReducer,
    nav: navigationReducer,
@@ -39,3 +39,13 @@ export default combineReducers({
     large: 960,
    })
 });
+
+const rootReducer = (state, action) => {
+  if (action.type === 'SET_CURRENT_USER' && Object.keys(action.payload).length === 0 ) {
+    state = undefined;
+  }
+
+  return appReducer(state, action);
+}
+
+export default rootReducer;
