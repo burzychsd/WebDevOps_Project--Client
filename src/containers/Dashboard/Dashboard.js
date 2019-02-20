@@ -1,5 +1,5 @@
 // DEPENDENCIES
-import React, { PureComponent, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import moment from 'moment';
@@ -58,7 +58,7 @@ const routes = [
   }
 ];
 
-class Dashboard extends PureComponent {
+class Dashboard extends Component {
 
     constructor(props) {
       super(props);

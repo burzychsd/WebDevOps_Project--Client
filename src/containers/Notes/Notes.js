@@ -1,5 +1,5 @@
 // DEPENDENCIES
-import React, { PureComponent, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import shortid from 'shortid';
 
@@ -64,7 +64,7 @@ const initialState = {
 
 const { title, text, alarm, name, email, color, list } = initialState;
 
-class Notes extends PureComponent {
+class Notes extends Component {
 
     constructor(props) {
         super(props);

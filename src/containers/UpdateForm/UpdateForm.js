@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import shortid from 'shortid';
@@ -42,7 +42,7 @@ const initialState = {
     newInputs: []
 }
 
-class UpdateForm extends PureComponent {
+class UpdateForm extends Component {
 
     constructor(props) {
         super(props);

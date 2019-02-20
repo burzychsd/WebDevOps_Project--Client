@@ -1,5 +1,5 @@
 // DEPENDENCIES
-import React, { PureComponent, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import shortid from 'shortid';
 
@@ -33,7 +33,7 @@ import { ReactComponent as EmptyBin } from './empty-bin.svg';
 // STYLES
 import styles from './Bin.module.scss';
 
-class Bin extends PureComponent {
+class Bin extends Component {
 
 	constructor(props) {
 		super(props);

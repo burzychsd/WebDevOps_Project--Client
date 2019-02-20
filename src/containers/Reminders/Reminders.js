@@ -1,5 +1,5 @@
 // DEPENDENCIES
-import React, { PureComponent, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import shortid from 'shortid';
 
@@ -33,7 +33,7 @@ import { ReactComponent as EmptyReminders } from './empty-reminders.svg';
 // STYLES
 import styles from './Reminders.module.scss';
 
-class Reminders extends PureComponent {
+class Reminders extends Component {
 
 	constructor(props) {
 		super(props);

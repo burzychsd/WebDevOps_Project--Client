@@ -1,5 +1,5 @@
 // DEPENDENCIES
-import React, { PureComponent, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import shortid from 'shortid';
 
@@ -32,7 +32,7 @@ import { ReactComponent as EmptyArchive } from './empty-archive.svg';
 // STYLES
 import styles from './Archive.module.scss';
 
-class Archive extends PureComponent {
+class Archive extends Component {
 
 	constructor(props) {
 		super(props);
