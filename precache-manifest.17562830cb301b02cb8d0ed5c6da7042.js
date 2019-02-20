@@ -4,20 +4,20 @@ self.__precacheManifest = [
     "url": "/WebDevOps_Project--Client/static/media/close.f20069de.svg"
   },
   {
-    "revision": "2e240443d11aaf9ee85a",
-    "url": "/WebDevOps_Project--Client/static/css/main.dda5c21e.chunk.css"
+    "revision": "586224d8af290a25f624",
+    "url": "/WebDevOps_Project--Client/static/css/main.1253709e.chunk.css"
+  },
+  {
+    "revision": "8fe55ed94a4038412339",
+    "url": "/WebDevOps_Project--Client/static/js/runtime~main.8fe55ed9.js"
   },
   {
     "revision": "6de7274150974621a9e90615c7b5ed15",
     "url": "/WebDevOps_Project--Client/static/media/empty-bin.6de72741.svg"
   },
   {
-    "revision": "d13a2c8e21b7d636cfe0",
-    "url": "/WebDevOps_Project--Client/static/js/1.d13a2c8e.chunk.js"
-  },
-  {
-    "revision": "172fb386f0676cd065d1",
-    "url": "/WebDevOps_Project--Client/static/js/runtime~main.172fb386.js"
+    "revision": "568b76ead78205e68508",
+    "url": "/WebDevOps_Project--Client/static/js/2.568b76ea.chunk.js"
   },
   {
     "revision": "29a0d8be04f80482c63ebe6eece6bbdc",
@@ -52,8 +52,8 @@ self.__precacheManifest = [
     "url": "/WebDevOps_Project--Client/static/media/color.64053ca9.svg"
   },
   {
-    "revision": "2e240443d11aaf9ee85a",
-    "url": "/WebDevOps_Project--Client/static/js/main.2e240443.chunk.js"
+    "revision": "586224d8af290a25f624",
+    "url": "/WebDevOps_Project--Client/static/js/main.586224d8.chunk.js"
   },
   {
     "revision": "387c6c413d7875f1605e6281ab81e0ec",
@@ -100,11 +100,11 @@ self.__precacheManifest = [
     "url": "/WebDevOps_Project--Client/static/media/empty-archive.9f7b400c.svg"
   },
   {
-    "revision": "d13a2c8e21b7d636cfe0",
-    "url": "/WebDevOps_Project--Client/static/css/1.56c6e8ca.chunk.css"
+    "revision": "568b76ead78205e68508",
+    "url": "/WebDevOps_Project--Client/static/css/2.5b338e4f.chunk.css"
   },
   {
-    "revision": "a48c3e77215daebf470ed85d871b8f49",
+    "revision": "64a81e5d9054b71f0400240b176ef331",
     "url": "/WebDevOps_Project--Client/index.html"
   }
 ];
