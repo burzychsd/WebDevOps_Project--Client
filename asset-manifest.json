@@ -1,7 +1,7 @@
 {
   "main.css": "/WebDevOps_Project--Client/static/css/main.dda5c21e.chunk.css",
-  "main.js": "/WebDevOps_Project--Client/static/js/main.6eb103d9.chunk.js",
-  "main.js.map": "/WebDevOps_Project--Client/static/js/main.6eb103d9.chunk.js.map",
+  "main.js": "/WebDevOps_Project--Client/static/js/main.2e240443.chunk.js",
+  "main.js.map": "/WebDevOps_Project--Client/static/js/main.2e240443.chunk.js.map",
   "static/css/1.56c6e8ca.chunk.css": "/WebDevOps_Project--Client/static/css/1.56c6e8ca.chunk.css",
   "static/js/1.d13a2c8e.chunk.js": "/WebDevOps_Project--Client/static/js/1.d13a2c8e.chunk.js",
   "static/js/1.d13a2c8e.chunk.js.map": "/WebDevOps_Project--Client/static/js/1.d13a2c8e.chunk.js.map",
@@ -31,6 +31,6 @@
   "static/css/main.dda5c21e.chunk.css.map": "/WebDevOps_Project--Client/static/css/main.dda5c21e.chunk.css.map",
   "static/css/1.56c6e8ca.chunk.css.map": "/WebDevOps_Project--Client/static/css/1.56c6e8ca.chunk.css.map",
   "index.html": "/WebDevOps_Project--Client/index.html",
-  "precache-manifest.dcdd2521bf112befb8670847164f18be.js": "/WebDevOps_Project--Client/precache-manifest.dcdd2521bf112befb8670847164f18be.js",
+  "precache-manifest.072a655df3a791d3b22e74ed8b7ea6b1.js": "/WebDevOps_Project--Client/precache-manifest.072a655df3a791d3b22e74ed8b7ea6b1.js",
   "service-worker.js": "/WebDevOps_Project--Client/service-worker.js"
 }
